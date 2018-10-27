@@ -2,7 +2,7 @@
     "name": "robtimus/multipart",
     "type": "library",
     "description": "A library to support (streaming) multiparts",
-    "homepage": "https://robtimus.github.io/php-multipart",
+    "homepage": "https://github.com/robtimus/php-multipart",
     "keywords": ["multipart", "streaming"],
     "license": "Apache-2.0",
     "authors": [
