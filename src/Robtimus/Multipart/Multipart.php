@@ -120,6 +120,14 @@ abstract class Multipart {
     }
 
     /**
+     * Adds a Content-ID header.
+     * @param string $contentID the content ID.
+     */
+    protected final function addContentID($contentID) {
+        $this->add('Content-ID: ' . $contentID . "\r\n");
+    }
+
+    /**
      * Adds a Content-Type header.
      * @param string $contentType the content type.
      */
