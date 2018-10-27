@@ -128,6 +128,14 @@ abstract class Multipart {
     }
 
     /**
+     * Adds a Content-Transfer-Encoding header.
+     * @param string $contentTransferEncoding the content transfer encoding.
+     */
+    protected final function addContentTransferEncoding($contentTransferEncoding) {
+        $this->add('Content-Transfer-Encoding: ' . $contentTransferEncoding . "\r\n");
+    }
+
+    /**
      * Ends the headers.
      */
     protected final function endHeaders() {

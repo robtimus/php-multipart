@@ -1,9 +1,7 @@
 <?php
 namespace Robtimus\Multipart;
 
-use PHPUnit_Framework_TestCase;
-
-class MultipartFormDataTest extends PHPUnit_Framework_TestCase {
+class MultipartFormDataTest extends MultipartTestBase {
 
     public function testReadStringsOnly() {
         $multipart = new MultipartFormData('test-boundary');

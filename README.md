@@ -25,10 +25,24 @@ An example:
 
 PHP servers require multiple values or files to be sent with a name that ends with `[]`. Because `MultipartFormData` is written to support also other server types that do not have this requirement, it is up to the caller to add these. For instance:
 
-    $multipart = new MultipartFormDataBuilder();
+    $multipart = new MultipartFormData();
     $multipart->addValue('name', 'Rob');
     $multipart->addFile('file[]', 'file.txt', 'Hello World', 'text/plain');
     $multipart->addFile('file[]', 'file.html', '<html>Hello World</html>', 'text/html');
+    $multipart->finish();
+
+### multipart/alternative
+
+To create a multipart/alternative object, create a `MultipartAlternative` object, add the alternatives, and call `finish()`. There is one method for adding alternatives:
+
+* `addAlternative($content, $contentType, $contentLength = -1, $contentTransferEncoding = '')`. The [content](#multipart-files) and content type are required; the content length is optional, and will be ignored if the content is a string. The optional content transfer encoding will be used for the `Content-Transfer-Encoding` header.
+
+An example:
+
+    // the multipart object can take an optional pre-existing boundary
+    $multipart = new MultipartAlternative();
+    $multipart->addAlternative(file_get_contents('body.txt'), 'text/plain');
+    $multipart->addAlternative(base64_encode(file_get_contents('body.html')), 'text/html', -1, 'base64');
     $multipart->finish();
 
 ## Multipart files

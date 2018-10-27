@@ -1,9 +1,7 @@
 <?php
 namespace Robtimus\Multipart;
 
-use PHPUnit_Framework_TestCase;
-
-class MultipartTest extends PHPUnit_Framework_TestCase {
+class MultipartTest extends MultipartTestBase {
 
     public function testAddWhenFinished() {
         $multipart = new TestMultipart();
