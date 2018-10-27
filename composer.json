@@ -1,0 +1,33 @@
+{
+    "name": "robtimus/multipart",
+    "type": "library",
+    "description": "A library to support (streaming) multiparts",
+    "homepage": "https://robtimus.github.io/php-multipart",
+    "keywords": ["multipart", "streaming"],
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Rob Spoor",
+            "email": "robtimus@users.noreply.github.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/robtimus/php-multipart/issues"
+    },
+    "require": {
+        "php": ">=5.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Robtimus\\Multipart\\": ["src/Robtimus/Multipart"]
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Robtimus\\Multipart\\": ["tests/Robtimus/Multipart"]
+        }
+    }
+}
