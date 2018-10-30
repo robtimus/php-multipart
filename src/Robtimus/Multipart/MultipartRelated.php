@@ -21,7 +21,7 @@ final class MultipartRelated extends Multipart {
      * @param string $contentType the part's content type.
      * @param int the part's content length, or -1 if not known. Ignored if the part's content is a string.
      * @param string $contentTransferEncoding the optional content transfer encoding.
-     * @return MultipartAlternative this object.
+     * @return MultipartRelated this object.
      */
     public function addPart($content, $contentType, $contentLength = -1, $contentTransferEncoding = '') {
         Util::validateStreamable($content, '$content');
@@ -51,7 +51,7 @@ final class MultipartRelated extends Multipart {
      * @param int the file's content length, or -1 if not known. Ignored if the file's content is a string.
      * @param string $contentTransferEncoding the optional content transfer encoding.
      * @param string $contentDisposition the content disposition (e.g. attachment or inline).
-     * @return MultipartMixed this object.
+     * @return MultipartRelated this object.
      */
     public function addInlineFile($contentID, $filename, $content, $contentType, $contentLength = -1, $contentTransferEncoding = '') {
         Util::validateNonEmptyString($contentID, '$contentID');

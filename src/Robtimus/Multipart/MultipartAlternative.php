@@ -17,7 +17,7 @@ final class MultipartAlternative extends Multipart {
     /**
      * Adds a multipart alternative.
      * @param Multipart $multipart The nested multipart.
-     * @return MultipartMixed this object.
+     * @return MultipartAlternative this object.
      */
     public function addMultipart(Multipart $multipart) {
         $this->startPart();
