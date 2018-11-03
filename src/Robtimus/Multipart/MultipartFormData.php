@@ -41,7 +41,7 @@ final class MultipartFormData extends Multipart {
      * @param string|resource|callable $content the file's content.
      *        If it's a callable it should take a length argument and return a string that is not larger than the input.
      * @param string $contentType the file's content type.
-     * @param int the file's content length, or -1 if not known. Ignored if the file's content is a string.
+     * @param int $contentLength the file's content length, or -1 if not known. Ignored if the file's content is a string.
      * @return MultipartFormData this object.
      */
     public function addFile($name, $filename, $content, $contentType, $contentLength = -1) {
