@@ -1,5 +1,12 @@
 name: PHP Unit
-on: [push, pull_request]
+
+on:
+  workflow_dispatch:
+  push:
+    # only run for branches, not tags
+    branches: ['**']
+  pull_request:
+
 jobs:
   test:
     runs-on: ubuntu-latest
