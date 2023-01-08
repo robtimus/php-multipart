@@ -10,6 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
+          token: ${{ secrets.PHP_MULTIPART_PAT }}
           ref: php8
           fetch-depth: 0
       - name: Rebase PHP8 branch
