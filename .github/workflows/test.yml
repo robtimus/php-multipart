@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     # only run for branches, not tags
-    branches: ['**']
+    branches-ignore: php8
   pull_request:
 
 jobs:
