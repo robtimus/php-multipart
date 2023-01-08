@@ -1,4 +1,4 @@
-name: PHP Unit
+name: Test
 
 on:
   workflow_dispatch:
