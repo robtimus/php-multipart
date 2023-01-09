@@ -166,13 +166,13 @@ EOS;
         $this->setIniFromConfig('mail.smtp.port', 'smtp_port', false);
         $this->setIniFromConfig('mail.sendmail.path', 'sendmail_path', false);
 
-        $imagePath = dirname(__FILE__) . '/../../test.gif';
+        $imagePath = dirname(__FILE__) . '/../../test.png';
         $imageContent = base64_encode(file_get_contents($imagePath));
         $imageSize = filesize($imagePath);
 
         $related = new MultipartRelated();
         $related->addPart('<html>Hello World <img src="cid:inline_file">', 'text/html');
-        $related->addInlineFile('inline_file', 'test.gif', $imageContent, 'image/gif', $imageSize, 'base64');
+        $related->addInlineFile('inline_file', 'test.png', $imageContent, 'image/png', $imageSize, 'base64');
         $related->finish();
 
         $multipart = new MultipartAlternative();
