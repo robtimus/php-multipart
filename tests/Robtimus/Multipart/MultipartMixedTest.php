@@ -109,6 +109,9 @@ EOS;
         $this->assertEquals(strlen($expected), $multipart->getContentLength());
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testMailPlainTextOnly() {
         $fromAddress = $this->getConfigValue('mail.from', false);
         $toAddress = $this->getConfigValue('mail.to', false);
@@ -131,6 +134,9 @@ EOS;
         mail($toAddress, 'MultipartMixedTest.testMailPlainTextOnly', (string) $multipart, implode("\r\n", $headers));
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testMailWithRelatedOnly() {
         $fromAddress = $this->getConfigValue('mail.from', false);
         $toAddress = $this->getConfigValue('mail.to', false);
@@ -162,6 +168,9 @@ EOS;
         mail($toAddress, 'MultipartMixedTest.testMailWithRelatedOnly', (string) $multipart, implode("\r\n", $headers));
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testMailWithAlternativeAndRelated() {
         $fromAddress = $this->getConfigValue('mail.from', false);
         $toAddress = $this->getConfigValue('mail.to', false);

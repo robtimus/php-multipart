@@ -3,6 +3,9 @@ namespace Robtimus\Multipart;
 
 class MultipartTest extends MultipartTestBase {
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testAddWhenFinished() {
         $multipart = new TestMultipart();
         $multipart->finish();
@@ -16,6 +19,9 @@ class MultipartTest extends MultipartTestBase {
         }
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testReadBeforeFinish() {
         $multipart = new TestMultipart();
         $multipart->add('Hello World');
@@ -29,6 +35,9 @@ class MultipartTest extends MultipartTestBase {
         }
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testBufferBeforeFinish() {
         $multipart = new TestMultipart();
         $multipart->add('Hello World');
@@ -173,6 +182,9 @@ class MultipartTest extends MultipartTestBase {
         fclose($resource2);
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testReadClosedResource() {
         $multipart = new TestMultipart();
         $file = fopen(__FILE__, 'rb');

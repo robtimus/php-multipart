@@ -1,13 +1,14 @@
 <?php
 namespace Robtimus\Multipart;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-abstract class MultipartTestBase extends PHPUnit_Framework_TestCase {
+abstract class MultipartTestBase extends TestCase {
 
     private $config = null;
 
     public function __construct() {
+        parent::__construct();
         $configFilePath = dirname(__FILE__) . '/../../config.json';
         if (file_exists($configFilePath)) {
             $this->config = json_decode(file_get_contents($configFilePath));

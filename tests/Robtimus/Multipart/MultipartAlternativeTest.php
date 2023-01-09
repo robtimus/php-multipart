@@ -115,6 +115,9 @@ EOS;
         $this->assertEquals(strlen($expected), $multipart->getContentLength());
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testMail() {
         $fromAddress = $this->getConfigValue('mail.from', false);
         $toAddress = $this->getConfigValue('mail.to', false);
@@ -135,6 +138,9 @@ EOS;
         mail($toAddress, 'MultipartAlternativeTest.testMail', (string) $multipart, implode("\r\n", $headers));
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testMailWithTransferEncoding() {
         $fromAddress = $this->getConfigValue('mail.from', false);
         $toAddress = $this->getConfigValue('mail.to', false);
@@ -155,6 +161,9 @@ EOS;
         mail($toAddress, 'MultipartAlternativeTest.testMailWithTransferEncoding', (string) $multipart, implode("\r\n", $headers));
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testMailWithRelated() {
         $fromAddress = $this->getConfigValue('mail.from', false);
         $toAddress = $this->getConfigValue('mail.to', false);

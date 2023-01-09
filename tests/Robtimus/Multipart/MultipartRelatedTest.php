@@ -37,6 +37,9 @@ EOS;
         $this->assertEquals(strlen($expected), $multipart->getContentLength());
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testMail() {
         $fromAddress = $this->getConfigValue('mail.from', false);
         $toAddress = $this->getConfigValue('mail.to', false);
