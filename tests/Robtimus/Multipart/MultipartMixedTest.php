@@ -1,9 +1,10 @@
 <?php
 namespace Robtimus\Multipart;
 
-class MultipartMixedTest extends MultipartTestBase {
-
-    public function testReadPlainTextOnly() {
+class MultipartMixedTest extends MultipartTestBase
+{
+    public function testReadPlainTextOnly()
+    {
         $multipart = new MultipartMixed('test-boundary');
         $multipart->addPart('Hello World', 'text/plain');
         $multipart->addAttachment('file.txt', 'Hello World', 'text/plain');
@@ -49,7 +50,8 @@ EOS;
         $this->assertEquals(strlen($expected), $multipart->getContentLength());
     }
 
-    public function testReadWithAlternative() {
+    public function testReadWithAlternative()
+    {
         $alternative = new MultipartAlternative('alternative-boundary');
         $alternative->addPart('Hello World', 'text/plain');
         $alternative->addPart("<html>\nHello World\n</html>", 'text/html');
@@ -112,7 +114,8 @@ EOS;
     /**
      * @doesNotPerformAssertions
      */
-    public function testMailPlainTextOnly() {
+    public function testMailPlainTextOnly()
+    {
         $fromAddress = $this->getConfigValue('mail.from', false);
         $toAddress = $this->getConfigValue('mail.to', false);
         if (is_null($fromAddress) || is_null($toAddress)) {
@@ -137,7 +140,8 @@ EOS;
     /**
      * @doesNotPerformAssertions
      */
-    public function testMailWithRelatedOnly() {
+    public function testMailWithRelatedOnly()
+    {
         $fromAddress = $this->getConfigValue('mail.from', false);
         $toAddress = $this->getConfigValue('mail.to', false);
         if (is_null($fromAddress) || is_null($toAddress)) {
@@ -171,7 +175,8 @@ EOS;
     /**
      * @doesNotPerformAssertions
      */
-    public function testMailWithAlternativeAndRelated() {
+    public function testMailWithAlternativeAndRelated()
+    {
         $fromAddress = $this->getConfigValue('mail.from', false);
         $toAddress = $this->getConfigValue('mail.to', false);
         if (is_null($fromAddress) || is_null($toAddress)) {

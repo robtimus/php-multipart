@@ -1,9 +1,10 @@
 <?php
 namespace Robtimus\Multipart;
 
-class MultipartFormDataTest extends MultipartTestBase {
-
-    public function testReadStringsOnly() {
+class MultipartFormDataTest extends MultipartTestBase
+{
+    public function testReadStringsOnly()
+    {
         $multipart = new MultipartFormData('test-boundary');
         $multipart->addValue('name1', 'value1');
         $multipart->addValue('name2', 'value2');
@@ -34,7 +35,8 @@ EOS;
         $this->assertEquals(strlen($expected), $multipart->getContentLength());
     }
 
-    public function testUploadStringsOnly() {
+    public function testUploadStringsOnly()
+    {
         $multipart = new MultipartFormData();
         $multipart->addValue('name1', 'value1');
         $multipart->addValue('name2', 'value2');
@@ -62,7 +64,8 @@ EOS;
         $this->assertEquals('value2', $response->form->name2);
     }
 
-    public function testReadSingleFileOnly() {
+    public function testReadSingleFileOnly()
+    {
         $multipart = new MultipartFormData('test-boundary');
         $multipart->addFile('file', 'file.txt', 'Hello World', 'text/plain');
         $multipart->finish();
@@ -89,7 +92,8 @@ EOS;
         $this->assertEquals(strlen($expected), $multipart->getContentLength());
     }
 
-    public function testUploadSingleFileOnly() {
+    public function testUploadSingleFileOnly()
+    {
         $multipart = new MultipartFormData();
         $multipart->addFile('file', 'file.txt', 'Hello World', 'text/plain');
         $multipart->finish();
@@ -113,7 +117,8 @@ EOS;
         $this->assertEquals(new \stdClass(), $response->form);
     }
 
-    public function testReadMultipleFilesOnly() {
+    public function testReadMultipleFilesOnly()
+    {
         $multipart = new MultipartFormData('test-boundary');
         $multipart->addFile('file1', 'file.txt', 'Hello World', 'text/plain');
         $multipart->addFile('file2', 'file.html', "<html>\nHello World\n</html>", 'text/html');
@@ -147,7 +152,8 @@ EOS;
         $this->assertEquals(strlen($expected), $multipart->getContentLength());
     }
 
-    public function testUploadMultipleFilesOnly() {
+    public function testUploadMultipleFilesOnly()
+    {
         $multipart = new MultipartFormData();
         $multipart->addFile('file1', 'file.txt', 'Hello World', 'text/plain');
         $multipart->addFile('file2', 'file.html', "<html>\nHello World\n</html>", 'text/html');
@@ -175,7 +181,8 @@ EOS;
         $this->assertEquals(new \stdClass(), $response->form);
     }
 
-    public function testReadMixed() {
+    public function testReadMixed()
+    {
         $multipart = new MultipartFormData('test-boundary');
         $multipart->addValue('name1', 'value1');
         $multipart->addValue('name2', 'value2');
@@ -219,7 +226,8 @@ EOS;
         $this->assertEquals(strlen($expected), $multipart->getContentLength());
     }
 
-    public function testUploadMixed() {
+    public function testUploadMixed()
+    {
         $multipart = new MultipartFormData();
         $multipart->addValue('name1', 'value1');
         $multipart->addValue('name2', 'value2');
@@ -258,7 +266,8 @@ EOS;
         $this->assertObjectNotHasAttribute('file2', $response->form);
     }
 
-    public function testReadMixedWithDuplicateParameterNames() {
+    public function testReadMixedWithDuplicateParameterNames()
+    {
         $multipart = new MultipartFormData('test-boundary');
         $multipart->addValue('name', 'value1');
         $multipart->addFile('file', 'file.txt', 'Hello World', 'text/plain');
@@ -302,7 +311,8 @@ EOS;
         $this->assertEquals(strlen($expected), $multipart->getContentLength());
     }
 
-    public function testUploadMixedWithDuplicateParameterNames() {
+    public function testUploadMixedWithDuplicateParameterNames()
+    {
         $multipart = new MultipartFormData();
         $multipart->addValue('name', 'value1');
         $multipart->addFile('file', 'file.txt', 'Hello World', 'text/plain');
@@ -332,7 +342,8 @@ EOS;
         $this->assertEquals(['value1', 'value2'], $response->form->name);
     }
 
-    private function setupCurl($multipart) {
+    private function setupCurl($multipart)
+    {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HEADER, false);

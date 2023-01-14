@@ -1,9 +1,10 @@
 <?php
 namespace Robtimus\Multipart;
 
-class MultipartAlternativeTest extends MultipartTestBase {
-
-    public function testRead() {
+class MultipartAlternativeTest extends MultipartTestBase
+{
+    public function testRead()
+    {
         $multipart = new MultipartAlternative('test-boundary');
         $multipart->addPart('Hello World', 'text/plain');
         $multipart->addPart("<html>\nHello World\n</html>", 'text/html');
@@ -35,7 +36,8 @@ EOS;
         $this->assertEquals(strlen($expected), $multipart->getContentLength());
     }
 
-    public function testReadWithTransferEncoding() {
+    public function testReadWithTransferEncoding()
+    {
         $multipart = new MultipartAlternative('test-boundary');
         $multipart->addPart('Hello World', 'text/plain');
         $multipart->addPart(base64_encode("<html>\nHello World\n</html>"), 'text/html', -1, 'base64');
@@ -67,7 +69,8 @@ EOS;
         $this->assertEquals(strlen($expected), $multipart->getContentLength());
     }
 
-    public function testReadWithRelated() {
+    public function testReadWithRelated()
+    {
         $related = new MultipartRelated('related-boundary');
         $related->addPart("<html>\nHello World\n</html>", 'text/html');
         $related->addInlineFile('inline_file', 'inline.txt', 'Inline Hello World', 'text/plain');
@@ -118,7 +121,8 @@ EOS;
     /**
      * @doesNotPerformAssertions
      */
-    public function testMail() {
+    public function testMail()
+    {
         $fromAddress = $this->getConfigValue('mail.from', false);
         $toAddress = $this->getConfigValue('mail.to', false);
         if (is_null($fromAddress) || is_null($toAddress)) {
@@ -141,7 +145,8 @@ EOS;
     /**
      * @doesNotPerformAssertions
      */
-    public function testMailWithTransferEncoding() {
+    public function testMailWithTransferEncoding()
+    {
         $fromAddress = $this->getConfigValue('mail.from', false);
         $toAddress = $this->getConfigValue('mail.to', false);
         if (is_null($fromAddress) || is_null($toAddress)) {
@@ -164,7 +169,8 @@ EOS;
     /**
      * @doesNotPerformAssertions
      */
-    public function testMailWithRelated() {
+    public function testMailWithRelated()
+    {
         $fromAddress = $this->getConfigValue('mail.from', false);
         $toAddress = $this->getConfigValue('mail.to', false);
         if (is_null($fromAddress) || is_null($toAddress)) {

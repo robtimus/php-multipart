@@ -1,12 +1,13 @@
 <?php
 namespace Robtimus\Multipart;
 
-class MultipartTest extends MultipartTestBase {
-
+class MultipartTest extends MultipartTestBase
+{
     /**
      * @doesNotPerformAssertions
      */
-    public function testAddWhenFinished() {
+    public function testAddWhenFinished()
+    {
         $multipart = new TestMultipart();
         $multipart->finish();
 
@@ -22,7 +23,8 @@ class MultipartTest extends MultipartTestBase {
     /**
      * @doesNotPerformAssertions
      */
-    public function testReadBeforeFinish() {
+    public function testReadBeforeFinish()
+    {
         $multipart = new TestMultipart();
         $multipart->add('Hello World');
 
@@ -38,7 +40,8 @@ class MultipartTest extends MultipartTestBase {
     /**
      * @doesNotPerformAssertions
      */
-    public function testBufferBeforeFinish() {
+    public function testBufferBeforeFinish()
+    {
         $multipart = new TestMultipart();
         $multipart->add('Hello World');
 
@@ -51,7 +54,8 @@ class MultipartTest extends MultipartTestBase {
         }
     }
 
-    public function testReadEmpty() {
+    public function testReadEmpty()
+    {
         $multipart = new TestMultipart('test-boundary');
         $multipart->finish();
         $expected = "--test-boundary--\r\n";
@@ -64,7 +68,8 @@ class MultipartTest extends MultipartTestBase {
         $this->assertEquals($expected, $result);
     }
 
-    public function testReadOnlyStrings() {
+    public function testReadOnlyStrings()
+    {
         $multipart = new TestMultipart('test-boundary');
         $expected = '';
         for ($i = 0; $i < 100; $i++) {
@@ -83,7 +88,8 @@ class MultipartTest extends MultipartTestBase {
         $this->assertEquals($expected, $result);
     }
 
-    public function testReadOnlyFileResources() {
+    public function testReadOnlyFileResources()
+    {
         $multipart = new TestMultipart('test-boundary');
         $resource = fopen(__FILE__, 'rb');
         $multipart->add($resource);
@@ -101,7 +107,8 @@ class MultipartTest extends MultipartTestBase {
         fclose($resource);
     }
 
-    public function testReadOnlyUrlResources() {
+    public function testReadOnlyUrlResources()
+    {
         $url = 'http://www.example.org/';
         $multipart = new TestMultipart('test-boundary');
         $resource = fopen($url, 'rb');
@@ -120,7 +127,8 @@ class MultipartTest extends MultipartTestBase {
         fclose($resource);
     }
 
-    public function testReadOnlyCallables() {
+    public function testReadOnlyCallables()
+    {
         $resource = fopen(__FILE__, 'rb');
         $callable = function ($length) use ($resource) {
             return fread($resource, $length);
@@ -142,7 +150,8 @@ class MultipartTest extends MultipartTestBase {
         fclose($resource);
     }
 
-    public function testReadMixed() {
+    public function testReadMixed()
+    {
         $multipart = new TestMultipart('test-boundary');
         $expected = '';
         for ($i = 0; $i < 100; $i++) {
@@ -185,7 +194,8 @@ class MultipartTest extends MultipartTestBase {
     /**
      * @doesNotPerformAssertions
      */
-    public function testReadClosedResource() {
+    public function testReadClosedResource()
+    {
         $multipart = new TestMultipart();
         $file = fopen(__FILE__, 'rb');
         $multipart->add($file);
@@ -202,13 +212,15 @@ class MultipartTest extends MultipartTestBase {
         }
     }
 
-    public function testContentLength() {
+    public function testContentLength()
+    {
         $multipart = new TestMultipart('');
 
         $this->assertEquals(0, $multipart->getContentLength());
     }
 
-    public function testContentLengthOnlyStrings() {
+    public function testContentLengthOnlyStrings()
+    {
         $multipart = new TestMultipart();
         $expected = 0;
         for ($i = 0; $i < 100; $i++) {
@@ -220,7 +232,8 @@ class MultipartTest extends MultipartTestBase {
         $this->assertEquals($expected, $multipart->getContentLength());
     }
 
-    public function testContentLengthOnlyNonStringsNoContentLengthGiven() {
+    public function testContentLengthOnlyNonStringsNoContentLengthGiven()
+    {
         $multipart = new TestMultipart();
         $resource = fopen(__FILE__, 'rb');
         $multipart->add($resource);
@@ -228,7 +241,8 @@ class MultipartTest extends MultipartTestBase {
         $this->assertEquals(-1, $multipart->getContentLength());
     }
 
-    public function testContentLengthOnlyNonStringsContentLengthGiven() {
+    public function testContentLengthOnlyNonStringsContentLengthGiven()
+    {
         $multipart = new TestMultipart();
         $resource = fopen(__FILE__, 'rb');
         $length = filesize(__FILE__);
@@ -237,7 +251,8 @@ class MultipartTest extends MultipartTestBase {
         $this->assertEquals($length, $multipart->getContentLength());
     }
 
-    public function testContentLengthMixedContentLengthsGiven() {
+    public function testContentLengthMixedContentLengthsGiven()
+    {
         $multipart = new TestMultipart();
         $expected = 0;
         for ($i = 0; $i < 100; $i++) {
@@ -262,7 +277,8 @@ class MultipartTest extends MultipartTestBase {
         fclose($resource);
     }
 
-    public function testContentLengthMixedNoContentLengthsGiven() {
+    public function testContentLengthMixedNoContentLengthsGiven()
+    {
         $multipart = new TestMultipart();
         for ($i = 0; $i < 100; $i++) {
             $s = "This is test line $i\n";
@@ -282,7 +298,8 @@ class MultipartTest extends MultipartTestBase {
         fclose($resource);
     }
 
-    public function testBuffer() {
+    public function testBuffer()
+    {
         $multipart = new TestMultipart('test-boundary');
         $expected = '';
         for ($i = 0; $i < 100; $i++) {
@@ -340,7 +357,8 @@ class MultipartTest extends MultipartTestBase {
         $this->assertEquals($expected, $result);
     }
 
-    public function testToString() {
+    public function testToString()
+    {
         $multipart = new TestMultipart('test-boundary');
         $expected = '';
         for ($i = 0; $i < 100; $i++) {
@@ -398,7 +416,8 @@ class MultipartTest extends MultipartTestBase {
         $this->assertEquals($expected, $result);
     }
 
-    public function testToStringNoFinish() {
+    public function testToStringNoFinish()
+    {
         $multipart = new TestMultipart();
         $expected = '';
         for ($i = 0; $i < 100; $i++) {
@@ -438,13 +457,15 @@ class MultipartTest extends MultipartTestBase {
     }
 }
 
-class TestMultipart extends Multipart {
-
-    public function __construct($boundary = '') {
+class TestMultipart extends Multipart
+{
+    public function __construct($boundary = '')
+    {
         parent::__construct($boundary, 'multipart/test');
     }
 
-    public function add($content, $length = -1) {
+    public function add($content, $length = -1)
+    {
         $this->addContent($content, $length);
     }
 }

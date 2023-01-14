@@ -1,9 +1,10 @@
 <?php
 namespace Robtimus\Multipart;
 
-class MultipartRelatedTest extends MultipartTestBase {
-
-    public function testRead() {
+class MultipartRelatedTest extends MultipartTestBase
+{
+    public function testRead()
+    {
         $multipart = new MultipartRelated('test-boundary');
         $multipart->addPart("<html>\nHello World\n</html>", 'text/html');
         $multipart->addInlineFile('inline_file', 'file.txt', 'Hello World', 'text/plain');
@@ -40,7 +41,8 @@ EOS;
     /**
      * @doesNotPerformAssertions
      */
-    public function testMail() {
+    public function testMail()
+    {
         $fromAddress = $this->getConfigValue('mail.from', false);
         $toAddress = $this->getConfigValue('mail.to', false);
         if (is_null($fromAddress) || is_null($toAddress)) {

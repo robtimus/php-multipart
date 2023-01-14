@@ -3,27 +3,38 @@ namespace Robtimus\Multipart;
 
 /**
  * A multipart/related object.
+ *
+ * @package Robtimus\Multipart
+ * @author  Rob Spoor
+ * @license The Apache Software License, Version 2.0
  */
-final class MultipartRelated extends Multipart {
-
+final class MultipartRelated extends Multipart
+{
     /**
      * Creates a new multipart/related object.
-     * @param string $boundary the multipart boundary. If empty a new boundary will be generated.
+     *
+     * @param string $boundary The multipart boundary. If empty a new boundary will be generated.
      */
-    public function __construct($boundary = '') {
+    public function __construct($boundary = '')
+    {
         parent::__construct($boundary, 'multipart/related');
     }
 
     /**
      * Adds a part.
-     * @param string|resource|callable $content the part's content.
-     *        If it's a callable it should take a length argument and return a string that is not larger than the input.
-     * @param string $contentType the part's content type.
-     * @param int $contentLength the part's content length, or -1 if not known. Ignored if the part's content is a string.
-     * @param string $contentTransferEncoding the optional content transfer encoding.
+     *
+     * @param string|resource|callable $content                 The part's content.
+     *                                                          If it's a callable it should take a length argument
+     *                                                          and return a string that is not larger than the input.
+     * @param string                   $contentType             The part's content type.
+     * @param int                      $contentLength           The part's content length, or -1 if not known.
+     *                                                          Ignored if the part's content is a string.
+     * @param string                   $contentTransferEncoding The optional content transfer encoding.
+     *
      * @return MultipartRelated this object.
      */
-    public function addPart($content, $contentType, $contentLength = -1, $contentTransferEncoding = '') {
+    public function addPart($content, $contentType, $contentLength = -1, $contentTransferEncoding = '')
+    {
         Util::validateStreamable($content, '$content');
         Util::validateNonEmptyString($contentType, '$contentType');
         Util::validateInt($contentLength, '$contentLength');
@@ -43,17 +54,21 @@ final class MultipartRelated extends Multipart {
 
     /**
      * Adds an inline file.
-     * @param string $contentID the content id of the file.
-     * @param string $filename the name of the file.
-     * @param string|resource|callable $content the file's content.
-     *        If it's a callable it should take a length argument and return a string that is not larger than the input.
-     * @param string $contentType the file's content type.
-     * @param int $contentLength the file's content length, or -1 if not known. Ignored if the file's content is a string.
-     * @param string $contentTransferEncoding the optional content transfer encoding.
-     * @param string $contentDisposition the content disposition (e.g. attachment or inline).
+     *
+     * @param string                   $contentID               The content id of the file.
+     * @param string                   $filename                The name of the file.
+     * @param string|resource|callable $content                 The file's content.
+     *                                                          If it's a callable it should take a length argument
+     *                                                          and return a string that is not larger than the input.
+     * @param string                   $contentType             The file's content type.
+     * @param int                      $contentLength           The file's content length, or -1 if not known.
+     *                                                          Ignored if the file's content is a string.
+     * @param string                   $contentTransferEncoding The optional content transfer encoding.
+     *
      * @return MultipartRelated this object.
      */
-    public function addInlineFile($contentID, $filename, $content, $contentType, $contentLength = -1, $contentTransferEncoding = '') {
+    public function addInlineFile($contentID, $filename, $content, $contentType, $contentLength = -1, $contentTransferEncoding = '')
+    {
         Util::validateNonEmptyString($contentID, '$contentID');
         Util::validateNonEmptyString($filename, '$filename');
         Util::validateStreamable($content, '$content');
