@@ -21,6 +21,10 @@ jobs:
         with:
           php-version: ${{matrix.php}}
           coverage: xdebug
+      - if: startsWith(matrix.php, '5.')
+        # PHPStan is not compatible with PHP 5.x
+        name: Remove PHPStan
+        run: composer remove --dev phpstan/phpstan
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
