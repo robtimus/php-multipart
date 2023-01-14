@@ -22,7 +22,7 @@ abstract class Multipart
     private $contentType;
 
     /**
-     * @var array the parts that form this multipart object. Each element is a non-empty string, resource or callable.
+     * @var array<string|resource|callable> the parts that form this multipart object.
      */
     private $parts = [];
 
@@ -110,6 +110,8 @@ abstract class Multipart
 
     /**
      * Starts a new part.
+     *
+     * @return void
      */
     protected final function startPart()
     {
@@ -122,6 +124,8 @@ abstract class Multipart
      * @param string $type     The Content-Disposition type (e.g. form-data, attachment).
      * @param string $name     The value for any name parameter.
      * @param string $filename The value for any filename parameter.
+     *
+     * @return void
      */
     protected final function addContentDisposition($type, $name = '', $filename = '')
     {
@@ -139,6 +143,8 @@ abstract class Multipart
      * Adds a Content-ID header.
      *
      * @param string $contentID The content ID.
+     *
+     * @return void
      */
     protected final function addContentID($contentID)
     {
@@ -149,6 +155,8 @@ abstract class Multipart
      * Adds a Content-Type header.
      *
      * @param string $contentType The content type.
+     *
+     * @return void
      */
     protected final function addContentType($contentType)
     {
@@ -159,6 +167,8 @@ abstract class Multipart
      * Adds a Content-Transfer-Encoding header.
      *
      * @param string $contentTransferEncoding The content transfer encoding.
+     *
+     * @return void
      */
     protected final function addContentTransferEncoding($contentTransferEncoding)
     {
@@ -167,6 +177,8 @@ abstract class Multipart
 
     /**
      * Ends the headers.
+     *
+     * @return void
      */
     protected final function endHeaders()
     {
@@ -181,6 +193,8 @@ abstract class Multipart
      *                                          and return a string that is not larger than the input.
      * @param int                      $length  The length of the part, or -1 if not known.
      *                                          Ignored if the part is a string.
+     *
+     * @return void
      */
     protected final function addContent($content, $length = -1)
     {
@@ -189,6 +203,8 @@ abstract class Multipart
 
     /**
      * Ends the last part.
+     *
+     * @return void
      */
     protected final function endPart()
     {
@@ -224,6 +240,8 @@ abstract class Multipart
      *                                         and return a string that is not larger than the input.
      * @param int                      $length The length of the part, or -1 if not known.
      *                                         Ignored if the part is a string.
+     *
+     * @return void
      */
     private function add($part, $length = -1)
     {
@@ -273,6 +291,14 @@ abstract class Multipart
         return $this->doRead($length);
     }
 
+    /**
+     * Reads a portion of this multipart object.
+     *
+     * @param int $length The maximum length of the portion to read.
+     *
+     * @return string a portion of this multipart object not larger than the given length,
+     *                or an empty string if nothing remains to be read.
+     */
     private function doRead($length)
     {
         while ($this->index < $this->partCount) {
@@ -286,6 +312,14 @@ abstract class Multipart
         return '';
     }
 
+    /**
+     * Reads a portion of the current part of this multipart object.
+     *
+     * @param int $length The maximum length of the portion to read.
+     *
+     * @return string a portion of this multipart object not larger than the given length,
+     *                or an empty string if nothing remains to be read.
+     */
     private function readFromPart($length)
     {
         $part = $this->parts[$this->index];
@@ -343,6 +377,13 @@ abstract class Multipart
         return $this->doBuffer($bufferSize);
     }
 
+    /**
+     * Buffers the content of this multipart object.
+     *
+     * @param int $bufferSize The size to use for reading parts of the content.
+     *
+     * @return string The content of this multipart object.
+     */
     private function doBuffer($bufferSize = 8192)
     {
         if (!$this->isBuffered()) {
@@ -376,6 +417,8 @@ abstract class Multipart
      * Returns this multipart object as a string. It will buffer the object to achieve this.
      * Note that this method should be called before calling read,
      * otherwise the contents that have already read may not be part of the result.
+     *
+     * @return string this multipart object as a string
      */
     public final function __toString()
     {
