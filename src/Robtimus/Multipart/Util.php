@@ -10,18 +10,43 @@ namespace Robtimus\Multipart;
  */
 final class Util
 {
+    /**
+     * Private constructor to prevent creating instances.
+     */
     private function __construct()
     {
     }
 
-    static function validateInt(&$input, $name, $message = '')
+    /**
+     * Validates that an input value is an int.
+     *
+     * @param int    $input   The input to validate.
+     * @param string $name    The name of the input value.
+     * @param string $message An optional message to show if the value is not an int.
+     *
+     * @return void
+     *
+     * @throws \InvalidArgumentException if the value is not an int.
+     */
+    public static function validateInt(&$input, $name, $message = '')
     {
         if (!is_int($input)) {
-            throw new \InvalidArgumentException($message === '' ? $name . ' is incorrectly typed' : $message);
+            self::throwIncorrectlyTypedException($name, $message);
         }
     }
 
-    static function validatePositiveInt(&$input, $name, $message = '')
+    /**
+     * Validates that an input value is a positive int.
+     *
+     * @param int    $input   The input to validate.
+     * @param string $name    The name of the input value.
+     * @param string $message An optional message to show if the value is not a positive int.
+     *
+     * @return void
+     *
+     * @throws \InvalidArgumentException if the value is not a positive int.
+     */
+    public static function validatePositiveInt(&$input, $name, $message = '')
     {
         self::validateInt($input, $name, $message);
         if ($input <= 0) {
@@ -29,14 +54,36 @@ final class Util
         }
     }
 
-    static function validateString(&$input, $name, $message = '')
+    /**
+     * Validates that an input value is a string.
+     *
+     * @param string $input   The input to validate.
+     * @param string $name    The name of the input value.
+     * @param string $message An optional message to show if the value is not a string.
+     *
+     * @return void
+     *
+     * @throws \InvalidArgumentException if the value is not a string.
+     */
+    public static function validateString(&$input, $name, $message = '')
     {
         if (!is_string($input)) {
-            throw new \InvalidArgumentException($message === '' ? $name . ' is incorrectly typed' : $message);
+            self::throwIncorrectlyTypedException($name, $message);
         }
     }
 
-    static function validateNonEmptyString(&$input, $name, $message = '')
+    /**
+     * Validates that an input value is a non-empty string.
+     *
+     * @param string $input   The input to validate.
+     * @param string $name    The name of the input value.
+     * @param string $message An optional message to show if the value is not a non-empty string.
+     *
+     * @return void
+     *
+     * @throws \InvalidArgumentException if the value is not a non-empty string.
+     */
+    public static function validateNonEmptyString(&$input, $name, $message = '')
     {
         self::validateString($input, $name, $message);
         if (trim($input) === '') {
@@ -44,37 +91,36 @@ final class Util
         }
     }
 
-    static function validateStreamable(&$input, $name, $message = '')
+    /**
+     * Validates that an input value can be used for streaming.
+     *
+     * @param string|resource|callable $input   The input to validate.
+     * @param string                   $name    The name of the input value.
+     * @param string                   $message An optional message to show if the value cannot be used for streaming.
+     *
+     * @return void
+     *
+     * @throws \InvalidArgumentException if the value cannot be used for streaming.
+     */
+    public static function validateStreamable(&$input, $name, $message = '')
     {
         if (!is_string($input) && !is_resource($input) && !is_callable($input)) {
-            throw new \InvalidArgumentException($message === '' ? $name . ' is incorrectly typed' : $message);
+            self::throwIncorrectlyTypedException($name, $message);
         }
     }
 
-    static function validateArray(&$input, $name, $message = '')
+    /**
+     * Throws an exception that indicates an input value is incorrectly typed.
+     *
+     * @param string $name    The name of the input value.
+     * @param string $message An optional message for the exception.
+     *
+     * @return void
+     *
+     * @throws \InvalidArgumentException always.
+     */
+    private static function throwIncorrectlyTypedException($name, $message)
     {
-        if (!is_array($input)) {
-            throw new \InvalidArgumentException($message === '' ? $name . ' is incorrectly typed' : $message);
-        }
-    }
-
-    static function validateNonEmptyArray(&$input, $name, $message = '')
-    {
-        self::validateArray($input, $name, $message);
-        if (count($input) === 0) {
-            throw new \InvalidArgumentException($message === '' ? $name . ' is empty' : $message);
-        }
-    }
-
-    static function validateHomogeneousArray(&$array, &$element, $message)
-    {
-        if (self::getType($array[0]) !== self::getType($element)) {
-            throw new \InvalidArgumentException($message);
-        }
-    }
-
-    static function getType(&$input)
-    {
-        return is_object($input) ? get_class($input) : gettype($input);
+        throw new \InvalidArgumentException($message === '' ? $name . ' is incorrectly typed' : $message);
     }
 }
