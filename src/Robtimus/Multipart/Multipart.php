@@ -7,7 +7,7 @@ namespace Robtimus\Multipart;
  *
  * @package Robtimus\Multipart
  * @author  Rob Spoor
- * @license The Apache Software License, Version 2.0
+ * @license https://www.apache.org/licenses/LICENSE-2.0.txt The Apache Software License, Version 2.0
  */
 abstract class Multipart
 {
@@ -208,7 +208,7 @@ abstract class Multipart
      *
      * @return void
      */
-    protected function addMultipart(Multipart $multipart)
+    final protected function addNestedMultipart(Multipart $multipart)
     {
         $this->startPart();
         $this->addContentType($multipart->getContentType());

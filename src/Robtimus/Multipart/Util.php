@@ -6,7 +6,7 @@ namespace Robtimus\Multipart;
  *
  * @package Robtimus\Multipart
  * @author  Rob Spoor
- * @license The Apache Software License, Version 2.0
+ * @license https://www.apache.org/licenses/LICENSE-2.0.txt The Apache Software License, Version 2.0
  */
 final class Util
 {
