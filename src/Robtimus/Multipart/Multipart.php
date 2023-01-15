@@ -60,7 +60,7 @@ abstract class Multipart
     protected function __construct($boundary, $contentType)
     {
         Util::validateString($boundary, '$boundary');
-        Util::validateNonEmptyString($contentType, $contentType);
+        Util::validateNonEmptyString($contentType, '$contentType');
 
         $this->boundary = $boundary !== '' ? $boundary : $this->generateBoundary();
         $this->contentType = $contentType . '; boundary=' . $this->boundary;
@@ -265,7 +265,7 @@ abstract class Multipart
                 $this->contentLength += $length;
             }
         } else {
-            throw new \UnexpectedValueException('non-supported part type: ' . gettype($part));
+            throw new \InvalidArgumentException('non-supported part type: ' . gettype($part));
         }
     }
 
@@ -352,7 +352,7 @@ abstract class Multipart
      * @return string a portion of this multipart object not larger than the given length,
      *                or an empty string if nothing remains to be read.
      */
-    final public function curldoRead($ch, $fd, $length)
+    final public function curl_read($ch, $fd, $length)
     {
         return $this->read($length);
     }
