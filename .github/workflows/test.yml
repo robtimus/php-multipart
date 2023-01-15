@@ -21,10 +21,6 @@ jobs:
         with:
           php-version: ${{matrix.php}}
           coverage: xdebug
-      - if: startsWith(matrix.php, '5.') || matrix.php == 7.0
-        # PHPStan is not compatible with PHP < 7.2
-        name: Remove PHPStan
-        run: composer remove --dev phpstan/phpstan
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
