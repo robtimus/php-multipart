@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Robtimus\Multipart\Multipart</title>
+
+	<link rel="stylesheet" href="resources/style.css?c2f33731c1948fbed7c333554678bfa68d4817da">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Robtimus.html">
+						Robtimus<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Robtimus.Multipart.html">
+						Multipart					</a>
+
+						</li>
+							</ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-Robtimus.Multipart.Multipart.html">Multipart</a></li>
+				<li><a href="class-Robtimus.Multipart.MultipartAlternative.html">MultipartAlternative</a></li>
+				<li><a href="class-Robtimus.Multipart.MultipartFormData.html">MultipartFormData</a></li>
+				<li><a href="class-Robtimus.Multipart.MultipartMixed.html">MultipartMixed</a></li>
+				<li><a href="class-Robtimus.Multipart.MultipartRelated.html">MultipartRelated</a></li>
+				<li><a href="class-Robtimus.Multipart.Util.html">Util</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Robtimus.Multipart.html" title="Summary of Robtimus\Multipart"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Multipart</h1>
+
+
+	<div class="description">
+	<p>Base class of multipart types.</p>
+	</div>
+
+
+
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-Robtimus.Multipart.MultipartAlternative.html">Robtimus\Multipart\MultipartAlternative</a>, 
+			<a href="class-Robtimus.Multipart.MultipartFormData.html">Robtimus\Multipart\MultipartFormData</a>, 
+			<a href="class-Robtimus.Multipart.MultipartMixed.html">Robtimus\Multipart\MultipartMixed</a>, 
+			<a href="class-Robtimus.Multipart.MultipartRelated.html">Robtimus\Multipart\MultipartRelated</a>
+	</div>
+
+
+
+
+
+
+	<div class="info">
+		<b>Abstract</b><br>
+		
+		<b>Namespace:</b> <a href="namespace-Robtimus.html">Robtimus</a>\<a href="namespace-Robtimus.Multipart.html">Multipart</a><br>
+		<b>Package:</b> Robtimus\Multipart<br>
+
+				<b>License:</b>
+				<a href="https://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a><br>
+				<b>Author:</b>
+				Rob Spoor<br>
+			<b>Located at</b> <a href="source-class-Robtimus.Multipart.Multipart.html#5-443" title="Go to source code">Robtimus/Multipart/Multipart.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-Robtimus.Multipart.Multipart.html#54-67" title="Go to source code">__construct</a>( <span>string <var>$boundary</var></span>, <span>string <var>$contentType</var></span> )</code>
+
+		<div class="description short">
+			<p>Creates a new multipart object.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Creates a new multipart object.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$boundary</var></dt>
+					<dd>The multipart boundary. If empty a new boundary will be generated.</dd>
+					<dt><var>$contentType</var></dt>
+					<dd>The content type without the boundary.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getBoundary" id="_getBoundary">
+
+		<td class="attributes"><code>
+			final public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getBoundary">#</a>
+		<code><a href="source-class-Robtimus.Multipart.Multipart.html#87-93" title="Go to source code">getBoundary</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>the multipart boundary.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getContentType" id="_getContentType">
+
+		<td class="attributes"><code>
+			final public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getContentType">#</a>
+		<code><a href="source-class-Robtimus.Multipart.Multipart.html#95-101" title="Go to source code">getContentType</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>the multipart's content type.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getContentLength" id="_getContentLength">
+
+		<td class="attributes"><code>
+			final public 
+
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getContentLength">#</a>
+		<code><a href="source-class-Robtimus.Multipart.Multipart.html#103-109" title="Go to source code">getContentLength</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					integer<br>the multipart's content length, or -1 if not known.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="startPart" id="_startPart">
+
+		<td class="attributes"><code>
+			final protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_startPart">#</a>
+		<code><a href="source-class-Robtimus.Multipart.Multipart.html#111-119" title="Go to source code">startPart</a>( )</code>
+
+		<div class="description short">
+			<p>Starts a new part.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Starts a new part.</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addContentDisposition" id="_addContentDisposition">
+
+		<td class="attributes"><code>
+			final protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addContentDisposition">#</a>
+		<code><a href="source-class-Robtimus.Multipart.Multipart.html#121-140" title="Go to source code">addContentDisposition</a>( <span>string <var>$type</var></span>, <span>string <var>$name</var> = <span class="php-quote">''</span></span>, <span>string <var>$filename</var> = <span class="php-quote">''</span></span> )</code>
+
+		<div class="description short">
+			<p>Adds a Content-Disposition header.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Adds a Content-Disposition header.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$type</var></dt>
+					<dd>The Content-Disposition type (e.g. form-data, attachment).</dd>
+					<dt><var>$name</var></dt>
+					<dd>The value for any name parameter.</dd>
+					<dt><var>$filename</var></dt>
+					<dd>The value for any filename parameter.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addContentID" id="_addContentID">
+
+		<td class="attributes"><code>
+			final protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addContentID">#</a>
+		<code><a href="source-class-Robtimus.Multipart.Multipart.html#142-152" title="Go to source code">addContentID</a>( <span>string <var>$contentID</var></span> )</code>
+
+		<div class="description short">
+			<p>Adds a Content-ID header.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Adds a Content-ID header.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$contentID</var></dt>
+					<dd>The content ID.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addContentType" id="_addContentType">
+
+		<td class="attributes"><code>
+			final protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addContentType">#</a>
+		<code><a href="source-class-Robtimus.Multipart.Multipart.html#154-164" title="Go to source code">addContentType</a>( <span>string <var>$contentType</var></span> )</code>
+
+		<div class="description short">
+			<p>Adds a Content-Type header.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Adds a Content-Type header.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$contentType</var></dt>
+					<dd>The content type.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addContentTransferEncoding" id="_addContentTransferEncoding">
+
+		<td class="attributes"><code>
+			final protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addContentTransferEncoding">#</a>
+		<code><a href="source-class-Robtimus.Multipart.Multipart.html#166-176" title="Go to source code">addContentTransferEncoding</a>( <span>string <var>$contentTransferEncoding</var></span> )</code>
+
+		<div class="description short">
+			<p>Adds a Content-Transfer-Encoding header.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Adds a Content-Transfer-Encoding header.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$contentTransferEncoding</var></dt>
+					<dd>The content transfer encoding.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="endHeaders" id="_endHeaders">
+
+		<td class="attributes"><code>
+			final protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_endHeaders">#</a>
+		<code><a href="source-class-Robtimus.Multipart.Multipart.html#178-186" title="Go to source code">endHeaders</a>( )</code>
+
+		<div class="description short">
+			<p>Ends the headers.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Ends the headers.</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addContent" id="_addContent">
+
+		<td class="attributes"><code>
+			final protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addContent">#</a>
+		<code><a href="source-class-Robtimus.Multipart.Multipart.html#188-202" title="Go to source code">addContent</a>( <span>string|resource|callable <var>$content</var></span>, <span>integer <var>$length</var> = -<span class="php-num">1</span></span> )</code>
+
+		<div class="description short">
+			<p>Adds the content of a part.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Adds the content of a part.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$content</var></dt>
+					<dd><p>The content.
+                                         If it's a callable it should take a length argument
+                                         and return a string that is not larger than the input.</p></dd>
+					<dt><var>$length</var></dt>
+					<dd><p>The length of the part, or -1 if not known.
+                                         Ignored if the part is a string.</p></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addNestedMultipart" id="_addNestedMultipart">
+
+		<td class="attributes"><code>
+			final protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addNestedMultipart">#</a>
+		<code><a href="source-class-Robtimus.Multipart.Multipart.html#204-218" title="Go to source code">addNestedMultipart</a>( <span><code><a href="class-Robtimus.Multipart.Multipart.html">Robtimus\Multipart\Multipart</a></code> <var>$multipart</var></span> )</code>
+
+		<div class="description short">
+			<p>Adds a nested multipart.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Adds a nested multipart.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$multipart</var></dt>
+					<dd>The nested multipart.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="endPart" id="_endPart">
+
+		<td class="attributes"><code>
+			final protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_endPart">#</a>
+		<code><a href="source-class-Robtimus.Multipart.Multipart.html#220-228" title="Go to source code">endPart</a>( )</code>
+
+		<div class="description short">
+			<p>Ends the last part.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Ends the last part.</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="finish" id="_finish">
+
+		<td class="attributes"><code>
+			final public 
+
+			<code><a href="class-Robtimus.Multipart.Multipart.html">Robtimus\Multipart\Multipart</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_finish">#</a>
+		<code><a href="source-class-Robtimus.Multipart.Multipart.html#230-241" title="Go to source code">finish</a>( )</code>
+
+		<div class="description short">
+			<p>Finishes the multipart. Nothing can be added to it afterwards.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Finishes the multipart. Nothing can be added to it afterwards.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Robtimus.Multipart.Multipart.html">Robtimus\Multipart\Multipart</a></code><br>this object.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isFinished" id="_isFinished">
+
+		<td class="attributes"><code>
+			final public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isFinished">#</a>
+		<code><a href="source-class-Robtimus.Multipart.Multipart.html#243-249" title="Go to source code">isFinished</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean<br>whether or not the multipart is finished.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="read" id="_read">
+
+		<td class="attributes"><code>
+			final public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_read">#</a>
+		<code><a href="source-class-Robtimus.Multipart.Multipart.html#288-308" title="Go to source code">read</a>( <span>integer <var>$length</var></span> )</code>
+
+		<div class="description short">
+			<p>Reads a portion of this multipart object.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Reads a portion of this multipart object.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$length</var></dt>
+					<dd>The maximum length of the portion to read.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br><p>a portion of this multipart object not larger than the given length,
+               or an empty string if nothing remains to be read.</p>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="curl_read" id="_curl_read">
+
+		<td class="attributes"><code>
+			final public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_curl_read">#</a>
+		<code><a href="source-class-Robtimus.Multipart.Multipart.html#361-374" title="Go to source code">curl_read</a>( <span>resource <var>$ch</var></span>, <span>resource <var>$fd</var></span>, <span>integer <var>$length</var></span> )</code>
+
+		<div class="description short">
+			<p>cURL compatible version of the read method.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>cURL compatible version of the read method.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$ch</var></dt>
+					<dd>The cURL handle; ignored.</dd>
+					<dt><var>$fd</var></dt>
+					<dd>The file descriptor passed to cURL by the CURLOPT_INFILE option; ignored.</dd>
+					<dt><var>$length</var></dt>
+					<dd>The maximum length of the portion to read.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br><p>a portion of this multipart object not larger than the given length,
+               or an empty string if nothing remains to be read.</p>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="buffer" id="_buffer">
+
+		<td class="attributes"><code>
+			final public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_buffer">#</a>
+		<code><a href="source-class-Robtimus.Multipart.Multipart.html#376-394" title="Go to source code">buffer</a>( <span>integer <var>$bufferSize</var> = <span class="php-num">8192</span></span> )</code>
+
+		<div class="description short">
+			<p>Buffers the content of this multipart object.
+Note that this method should be called before calling read,
+otherwise the contents that have already read may not be part of the buffered content.
+If the content is already buffered, this method will simply return the buffered content.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Buffers the content of this multipart object.
+Note that this method should be called before calling read,
+otherwise the contents that have already read may not be part of the buffered content.
+If the content is already buffered, this method will simply return the buffered content.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$bufferSize</var></dt>
+					<dd>The size to use for reading parts of the content.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>The content of this multipart object.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isBuffered" id="_isBuffered">
+
+		<td class="attributes"><code>
+			final public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isBuffered">#</a>
+		<code><a href="source-class-Robtimus.Multipart.Multipart.html#424-430" title="Go to source code">isBuffered</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean<br>whether or not the content is currently buffered.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__toString" id="___toString">
+
+		<td class="attributes"><code>
+			final public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___toString">#</a>
+		<code><a href="source-class-Robtimus.Multipart.Multipart.html#432-442" title="Go to source code">__toString</a>( )</code>
+
+		<div class="description short">
+			<p>Returns this multipart object as a string. It will buffer the object to achieve this.
+Note that this method should be called before calling read,
+otherwise the contents that have already read may not be part of the result.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns this multipart object as a string. It will buffer the object to achieve this.
+Note that this method should be called before calling read,
+otherwise the contents that have already read may not be part of the result.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>this multipart object as a string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js?496e8d265118a3503abfcc3c98a8d118d6100636"></script>
+<script src="elementlist.js?54e11d2682e36b357e36e624550043272f2ce64b"></script>
+</body>
+</html>
