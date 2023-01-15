@@ -350,6 +350,8 @@ EOS;
         curl_setopt($ch, CURLOPT_URL, 'http://httpbin.org/post');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
         curl_setopt($ch, CURLOPT_UPLOAD, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
         curl_setopt($ch, CURLOPT_READFUNCTION, array($multipart, 'curl_read'));
 
         $headers = ['Content-Type: ' . $multipart->getContentType()];
