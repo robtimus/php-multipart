@@ -1,2 +1,15 @@
 parameters:
+  paths:
+    - src
+    - tests
+  level: 6
+
   treatPhpDocTypesAsCertain: false
+
+  ignoreErrors:
+    - message: '#Property .* has no type specified.#'
+      path: tests/Robtimus/Multipart/*
+    - message: '#Method .* has no return type specified.#'
+      path: tests/Robtimus/Multipart/*
+    - message: '#Method .* has parameter .* with no type specified.#'
+      path: tests/Robtimus/Multipart/*

@@ -99,4 +99,4 @@ jobs:
       - name: Install dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - name: PHPStan
-        run: phpstan analyse src/ tests/ --level 5
+        run: phpstan analyse
