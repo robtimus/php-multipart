@@ -37,6 +37,8 @@ EOS;
 
     public function testUploadStringsOnly()
     {
+        $this->skipUploadIfNeeded();
+
         $multipart = new MultipartFormData();
         $multipart->addValue('name1', 'value1');
         $multipart->addValue('name2', 'value2');
@@ -94,6 +96,8 @@ EOS;
 
     public function testUploadSingleFileOnly()
     {
+        $this->skipUploadIfNeeded();
+
         $multipart = new MultipartFormData();
         $multipart->addFile('file', 'file.txt', 'Hello World', 'text/plain');
         $multipart->finish();
@@ -154,6 +158,8 @@ EOS;
 
     public function testUploadMultipleFilesOnly()
     {
+        $this->skipUploadIfNeeded();
+
         $multipart = new MultipartFormData();
         $multipart->addFile('file1', 'file.txt', 'Hello World', 'text/plain');
         $multipart->addFile('file2', 'file.html', "<html>\nHello World\n</html>", 'text/html');
@@ -228,6 +234,8 @@ EOS;
 
     public function testUploadMixed()
     {
+        $this->skipUploadIfNeeded();
+
         $multipart = new MultipartFormData();
         $multipart->addValue('name1', 'value1');
         $multipart->addValue('name2', 'value2');
@@ -313,6 +321,8 @@ EOS;
 
     public function testUploadMixedWithDuplicateParameterNames()
     {
+        $this->skipUploadIfNeeded();
+
         $multipart = new MultipartFormData();
         $multipart->addValue('name', 'value1');
         $multipart->addFile('file', 'file.txt', 'Hello World', 'text/plain');
@@ -340,6 +350,13 @@ EOS;
 
         $this->assertObjectHasAttribute('name', $response->form);
         $this->assertEquals(['value1', 'value2'], $response->form->name);
+    }
+
+    private function skipUploadIfNeeded() {
+        $skipUpload = $this->getConfigValue('http.upload.skip', false);
+        if ($skipUpload === true) {
+            $this->markTestSkipped('HTTP uploads skipped');
+        }
     }
 
     private function setupCurl($multipart)
