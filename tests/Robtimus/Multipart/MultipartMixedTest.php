@@ -3,6 +3,162 @@ namespace Robtimus\Multipart;
 
 class MultipartMixedTest extends MultipartTestBase
 {
+    public function testAddPartInvalidTypeOfContent()
+    {
+        $multipart = new MultipartMixed();
+
+        try {
+            $multipart->addPart(0, 'text/plain');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$content is incorrectly typed', $e->getMessage());
+        }
+    }
+
+    public function testAddPartInvalidTypeOfContentType()
+    {
+        $multipart = new MultipartMixed();
+
+        try {
+            $multipart->addPart('Hello World', 0);
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$contentType is incorrectly typed', $e->getMessage());
+        }
+    }
+
+    public function testAddPartEmptyContentType()
+    {
+        $multipart = new MultipartMixed();
+
+        try {
+            $multipart->addPart('Hello World', '');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$contentType must be non-empty', $e->getMessage());
+        }
+    }
+
+    public function testAddPartInvalidTypeOfContentLength()
+    {
+        $multipart = new MultipartMixed();
+
+        try {
+            $multipart->addPart('Hello World', 'text/plain', '');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$contentLength is incorrectly typed', $e->getMessage());
+        }
+    }
+
+    public function testAddPartInvalidTypeOfContentTransferEncoding()
+    {
+        $multipart = new MultipartMixed();
+
+        try {
+            $multipart->addPart('Hello World', 'text/plain', -1, 0);
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$contentTransferEncoding is incorrectly typed', $e->getMessage());
+        }
+    }
+
+    public function testAddAttachmentInvalidTypeOfFilename()
+    {
+        $multipart = new MultipartMixed();
+
+        try {
+            $multipart->addAttachment(0, 'Hello World', 'text/plain');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$filename is incorrectly typed', $e->getMessage());
+        }
+    }
+
+    public function testAddAttachmentEmptyFilename()
+    {
+        $multipart = new MultipartMixed();
+
+        try {
+            $multipart->addAttachment('', 'Hello World', 'text/plain');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$filename must be non-empty', $e->getMessage());
+        }
+    }
+
+    public function testAddAttachmentInvalidTypeOfContent()
+    {
+        $multipart = new MultipartMixed();
+
+        try {
+            $multipart->addAttachment('file.txt', 0, 'text/plain');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$content is incorrectly typed', $e->getMessage());
+        }
+    }
+
+    public function testAddAttachmentInvalidTypeOfContentType()
+    {
+        $multipart = new MultipartMixed();
+
+        try {
+            $multipart->addAttachment('file.txt', 'Hello World', 0);
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$contentType is incorrectly typed', $e->getMessage());
+        }
+    }
+
+    public function testAddAttachmentEmptyContentType()
+    {
+        $multipart = new MultipartMixed();
+
+        try {
+            $multipart->addAttachment('file.txt', 'Hello World', '');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$contentType must be non-empty', $e->getMessage());
+        }
+    }
+
+    public function testAddAttachmentInvalidTypeOfContentLength()
+    {
+        $multipart = new MultipartMixed();
+
+        try {
+            $multipart->addAttachment('file.txt', 'Hello World', 'text/plain', '');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$contentLength is incorrectly typed', $e->getMessage());
+        }
+    }
+
+    public function testAddAttachmentInvalidTypeOfContentTransferEncoding()
+    {
+        $multipart = new MultipartMixed();
+
+        try {
+            $multipart->addAttachment('file.txt', 'Hello World', 'text/plain', -1, 0);
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$contentTransferEncoding is incorrectly typed', $e->getMessage());
+        }
+    }
+
     public function testReadPlainTextOnly()
     {
         $multipart = new MultipartMixed('test-boundary');

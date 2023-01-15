@@ -3,6 +3,149 @@ namespace Robtimus\Multipart;
 
 class MultipartFormDataTest extends MultipartTestBase
 {
+    public function testAddValueInvalidTypeOfName()
+    {
+        $multipart = new MultipartFormData();
+
+        try {
+            $multipart->addValue(0, 'value');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$name is incorrectly typed', $e->getMessage());
+        }
+    }
+
+    public function testAddValueEmptyName()
+    {
+        $multipart = new MultipartFormData();
+
+        try {
+            $multipart->addValue('', 'value');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$name must be non-empty', $e->getMessage());
+        }
+    }
+
+    public function testAddValueInvalidTypeOfValue()
+    {
+        $multipart = new MultipartFormData();
+
+        try {
+            $multipart->addValue('name', 0);
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$value is incorrectly typed', $e->getMessage());
+        }
+    }
+
+    public function testAddFileInvalidTypeOfName()
+    {
+        $multipart = new MultipartFormData();
+
+        try {
+            $multipart->addFile(0, 'file.txt', 'Hello World', 'text/plain');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$name is incorrectly typed', $e->getMessage());
+        }
+    }
+
+    public function testAddFileEmptyName()
+    {
+        $multipart = new MultipartFormData();
+
+        try {
+            $multipart->addFile('', 'file.txt', 'Hello World', 'text/plain');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$name must be non-empty', $e->getMessage());
+        }
+    }
+
+    public function testAddFileInvalidTypeOfFilename()
+    {
+        $multipart = new MultipartFormData();
+
+        try {
+            $multipart->addFile('name', 0, 'Hello World', 'text/plain');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$filename is incorrectly typed', $e->getMessage());
+        }
+    }
+
+    public function testAddFileEmptyFilename()
+    {
+        $multipart = new MultipartFormData();
+
+        try {
+            $multipart->addFile('name', '', 'Hello World', 'text/plain');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$filename must be non-empty', $e->getMessage());
+        }
+    }
+
+    public function testAddFileInvalidTypeOfContent()
+    {
+        $multipart = new MultipartFormData();
+
+        try {
+            $multipart->addFile('name', 'file.txt', 0, 'text/plain');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$content is incorrectly typed', $e->getMessage());
+        }
+    }
+
+    public function testAddFileInvalidTypeOfContentType()
+    {
+        $multipart = new MultipartFormData();
+
+        try {
+            $multipart->addFile('name', 'file.txt', 'Hello World', 0);
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$contentType is incorrectly typed', $e->getMessage());
+        }
+    }
+
+    public function testAddFileEmptyContentType()
+    {
+        $multipart = new MultipartFormData();
+
+        try {
+            $multipart->addFile('name', 'file.txt', 'Hello World', '');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$contentType must be non-empty', $e->getMessage());
+        }
+    }
+
+    public function testAddFileInvalidTypeOfContentLength()
+    {
+        $multipart = new MultipartFormData();
+
+        try {
+            $multipart->addFile('name', 'file.txt', 'Hello World', 'text/plain', '');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$contentLength is incorrectly typed', $e->getMessage());
+        }
+    }
+
     public function testReadStringsOnly()
     {
         $multipart = new MultipartFormData('test-boundary');

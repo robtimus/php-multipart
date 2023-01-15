@@ -29,12 +29,7 @@ final class MultipartMixed extends Multipart
      */
     public function addMultipart(Multipart $multipart)
     {
-        $this->startPart();
-        $this->addContentType($multipart->getContentType());
-        $this->endHeaders();
-        $this->addContent(array($multipart, 'read'), $multipart->getContentLength());
-        $this->endPart();
-
+        parent::addMultipart($multipart);
         return $this;
     }
 

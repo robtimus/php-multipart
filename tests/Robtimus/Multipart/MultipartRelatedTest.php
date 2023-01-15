@@ -3,6 +3,188 @@ namespace Robtimus\Multipart;
 
 class MultipartRelatedTest extends MultipartTestBase
 {
+    public function testAddPartInvalidTypeOfContent()
+    {
+        $multipart = new MultipartRelated();
+
+        try {
+            $multipart->addPart(0, 'text/plain');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$content is incorrectly typed', $e->getMessage());
+        }
+    }
+
+    public function testAddPartInvalidTypeOfContentType()
+    {
+        $multipart = new MultipartRelated();
+
+        try {
+            $multipart->addPart('Hello World', 0);
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$contentType is incorrectly typed', $e->getMessage());
+        }
+    }
+
+    public function testAddPartEmptyContentType()
+    {
+        $multipart = new MultipartRelated();
+
+        try {
+            $multipart->addPart('Hello World', '');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$contentType must be non-empty', $e->getMessage());
+        }
+    }
+
+    public function testAddPartInvalidTypeOfContentLength()
+    {
+        $multipart = new MultipartRelated();
+
+        try {
+            $multipart->addPart('Hello World', 'text/plain', '');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$contentLength is incorrectly typed', $e->getMessage());
+        }
+    }
+
+    public function testAddPartInvalidTypeOfContentTransferEncoding()
+    {
+        $multipart = new MultipartRelated();
+
+        try {
+            $multipart->addPart('Hello World', 'text/plain', -1, 0);
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$contentTransferEncoding is incorrectly typed', $e->getMessage());
+        }
+    }
+
+    public function testAddInlineFileInvalidTypeOfContentID()
+    {
+        $multipart = new MultipartRelated();
+
+        try {
+            $multipart->addInlineFile(0, 'file.txt', 'Hello World', 'text/plain');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$contentID is incorrectly typed', $e->getMessage());
+        }
+    }
+
+    public function testAddInlineFileEmptyContentID()
+    {
+        $multipart = new MultipartRelated();
+
+        try {
+            $multipart->addInlineFile('', 'file.txt', 'Hello World', 'text/plain');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$contentID must be non-empty', $e->getMessage());
+        }
+    }
+
+    public function testAddInlineFileInvalidTypeOfFilename()
+    {
+        $multipart = new MultipartRelated();
+
+        try {
+            $multipart->addInlineFile('cid', 0, 'Hello World', 'text/plain');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$filename is incorrectly typed', $e->getMessage());
+        }
+    }
+
+    public function testAddInlineFileEmptyFilename()
+    {
+        $multipart = new MultipartRelated();
+
+        try {
+            $multipart->addInlineFile('cid', '', 'Hello World', 'text/plain');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$filename must be non-empty', $e->getMessage());
+        }
+    }
+
+    public function testAddInlineFileInvalidTypeOfContent()
+    {
+        $multipart = new MultipartRelated();
+
+        try {
+            $multipart->addInlineFile('cid', 'file.txt', 0, 'text/plain');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$content is incorrectly typed', $e->getMessage());
+        }
+    }
+
+    public function testAddInlineFileInvalidTypeOfContentType()
+    {
+        $multipart = new MultipartRelated();
+
+        try {
+            $multipart->addInlineFile('cid', 'file.txt', 'Hello World', 0);
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$contentType is incorrectly typed', $e->getMessage());
+        }
+    }
+
+    public function testAddInlineFileEmptyContentType()
+    {
+        $multipart = new MultipartRelated();
+
+        try {
+            $multipart->addInlineFile('cid', 'file.txt', 'Hello World', '');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$contentType must be non-empty', $e->getMessage());
+        }
+    }
+
+    public function testAddInlineFileInvalidTypeOfContentLength()
+    {
+        $multipart = new MultipartRelated();
+
+        try {
+            $multipart->addInlineFile('cid', 'file.txt', 'Hello World', 'text/plain', '');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$contentLength is incorrectly typed', $e->getMessage());
+        }
+    }
+
+    public function testAddInlineFileInvalidTypeOfContentTransferEncoding()
+    {
+        $multipart = new MultipartRelated();
+
+        try {
+            $multipart->addInlineFile('cid', 'file.txt', 'Hello World', 'text/plain', -1, 0);
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$contentTransferEncoding is incorrectly typed', $e->getMessage());
+        }
+    }
+
     public function testRead()
     {
         $multipart = new MultipartRelated('test-boundary');

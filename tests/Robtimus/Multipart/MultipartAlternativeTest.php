@@ -3,6 +3,71 @@ namespace Robtimus\Multipart;
 
 class MultipartAlternativeTest extends MultipartTestBase
 {
+    public function testAddPartInvalidTypeOfContent()
+    {
+        $multipart = new MultipartAlternative();
+
+        try {
+            $multipart->addPart(0, 'text/plain');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$content is incorrectly typed', $e->getMessage());
+        }
+    }
+
+    public function testAddPartInvalidTypeOfContentType()
+    {
+        $multipart = new MultipartAlternative();
+
+        try {
+            $multipart->addPart('Hello World', 0);
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$contentType is incorrectly typed', $e->getMessage());
+        }
+    }
+
+    public function testAddPartEmptyContentType()
+    {
+        $multipart = new MultipartAlternative();
+
+        try {
+            $multipart->addPart('Hello World', '');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$contentType must be non-empty', $e->getMessage());
+        }
+    }
+
+    public function testAddPartInvalidTypeOfContentLength()
+    {
+        $multipart = new MultipartAlternative();
+
+        try {
+            $multipart->addPart('Hello World', 'text/plain', '');
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$contentLength is incorrectly typed', $e->getMessage());
+        }
+    }
+
+    public function testAddPartInvalidTypeOfContentTransferEncoding()
+    {
+        $multipart = new MultipartAlternative();
+
+        try {
+            $multipart->addPart('Hello World', 'text/plain', -1, 0);
+
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertEquals('$contentTransferEncoding is incorrectly typed', $e->getMessage());
+        }
+    }
+
     public function testRead()
     {
         $multipart = new MultipartAlternative('test-boundary');

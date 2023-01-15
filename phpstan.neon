@@ -13,3 +13,5 @@ parameters:
       path: tests/Robtimus/Multipart/*
     - message: '#Method .* has parameter .* with no type specified.#'
       path: tests/Robtimus/Multipart/*
+    - message: '#Parameter \#[0-9]+ .* of method .* expects .*, .* given.#'
+      path: tests/Robtimus/Multipart/*

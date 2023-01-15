@@ -202,6 +202,22 @@ abstract class Multipart
     }
 
     /**
+     * Adds a nested multipart.
+     *
+     * @param Multipart $multipart The nested multipart.
+     *
+     * @return void
+     */
+    protected function addMultipart(Multipart $multipart)
+    {
+        $this->startPart();
+        $this->addContentType($multipart->getContentType());
+        $this->endHeaders();
+        $this->addContent(array($multipart, 'read'), $multipart->getContentLength());
+        $this->endPart();
+    }
+
+    /**
      * Ends the last part.
      *
      * @return void
