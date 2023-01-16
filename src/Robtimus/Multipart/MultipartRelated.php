@@ -23,13 +23,13 @@ final class MultipartRelated extends Multipart
     /**
      * Adds a part.
      *
-     * @param string|resource|callable $content                 The part's content.
-     *                                                          If it's a callable it should take a length argument
-     *                                                          and return a string that is not larger than the input.
-     * @param string                   $contentType             The part's content type.
-     * @param int                      $contentLength           The part's content length, or -1 if not known.
-     *                                                          Ignored if the part's content is a string.
-     * @param string                   $contentTransferEncoding The optional content transfer encoding.
+     * @param string|resource|callable(int):string $content                 The part's content.
+     *                                                                      If it's a callable it should take a length argument
+     *                                                                      and return a string that is not larger than the input.
+     * @param string                               $contentType             The part's content type.
+     * @param int                                  $contentLength           The part's content length, or -1 if not known.
+     *                                                                      Ignored if the part's content is a string.
+     * @param string                               $contentTransferEncoding The optional content transfer encoding.
      *
      * @return MultipartRelated this object.
      */
@@ -55,15 +55,15 @@ final class MultipartRelated extends Multipart
     /**
      * Adds an inline file.
      *
-     * @param string                   $contentID               The content id of the file.
-     * @param string                   $filename                The name of the file.
-     * @param string|resource|callable $content                 The file's content.
-     *                                                          If it's a callable it should take a length argument
-     *                                                          and return a string that is not larger than the input.
-     * @param string                   $contentType             The file's content type.
-     * @param int                      $contentLength           The file's content length, or -1 if not known.
-     *                                                          Ignored if the file's content is a string.
-     * @param string                   $contentTransferEncoding The optional content transfer encoding.
+     * @param string                               $contentID               The content id of the file.
+     * @param string                               $filename                The name of the file.
+     * @param string|resource|callable(int):string $content                 The file's content.
+     *                                                                      If it's a callable it should take a length argument
+     *                                                                      and return a string that is not larger than the input.
+     * @param string                               $contentType             The file's content type.
+     * @param int                                  $contentLength           The file's content length, or -1 if not known.
+     *                                                                      Ignored if the file's content is a string.
+     * @param string                               $contentTransferEncoding The optional content transfer encoding.
      *
      * @return MultipartRelated this object.
      */

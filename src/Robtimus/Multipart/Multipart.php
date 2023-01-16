@@ -22,7 +22,7 @@ abstract class Multipart
     private $contentType;
 
     /**
-     * @var array<string|resource|callable> the parts that form this multipart object.
+     * @var array<string|resource|callable(int):string> the parts that form this multipart object.
      */
     private $parts = [];
 
@@ -188,11 +188,11 @@ abstract class Multipart
     /**
      * Adds the content of a part.
      *
-     * @param string|resource|callable $content The content.
-     *                                          If it's a callable it should take a length argument
-     *                                          and return a string that is not larger than the input.
-     * @param int                      $length  The length of the part, or -1 if not known.
-     *                                          Ignored if the part is a string.
+     * @param string|resource|callable(int):string $content The content.
+     *                                                      If it's a callable it should take a length argument
+     *                                                      and return a string that is not larger than the input.
+     * @param int                                  $length  The length of the part, or -1 if not known.
+     *                                                      Ignored if the part is a string.
      *
      * @return void
      */
@@ -251,11 +251,11 @@ abstract class Multipart
     /**
      * Adds a piece of a part.
      *
-     * @param string|resource|callable $part   The part to add.
-     *                                         If it's a callable it should take a length argument
-     *                                         and return a string that is not larger than the input.
-     * @param int                      $length The length of the part, or -1 if not known.
-     *                                         Ignored if the part is a string.
+     * @param string|resource|callable(int):string $part   The part to add.
+     *                                                     If it's a callable it should take a length argument
+     *                                                     and return a string that is not larger than the input.
+     * @param int                                  $length The length of the part, or -1 if not known.
+     *                                                     Ignored if the part is a string.
      *
      * @return void
      */
@@ -345,16 +345,16 @@ abstract class Multipart
             $result = $length === 0 ? '' : substr($part, $this->partIndex, $length);
             $this->partIndex += $length;
             return $result;
-        } elseif (is_resource($this->parts[$this->index])) {
+        } elseif (is_resource($part)) {
             $result = @fread($part, $length);
             if ($result === false) {
                 throw new \ErrorException(error_get_last()['message']);
             }
             return $result;
-        } elseif (is_callable($this->parts[$this->index])) {
+        } elseif (is_callable($part)) {
             return call_user_func($part, $length);
         } else {
-            throw new \UnexpectedValueException('non-supported part type: ' . gettype($this->parts[$this->index]));
+            throw new \UnexpectedValueException('non-supported part type: ' . gettype($part));
         }
     }
 

@@ -94,9 +94,9 @@ final class Util
     /**
      * Validates that an input value can be used for streaming.
      *
-     * @param string|resource|callable $input   The input to validate.
-     * @param string                   $name    The name of the input value.
-     * @param string                   $message An optional message to show if the value cannot be used for streaming.
+     * @param string|resource|callable(int):string $input   The input to validate.
+     * @param string                               $name    The name of the input value.
+     * @param string                               $message An optional message to show if the value cannot be used for streaming.
      *
      * @return void
      *
@@ -115,7 +115,7 @@ final class Util
      * @param string $name    The name of the input value.
      * @param string $message An optional message for the exception.
      *
-     * @return void
+     * @return never
      *
      * @throws \InvalidArgumentException always.
      */

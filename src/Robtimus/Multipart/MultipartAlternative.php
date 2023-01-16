@@ -36,13 +36,13 @@ final class MultipartAlternative extends Multipart
     /**
      * Adds an alternative.
      *
-     * @param string|resource|callable $content                 The part's content.
-     *                                                          If it's a callable it should take a length argument
-     *                                                          and return a string that is not larger than the input.
-     * @param string                   $contentType             The part's content type.
-     * @param int                      $contentLength           The part's content length, or -1 if not known.
-     *                                                          Ignored if the part's content is a string.
-     * @param string                   $contentTransferEncoding The optional content transfer encoding.
+     * @param string|resource|callable(int):string $content                 The part's content.
+     *                                                                      If it's a callable it should take a length argument
+     *                                                                      and return a string that is not larger than the input.
+     * @param string                               $contentType             The part's content type.
+     * @param int                                  $contentLength           The part's content length, or -1 if not known.
+     *                                                                      Ignored if the part's content is a string.
+     * @param string                               $contentTransferEncoding The optional content transfer encoding.
      *
      * @return MultipartAlternative this object.
      */

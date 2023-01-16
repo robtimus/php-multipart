@@ -495,7 +495,8 @@ EOS;
         $this->assertEquals(['value1', 'value2'], $response->form->name);
     }
 
-    private function skipUploadIfNeeded() {
+    private function skipUploadIfNeeded()
+    {
         $skipUpload = $this->getConfigValue('http.upload.skip', false);
         if ($skipUpload === true) {
             $this->markTestSkipped('HTTP uploads skipped');
