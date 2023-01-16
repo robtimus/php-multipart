@@ -44,7 +44,6 @@
 				<li class="active"><a href="class-Robtimus.Multipart.MultipartFormData.html">MultipartFormData</a></li>
 				<li><a href="class-Robtimus.Multipart.MultipartMixed.html">MultipartMixed</a></li>
 				<li><a href="class-Robtimus.Multipart.MultipartRelated.html">MultipartRelated</a></li>
-				<li><a href="class-Robtimus.Multipart.Util.html">Util</a></li>
 			</ul>
 
 
@@ -220,7 +219,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addFile">#</a>
-		<code><a href="source-class-Robtimus.Multipart.MultipartFormData.html#45-75" title="Go to source code">addFile</a>( <span>string <var>$name</var></span>, <span>string <var>$filename</var></span>, <span>string|resource|callable <var>$content</var></span>, <span>string <var>$contentType</var></span>, <span>integer <var>$contentLength</var> = -<span class="php-num">1</span></span> )</code>
+		<code><a href="source-class-Robtimus.Multipart.MultipartFormData.html#45-75" title="Go to source code">addFile</a>( <span>string <var>$name</var></span>, <span>string <var>$filename</var></span>, <span>string|resource|callable(int):string <var>$content</var></span>, <span>string <var>$contentType</var></span>, <span>integer <var>$contentLength</var> = -<span class="php-num">1</span></span> )</code>
 
 		<div class="description short">
 			<p>Adds a file parameter.</p>
@@ -238,13 +237,13 @@
 					<dd>The name of the file.</dd>
 					<dt><var>$content</var></dt>
 					<dd><p>The file's content.
-                                               If it's a callable it should take a length argument
-                                               and return a string that is not larger than the input.</p></dd>
+                                                           If it's a callable it should take a length argument
+                                                           and return a string that is not larger than the input.</p></dd>
 					<dt><var>$contentType</var></dt>
 					<dd>The file's content type.</dd>
 					<dt><var>$contentLength</var></dt>
 					<dd><p>The file's content length, or -1 if not known.
-                                               Ignored if the file's content is a string.</p></dd>
+                                                           Ignored if the file's content is a string.</p></dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -311,6 +310,6 @@
 </div>
 </div>
 <script src="resources/combined.js?496e8d265118a3503abfcc3c98a8d118d6100636"></script>
-<script src="elementlist.js?54e11d2682e36b357e36e624550043272f2ce64b"></script>
+<script src="elementlist.js?b39e4be8c79684ee90ff327405f180507b417a82"></script>
 </body>
 </html>

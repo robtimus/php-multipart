@@ -45,7 +45,6 @@
 				<li><a href="class-Robtimus.Multipart.MultipartFormData.html">Robtimus\Multipart\MultipartFormData</a></li>
 				<li><a href="class-Robtimus.Multipart.MultipartMixed.html">Robtimus\Multipart\MultipartMixed</a></li>
 				<li><a href="class-Robtimus.Multipart.MultipartRelated.html">Robtimus\Multipart\MultipartRelated</a></li>
-				<li><a href="class-Robtimus.Multipart.Util.html">Robtimus\Multipart\Util</a></li>
 			</ul>
 
 
@@ -107,7 +106,7 @@
 </span><span id="22" class="l">    <span class="php-keyword1">private</span> <span class="php-var">$contentType</span>;
 </span><span id="23" class="l">
 </span><span id="24" class="l">    <span class="php-comment">/**
-</span></span><span id="25" class="l"><span class="php-comment">     * @var array&lt;string|resource|callable&gt; the parts that form this multipart object.
+</span></span><span id="25" class="l"><span class="php-comment">     * @var array&lt;string|resource|callable(int):string&gt; the parts that form this multipart object.
 </span></span><span id="26" class="l"><span class="php-comment">     */</span>
 </span><span id="27" class="l">    <span class="php-keyword1">private</span> <span class="php-var">$parts</span> = [];
 </span><span id="28" class="l">
@@ -273,11 +272,11 @@
 </span><span id="188" class="l">    <span class="php-comment">/**
 </span></span><span id="189" class="l"><span class="php-comment">     * Adds the content of a part.
 </span></span><span id="190" class="l"><span class="php-comment">     *
-</span></span><span id="191" class="l"><span class="php-comment">     * @param string|resource|callable $content The content.
-</span></span><span id="192" class="l"><span class="php-comment">     *                                          If it's a callable it should take a length argument
-</span></span><span id="193" class="l"><span class="php-comment">     *                                          and return a string that is not larger than the input.
-</span></span><span id="194" class="l"><span class="php-comment">     * @param int                      $length  The length of the part, or -1 if not known.
-</span></span><span id="195" class="l"><span class="php-comment">     *                                          Ignored if the part is a string.
+</span></span><span id="191" class="l"><span class="php-comment">     * @param string|resource|callable(int):string $content The content.
+</span></span><span id="192" class="l"><span class="php-comment">     *                                                      If it's a callable it should take a length argument
+</span></span><span id="193" class="l"><span class="php-comment">     *                                                      and return a string that is not larger than the input.
+</span></span><span id="194" class="l"><span class="php-comment">     * @param int                                  $length  The length of the part, or -1 if not known.
+</span></span><span id="195" class="l"><span class="php-comment">     *                                                      Ignored if the part is a string.
 </span></span><span id="196" class="l"><span class="php-comment">     *
 </span></span><span id="197" class="l"><span class="php-comment">     * @return void
 </span></span><span id="198" class="l"><span class="php-comment">     */</span>
@@ -336,11 +335,11 @@
 </span><span id="251" class="l">    <span class="php-comment">/**
 </span></span><span id="252" class="l"><span class="php-comment">     * Adds a piece of a part.
 </span></span><span id="253" class="l"><span class="php-comment">     *
-</span></span><span id="254" class="l"><span class="php-comment">     * @param string|resource|callable $part   The part to add.
-</span></span><span id="255" class="l"><span class="php-comment">     *                                         If it's a callable it should take a length argument
-</span></span><span id="256" class="l"><span class="php-comment">     *                                         and return a string that is not larger than the input.
-</span></span><span id="257" class="l"><span class="php-comment">     * @param int                      $length The length of the part, or -1 if not known.
-</span></span><span id="258" class="l"><span class="php-comment">     *                                         Ignored if the part is a string.
+</span></span><span id="254" class="l"><span class="php-comment">     * @param string|resource|callable(int):string $part   The part to add.
+</span></span><span id="255" class="l"><span class="php-comment">     *                                                     If it's a callable it should take a length argument
+</span></span><span id="256" class="l"><span class="php-comment">     *                                                     and return a string that is not larger than the input.
+</span></span><span id="257" class="l"><span class="php-comment">     * @param int                                  $length The length of the part, or -1 if not known.
+</span></span><span id="258" class="l"><span class="php-comment">     *                                                     Ignored if the part is a string.
 </span></span><span id="259" class="l"><span class="php-comment">     *
 </span></span><span id="260" class="l"><span class="php-comment">     * @return void
 </span></span><span id="261" class="l"><span class="php-comment">     */</span>
@@ -430,16 +429,16 @@
 </span><span id="345" class="l">            <span class="php-var">$result</span> = <span class="php-var">$length</span> === <span class="php-num">0</span> ? <span class="php-quote">''</span> : <span class="php-keyword2">substr</span>(<span class="php-var">$part</span>, <span class="php-var">$this</span>-&gt;partIndex, <span class="php-var">$length</span>);
 </span><span id="346" class="l">            <span class="php-var">$this</span>-&gt;partIndex += <span class="php-var">$length</span>;
 </span><span id="347" class="l">            <span class="php-keyword1">return</span> <span class="php-var">$result</span>;
-</span><span id="348" class="l">        } <span class="php-keyword1">elseif</span> (<span class="php-keyword2">is_resource</span>(<span class="php-var">$this</span>-&gt;parts[<span class="php-var">$this</span>-&gt;index])) {
+</span><span id="348" class="l">        } <span class="php-keyword1">elseif</span> (<span class="php-keyword2">is_resource</span>(<span class="php-var">$part</span>)) {
 </span><span id="349" class="l">            <span class="php-var">$result</span> = @<span class="php-keyword2">fread</span>(<span class="php-var">$part</span>, <span class="php-var">$length</span>);
 </span><span id="350" class="l">            <span class="php-keyword1">if</span> (<span class="php-var">$result</span> === <span class="php-keyword1">false</span>) {
 </span><span id="351" class="l">                <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> \ErrorException(<span class="php-keyword2">error_get_last</span>()[<span class="php-quote">'message'</span>]);
 </span><span id="352" class="l">            }
 </span><span id="353" class="l">            <span class="php-keyword1">return</span> <span class="php-var">$result</span>;
-</span><span id="354" class="l">        } <span class="php-keyword1">elseif</span> (<span class="php-keyword2">is_callable</span>(<span class="php-var">$this</span>-&gt;parts[<span class="php-var">$this</span>-&gt;index])) {
+</span><span id="354" class="l">        } <span class="php-keyword1">elseif</span> (<span class="php-keyword2">is_callable</span>(<span class="php-var">$part</span>)) {
 </span><span id="355" class="l">            <span class="php-keyword1">return</span> <span class="php-keyword2">call_user_func</span>(<span class="php-var">$part</span>, <span class="php-var">$length</span>);
 </span><span id="356" class="l">        } <span class="php-keyword1">else</span> {
-</span><span id="357" class="l">            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> \UnexpectedValueException(<span class="php-quote">'non-supported part type: '</span> . <span class="php-keyword2">gettype</span>(<span class="php-var">$this</span>-&gt;parts[<span class="php-var">$this</span>-&gt;index]));
+</span><span id="357" class="l">            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> \UnexpectedValueException(<span class="php-quote">'non-supported part type: '</span> . <span class="php-keyword2">gettype</span>(<span class="php-var">$part</span>));
 </span><span id="358" class="l">        }
 </span><span id="359" class="l">    }
 </span><span id="360" class="l">
@@ -534,6 +533,6 @@
 </div>
 </div>
 <script src="resources/combined.js?496e8d265118a3503abfcc3c98a8d118d6100636"></script>
-<script src="elementlist.js?54e11d2682e36b357e36e624550043272f2ce64b"></script>
+<script src="elementlist.js?b39e4be8c79684ee90ff327405f180507b417a82"></script>
 </body>
 </html>

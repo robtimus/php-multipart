@@ -44,7 +44,6 @@
 				<li><a href="class-Robtimus.Multipart.MultipartFormData.html">MultipartFormData</a></li>
 				<li><a href="class-Robtimus.Multipart.MultipartMixed.html">MultipartMixed</a></li>
 				<li class="active"><a href="class-Robtimus.Multipart.MultipartRelated.html">MultipartRelated</a></li>
-				<li><a href="class-Robtimus.Multipart.Util.html">Util</a></li>
 			</ul>
 
 
@@ -179,7 +178,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addPart">#</a>
-		<code><a href="source-class-Robtimus.Multipart.MultipartRelated.html#23-53" title="Go to source code">addPart</a>( <span>string|resource|callable <var>$content</var></span>, <span>string <var>$contentType</var></span>, <span>integer <var>$contentLength</var> = -<span class="php-num">1</span></span>, <span>string <var>$contentTransferEncoding</var> = <span class="php-quote">''</span></span> )</code>
+		<code><a href="source-class-Robtimus.Multipart.MultipartRelated.html#23-53" title="Go to source code">addPart</a>( <span>string|resource|callable(int):string <var>$content</var></span>, <span>string <var>$contentType</var></span>, <span>integer <var>$contentLength</var> = -<span class="php-num">1</span></span>, <span>string <var>$contentTransferEncoding</var> = <span class="php-quote">''</span></span> )</code>
 
 		<div class="description short">
 			<p>Adds a part.</p>
@@ -193,13 +192,13 @@
 				<div class="list"><dl>
 					<dt><var>$content</var></dt>
 					<dd><p>The part's content.
-                                                         If it's a callable it should take a length argument
-                                                         and return a string that is not larger than the input.</p></dd>
+                                                                     If it's a callable it should take a length argument
+                                                                     and return a string that is not larger than the input.</p></dd>
 					<dt><var>$contentType</var></dt>
 					<dd>The part's content type.</dd>
 					<dt><var>$contentLength</var></dt>
 					<dd><p>The part's content length, or -1 if not known.
-                                                         Ignored if the part's content is a string.</p></dd>
+                                                                     Ignored if the part's content is a string.</p></dd>
 					<dt><var>$contentTransferEncoding</var></dt>
 					<dd>The optional content transfer encoding.</dd>
 				</dl></div>
@@ -227,7 +226,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addInlineFile">#</a>
-		<code><a href="source-class-Robtimus.Multipart.MultipartRelated.html#55-91" title="Go to source code">addInlineFile</a>( <span>string <var>$contentID</var></span>, <span>string <var>$filename</var></span>, <span>string|resource|callable <var>$content</var></span>, <span>string <var>$contentType</var></span>, <span>integer <var>$contentLength</var> = -<span class="php-num">1</span></span>, <span>string <var>$contentTransferEncoding</var> = <span class="php-quote">''</span></span> )</code>
+		<code><a href="source-class-Robtimus.Multipart.MultipartRelated.html#55-91" title="Go to source code">addInlineFile</a>( <span>string <var>$contentID</var></span>, <span>string <var>$filename</var></span>, <span>string|resource|callable(int):string <var>$content</var></span>, <span>string <var>$contentType</var></span>, <span>integer <var>$contentLength</var> = -<span class="php-num">1</span></span>, <span>string <var>$contentTransferEncoding</var> = <span class="php-quote">''</span></span> )</code>
 
 		<div class="description short">
 			<p>Adds an inline file.</p>
@@ -245,13 +244,13 @@
 					<dd>The name of the file.</dd>
 					<dt><var>$content</var></dt>
 					<dd><p>The file's content.
-                                                         If it's a callable it should take a length argument
-                                                         and return a string that is not larger than the input.</p></dd>
+                                                                     If it's a callable it should take a length argument
+                                                                     and return a string that is not larger than the input.</p></dd>
 					<dt><var>$contentType</var></dt>
 					<dd>The file's content type.</dd>
 					<dt><var>$contentLength</var></dt>
 					<dd><p>The file's content length, or -1 if not known.
-                                                         Ignored if the file's content is a string.</p></dd>
+                                                                     Ignored if the file's content is a string.</p></dd>
 					<dt><var>$contentTransferEncoding</var></dt>
 					<dd>The optional content transfer encoding.</dd>
 				</dl></div>
@@ -320,6 +319,6 @@
 </div>
 </div>
 <script src="resources/combined.js?496e8d265118a3503abfcc3c98a8d118d6100636"></script>
-<script src="elementlist.js?54e11d2682e36b357e36e624550043272f2ce64b"></script>
+<script src="elementlist.js?b39e4be8c79684ee90ff327405f180507b417a82"></script>
 </body>
 </html>

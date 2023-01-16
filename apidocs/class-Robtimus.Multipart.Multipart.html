@@ -44,7 +44,6 @@
 				<li><a href="class-Robtimus.Multipart.MultipartFormData.html">MultipartFormData</a></li>
 				<li><a href="class-Robtimus.Multipart.MultipartMixed.html">MultipartMixed</a></li>
 				<li><a href="class-Robtimus.Multipart.MultipartRelated.html">MultipartRelated</a></li>
-				<li><a href="class-Robtimus.Multipart.Util.html">Util</a></li>
 			</ul>
 
 
@@ -478,7 +477,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addContent">#</a>
-		<code><a href="source-class-Robtimus.Multipart.Multipart.html#188-202" title="Go to source code">addContent</a>( <span>string|resource|callable <var>$content</var></span>, <span>integer <var>$length</var> = -<span class="php-num">1</span></span> )</code>
+		<code><a href="source-class-Robtimus.Multipart.Multipart.html#188-202" title="Go to source code">addContent</a>( <span>string|resource|callable(int):string <var>$content</var></span>, <span>integer <var>$length</var> = -<span class="php-num">1</span></span> )</code>
 
 		<div class="description short">
 			<p>Adds the content of a part.</p>
@@ -492,11 +491,11 @@
 				<div class="list"><dl>
 					<dt><var>$content</var></dt>
 					<dd><p>The content.
-                                         If it's a callable it should take a length argument
-                                         and return a string that is not larger than the input.</p></dd>
+                                                     If it's a callable it should take a length argument
+                                                     and return a string that is not larger than the input.</p></dd>
 					<dt><var>$length</var></dt>
 					<dd><p>The length of the part, or -1 if not known.
-                                         Ignored if the part is a string.</p></dd>
+                                                     Ignored if the part is a string.</p></dd>
 				</dl></div>
 
 
@@ -867,6 +866,6 @@ otherwise the contents that have already read may not be part of the result.</p>
 </div>
 </div>
 <script src="resources/combined.js?496e8d265118a3503abfcc3c98a8d118d6100636"></script>
-<script src="elementlist.js?54e11d2682e36b357e36e624550043272f2ce64b"></script>
+<script src="elementlist.js?b39e4be8c79684ee90ff327405f180507b417a82"></script>
 </body>
 </html>

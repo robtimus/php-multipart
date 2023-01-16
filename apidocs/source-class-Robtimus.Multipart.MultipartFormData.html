@@ -45,7 +45,6 @@
 				<li><a href="class-Robtimus.Multipart.MultipartFormData.html">Robtimus\Multipart\MultipartFormData</a></li>
 				<li><a href="class-Robtimus.Multipart.MultipartMixed.html">Robtimus\Multipart\MultipartMixed</a></li>
 				<li><a href="class-Robtimus.Multipart.MultipartRelated.html">Robtimus\Multipart\MultipartRelated</a></li>
-				<li><a href="class-Robtimus.Multipart.Util.html">Robtimus\Multipart\Util</a></li>
 			</ul>
 
 
@@ -130,14 +129,14 @@
 </span><span id="45" class="l">    <span class="php-comment">/**
 </span></span><span id="46" class="l"><span class="php-comment">     * Adds a file parameter.
 </span></span><span id="47" class="l"><span class="php-comment">     *
-</span></span><span id="48" class="l"><span class="php-comment">     * @param string                   $name          The parameter name.
-</span></span><span id="49" class="l"><span class="php-comment">     * @param string                   $filename      The name of the file.
-</span></span><span id="50" class="l"><span class="php-comment">     * @param string|resource|callable $content       The file's content.
-</span></span><span id="51" class="l"><span class="php-comment">     *                                                If it's a callable it should take a length argument
-</span></span><span id="52" class="l"><span class="php-comment">     *                                                and return a string that is not larger than the input.
-</span></span><span id="53" class="l"><span class="php-comment">     * @param string                   $contentType   The file's content type.
-</span></span><span id="54" class="l"><span class="php-comment">     * @param int                      $contentLength The file's content length, or -1 if not known.
-</span></span><span id="55" class="l"><span class="php-comment">     *                                                Ignored if the file's content is a string.
+</span></span><span id="48" class="l"><span class="php-comment">     * @param string                               $name          The parameter name.
+</span></span><span id="49" class="l"><span class="php-comment">     * @param string                               $filename      The name of the file.
+</span></span><span id="50" class="l"><span class="php-comment">     * @param string|resource|callable(int):string $content       The file's content.
+</span></span><span id="51" class="l"><span class="php-comment">     *                                                            If it's a callable it should take a length argument
+</span></span><span id="52" class="l"><span class="php-comment">     *                                                            and return a string that is not larger than the input.
+</span></span><span id="53" class="l"><span class="php-comment">     * @param string                               $contentType   The file's content type.
+</span></span><span id="54" class="l"><span class="php-comment">     * @param int                                  $contentLength The file's content length, or -1 if not known.
+</span></span><span id="55" class="l"><span class="php-comment">     *                                                            Ignored if the file's content is a string.
 </span></span><span id="56" class="l"><span class="php-comment">     *
 </span></span><span id="57" class="l"><span class="php-comment">     * @return MultipartFormData this object.
 </span></span><span id="58" class="l"><span class="php-comment">     */</span>
@@ -167,6 +166,6 @@
 </div>
 </div>
 <script src="resources/combined.js?496e8d265118a3503abfcc3c98a8d118d6100636"></script>
-<script src="elementlist.js?54e11d2682e36b357e36e624550043272f2ce64b"></script>
+<script src="elementlist.js?b39e4be8c79684ee90ff327405f180507b417a82"></script>
 </body>
 </html>

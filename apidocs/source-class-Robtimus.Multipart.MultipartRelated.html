@@ -45,7 +45,6 @@
 				<li><a href="class-Robtimus.Multipart.MultipartFormData.html">Robtimus\Multipart\MultipartFormData</a></li>
 				<li><a href="class-Robtimus.Multipart.MultipartMixed.html">Robtimus\Multipart\MultipartMixed</a></li>
 				<li><a href="class-Robtimus.Multipart.MultipartRelated.html">Robtimus\Multipart\MultipartRelated</a></li>
-				<li><a href="class-Robtimus.Multipart.Util.html">Robtimus\Multipart\Util</a></li>
 			</ul>
 
 
@@ -108,13 +107,13 @@
 </span><span id="23" class="l">    <span class="php-comment">/**
 </span></span><span id="24" class="l"><span class="php-comment">     * Adds a part.
 </span></span><span id="25" class="l"><span class="php-comment">     *
-</span></span><span id="26" class="l"><span class="php-comment">     * @param string|resource|callable $content                 The part's content.
-</span></span><span id="27" class="l"><span class="php-comment">     *                                                          If it's a callable it should take a length argument
-</span></span><span id="28" class="l"><span class="php-comment">     *                                                          and return a string that is not larger than the input.
-</span></span><span id="29" class="l"><span class="php-comment">     * @param string                   $contentType             The part's content type.
-</span></span><span id="30" class="l"><span class="php-comment">     * @param int                      $contentLength           The part's content length, or -1 if not known.
-</span></span><span id="31" class="l"><span class="php-comment">     *                                                          Ignored if the part's content is a string.
-</span></span><span id="32" class="l"><span class="php-comment">     * @param string                   $contentTransferEncoding The optional content transfer encoding.
+</span></span><span id="26" class="l"><span class="php-comment">     * @param string|resource|callable(int):string $content                 The part's content.
+</span></span><span id="27" class="l"><span class="php-comment">     *                                                                      If it's a callable it should take a length argument
+</span></span><span id="28" class="l"><span class="php-comment">     *                                                                      and return a string that is not larger than the input.
+</span></span><span id="29" class="l"><span class="php-comment">     * @param string                               $contentType             The part's content type.
+</span></span><span id="30" class="l"><span class="php-comment">     * @param int                                  $contentLength           The part's content length, or -1 if not known.
+</span></span><span id="31" class="l"><span class="php-comment">     *                                                                      Ignored if the part's content is a string.
+</span></span><span id="32" class="l"><span class="php-comment">     * @param string                               $contentTransferEncoding The optional content transfer encoding.
 </span></span><span id="33" class="l"><span class="php-comment">     *
 </span></span><span id="34" class="l"><span class="php-comment">     * @return MultipartRelated this object.
 </span></span><span id="35" class="l"><span class="php-comment">     */</span>
@@ -140,15 +139,15 @@
 </span><span id="55" class="l">    <span class="php-comment">/**
 </span></span><span id="56" class="l"><span class="php-comment">     * Adds an inline file.
 </span></span><span id="57" class="l"><span class="php-comment">     *
-</span></span><span id="58" class="l"><span class="php-comment">     * @param string                   $contentID               The content id of the file.
-</span></span><span id="59" class="l"><span class="php-comment">     * @param string                   $filename                The name of the file.
-</span></span><span id="60" class="l"><span class="php-comment">     * @param string|resource|callable $content                 The file's content.
-</span></span><span id="61" class="l"><span class="php-comment">     *                                                          If it's a callable it should take a length argument
-</span></span><span id="62" class="l"><span class="php-comment">     *                                                          and return a string that is not larger than the input.
-</span></span><span id="63" class="l"><span class="php-comment">     * @param string                   $contentType             The file's content type.
-</span></span><span id="64" class="l"><span class="php-comment">     * @param int                      $contentLength           The file's content length, or -1 if not known.
-</span></span><span id="65" class="l"><span class="php-comment">     *                                                          Ignored if the file's content is a string.
-</span></span><span id="66" class="l"><span class="php-comment">     * @param string                   $contentTransferEncoding The optional content transfer encoding.
+</span></span><span id="58" class="l"><span class="php-comment">     * @param string                               $contentID               The content id of the file.
+</span></span><span id="59" class="l"><span class="php-comment">     * @param string                               $filename                The name of the file.
+</span></span><span id="60" class="l"><span class="php-comment">     * @param string|resource|callable(int):string $content                 The file's content.
+</span></span><span id="61" class="l"><span class="php-comment">     *                                                                      If it's a callable it should take a length argument
+</span></span><span id="62" class="l"><span class="php-comment">     *                                                                      and return a string that is not larger than the input.
+</span></span><span id="63" class="l"><span class="php-comment">     * @param string                               $contentType             The file's content type.
+</span></span><span id="64" class="l"><span class="php-comment">     * @param int                                  $contentLength           The file's content length, or -1 if not known.
+</span></span><span id="65" class="l"><span class="php-comment">     *                                                                      Ignored if the file's content is a string.
+</span></span><span id="66" class="l"><span class="php-comment">     * @param string                               $contentTransferEncoding The optional content transfer encoding.
 </span></span><span id="67" class="l"><span class="php-comment">     *
 </span></span><span id="68" class="l"><span class="php-comment">     * @return MultipartRelated this object.
 </span></span><span id="69" class="l"><span class="php-comment">     */</span>
@@ -183,6 +182,6 @@
 </div>
 </div>
 <script src="resources/combined.js?496e8d265118a3503abfcc3c98a8d118d6100636"></script>
-<script src="elementlist.js?54e11d2682e36b357e36e624550043272f2ce64b"></script>
+<script src="elementlist.js?b39e4be8c79684ee90ff327405f180507b417a82"></script>
 </body>
 </html>
