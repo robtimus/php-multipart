@@ -76,7 +76,7 @@ To create a multipart/mixed object, create a `MultipartMixed` instance, add the 
 An example:
 
     // the multipart object can take an optional pre-existing boundary
-    $multipart = new MultipartAlternative();
+    $multipart = new MultipartMixed();
     // $alternative is a MultipartAlternative instance as created above
     $multipart->addMultipart($alternative);
     // the content length is irrelevant because the content is a string
