@@ -4,9 +4,10 @@ namespace Robtimus\Multipart;
 /**
  * Utility functions.
  *
- * @package Robtimus\Multipart
- * @author  Rob Spoor
- * @license https://www.apache.org/licenses/LICENSE-2.0.txt The Apache Software License, Version 2.0
+ * @package  Robtimus\Multipart
+ * @author   Rob Spoor
+ * @license  https://www.apache.org/licenses/LICENSE-2.0.txt The Apache Software License, Version 2.0
+ * @internal
  */
 final class Util
 {
@@ -20,7 +21,7 @@ final class Util
     /**
      * Validates that an input value is an int.
      *
-     * @param int    $input   The input to validate.
+     * @param mixed  $input   The input to validate.
      * @param string $name    The name of the input value.
      * @param string $message An optional message to show if the value is not an int.
      *
@@ -38,7 +39,7 @@ final class Util
     /**
      * Validates that an input value is a positive int.
      *
-     * @param int    $input   The input to validate.
+     * @param mixed  $input   The input to validate.
      * @param string $name    The name of the input value.
      * @param string $message An optional message to show if the value is not a positive int.
      *
@@ -57,7 +58,7 @@ final class Util
     /**
      * Validates that an input value is a string.
      *
-     * @param string $input   The input to validate.
+     * @param mixed  $input   The input to validate.
      * @param string $name    The name of the input value.
      * @param string $message An optional message to show if the value is not a string.
      *
@@ -75,7 +76,7 @@ final class Util
     /**
      * Validates that an input value is a non-empty string.
      *
-     * @param string $input   The input to validate.
+     * @param mixed  $input   The input to validate.
      * @param string $name    The name of the input value.
      * @param string $message An optional message to show if the value is not a non-empty string.
      *
@@ -94,9 +95,9 @@ final class Util
     /**
      * Validates that an input value can be used for streaming.
      *
-     * @param string|resource|callable(int):string $input   The input to validate.
-     * @param string                               $name    The name of the input value.
-     * @param string                               $message An optional message to show if the value cannot be used for streaming.
+     * @param mixed  $input   The input to validate.
+     * @param string $name    The name of the input value.
+     * @param string $message An optional message to show if the value cannot be used for streaming.
      *
      * @return void
      *
