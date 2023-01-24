@@ -47,17 +47,21 @@ jobs:
         with:
           fetch-depth: 0
       - name: Rebase PHP8 branch
+        env:
+          USER_EMAIL: ${{ github.event.pusher.email }}
+          USER_NAME: ${{ github.event.pusher.name }}
+          REBASE_TARGET: ${{ github.head_ref || github.ref_name }}
         run: |
-          git config user.email "${{ github.event.pusher.email }}"
-          git config user.name "${{ github.event.pusher.name }}"
+          git config user.email "$USER_EMAIL"
+          git config user.name "$USER_NAME"
           git pull
           git checkout php8
-          git rebase ${{ github.head_ref || github.ref_name }} php8
+          git rebase "$REBASE_TARGET" php8
           git status
           echo 'diff origin/php8:'
           git diff origin/php8
           echo 'diff current:'
-          git diff ${{ github.head_ref || github.ref_name }}
+          git diff "$REBASE_TARGET"
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{matrix.php}}
