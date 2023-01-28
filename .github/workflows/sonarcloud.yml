@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: Code Analysis
+name: SonarCloud
 
 on:
   workflow_dispatch:
@@ -22,8 +22,9 @@ on:
   pull_request:
 
 jobs:
-  sonarcloud:
+  scan:
     runs-on: ubuntu-latest
+    concurrency: sonar-${{ github.head_ref || github.ref_name }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -77,26 +78,3 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SonarCloudToken }}
           SONAR_HOST_URL: https://sonarcloud.io
-
-  phpstan:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up PHP 7.4
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '7.4'
-          coverage: xdebug
-          tools: phpstan
-      - name: Cache Composer packages
-        id: composer-cache
-        uses: actions/cache@v3
-        with:
-          path: vendor
-          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-php-
-      - name: Install dependencies
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-      - name: PHPStan
-        run: phpstan analyse
