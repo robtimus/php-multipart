@@ -1,4 +1,8 @@
 # Multipart
+[![Packagist Version](https://img.shields.io/packagist/v/robtimus/multipart)](https://packagist.org/packages/robtimus/multipart)
+[![Build Status](https://github.com/robtimus/data-url/actions/workflows/build.yml/badge.svg)](https://github.com/robtimus/php-multipart/actions/workflows/build.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=robtimus%3Amultipart&metric=alert_status)](https://sonarcloud.io/summary/overall?id=robtimus%3Amultipart)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=robtimus%3Amultipart&metric=coverage)](https://sonarcloud.io/summary/overall?id=robtimus%3Amultipart)
 
 A library to support (streaming) multiparts.
 
