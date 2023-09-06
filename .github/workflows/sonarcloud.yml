@@ -20,6 +20,8 @@ on:
     # only run for branches, not tags
     branches-ignore: php8
   pull_request:
+  schedule:
+    - cron: '0 6 27 4,10 *'
 
 jobs:
   scan:
