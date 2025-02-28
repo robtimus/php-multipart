@@ -65,7 +65,7 @@ jobs:
           SONAR_HOST_URL: https://sonarcloud.io
         with:
           # omitted for now: -Dsonar.projectDescription=${{ env.projectDescription }}
-          args: |
+          args: >
             -Dsonar.organization=robtimus-github
             -Dsonar.projectKey=${{ env.projectName }}
             -Dsonar.links.homepage=${{ env.projectHomepage }}
