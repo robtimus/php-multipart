@@ -25,7 +25,7 @@ jobs:
   phpstan:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Set up PHP 7.4
         uses: shivammathur/setup-php@v2
         with:
@@ -53,7 +53,7 @@ jobs:
         php: [5.4, 5.6, 7.0, 7.4]
       fail-fast: false
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{matrix.php}}
@@ -80,7 +80,7 @@ jobs:
         php: [8.0, 8.1, 8.2, 8.3]
       fail-fast: false
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: Rebase PHP8 branch
@@ -125,7 +125,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: php8
           fetch-depth: 0
