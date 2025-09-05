@@ -51,29 +51,22 @@ jobs:
           echo '{}' | jq '.http.upload.skip |= ${{ secrets.SKIP_HTTP_UPLOAD }}' > tests/config.json
           vendor/bin/phpunit tests --coverage-clover=coverage.xml
           sed -i 's~'$GITHUB_WORKSPACE'~/github/workspace/~g' coverage.xml
-      - name: Read composer.json
+      - name: Create Sonar properties
         run: |
-          echo "projectName=`jq -r .name composer.json | sed 's~/~:~'`" >> $GITHUB_ENV
-          echo "projectDescription=`jq -r .description composer.json`" >> $GITHUB_ENV
-          echo "projectHomepage=`jq -r .homepage composer.json`" >> $GITHUB_ENV
-          echo "projectBugUrl=`jq -r .support.issues composer.json`" >> $GITHUB_ENV
-          echo "projectRepositoryUrl=`git remote get-url origin | sed 's~git@github.com:~https://github.com/~'`" >> $GITHUB_ENV
+          echo "sonar.organization=robtimus-github" > sonar-project.properties
+          echo "sonar.projectKey=`jq -r .name composer.json | sed 's~/~:~'`" >> sonar-project.properties
+          echo "sonar.projectDescription=`jq -r .description composer.json`" >> sonar-project.properties
+          echo "sonar.links.homepage=`jq -r .homepage composer.json`" >> sonar-project.properties
+          echo "sonar.links.issue=`jq -r .support.issues composer.json`" >> sonar-project.properties
+          echo "sonar.links.scm=`git remote get-url origin | sed 's~git@github.com:~https://github.com/~'`" >> sonar-project.properties
+          echo "sonar.sources=src" >> sonar-project.properties
+          echo "sonar.tests=tests" >> sonar-project.properties
+          echo "sonar.php.coverage.reportPaths=coverage.xml" >> sonar-project.properties
       - name: SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SonarCloudToken }}
           SONAR_HOST_URL: https://sonarcloud.io
-        with:
-          # omitted for now: -Dsonar.projectDescription=${{ env.projectDescription }}
-          args: >
-            -Dsonar.organization=robtimus-github
-            -Dsonar.projectKey=${{ env.projectName }}
-            -Dsonar.links.homepage=${{ env.projectHomepage }}
-            -Dsonar.links.issue=${{ env.projectBugUrl }}
-            -Dsonar.links.scm=${{ env.projectRepositoryUrl }}
-            -Dsonar.sources=src
-            -Dsonar.tests=tests
-            -Dsonar.php.coverage.reportPaths=coverage.xml
       - name: SonarQube Quality Gate check
         uses: sonarsource/sonarqube-quality-gate-action@master
         timeout-minutes: 5
