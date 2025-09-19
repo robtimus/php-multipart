@@ -74,7 +74,7 @@ jobs:
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - name: PHP Unit
         run: |
-          echo '{}' | jq '.http.upload.skip |= ${{ secrets.SKIP_HTTP_UPLOAD }}' > tests/config.json
+          echo '{}' | jq '.http.upload.skip |= true' > tests/config.json
           vendor/bin/phpunit tests
 
   test-php8:
@@ -120,7 +120,7 @@ jobs:
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - name: PHP Unit
         run: |
-          echo '{}' | jq '.http.upload.skip |= ${{ secrets.SKIP_HTTP_UPLOAD }}' > tests/config.json
+          echo '{}' | jq '.http.upload.skip |= true' > tests/config.json
           vendor/bin/phpunit tests
 
   rebase-php8:
