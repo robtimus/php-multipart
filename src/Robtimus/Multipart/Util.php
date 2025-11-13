@@ -2,6 +2,7 @@
 namespace Robtimus\Multipart;
 
 use InvalidArgumentException;
+use ValueError;
 
 /**
  * Utility functions.
@@ -21,72 +22,36 @@ final class Util
     }
 
     /**
-     * Validates that an input value is an int.
-     *
-     * @param mixed  $input   The input to validate.
-     * @param string $name    The name of the input value.
-     * @param string $message An optional message to show if the value is not an int.
-     *
-     * @return void
-     * @throws InvalidArgumentException if the value is not an int.
-     */
-    public static function validateInt(&$input, $name, $message = '')
-    {
-        if (!is_int($input)) {
-            self::_throwIncorrectlyTypedException($name, $message);
-        }
-    }
-
-    /**
      * Validates that an input value is a positive int.
      *
-     * @param mixed  $input   The input to validate.
+     * @param int    $input   The input to validate.
      * @param string $name    The name of the input value.
      * @param string $message An optional message to show if the value is not a positive int.
      *
      * @return void
-     * @throws InvalidArgumentException if the value is not a positive int.
+     * @throws ValueError if the value is not positive.
      */
-    public static function validatePositiveInt(&$input, $name, $message = '')
+    public static function validatePositiveInt(int $input, string $name, string $message = '')
     {
-        self::validateInt($input, $name, $message);
         if ($input <= 0) {
-            throw new InvalidArgumentException($message === '' ? $name . ' <= 0' : $message);
-        }
-    }
-
-    /**
-     * Validates that an input value is a string.
-     *
-     * @param mixed  $input   The input to validate.
-     * @param string $name    The name of the input value.
-     * @param string $message An optional message to show if the value is not a string.
-     *
-     * @return void
-     * @throws InvalidArgumentException if the value is not a string.
-     */
-    public static function validateString(&$input, $name, $message = '')
-    {
-        if (!is_string($input)) {
-            self::_throwIncorrectlyTypedException($name, $message);
+            throw new ValueError($message === '' ? $name . ' <= 0' : $message);
         }
     }
 
     /**
      * Validates that an input value is a non-empty string.
      *
-     * @param mixed  $input   The input to validate.
+     * @param string $input   The input to validate.
      * @param string $name    The name of the input value.
      * @param string $message An optional message to show if the value is not a non-empty string.
      *
      * @return void
-     * @throws InvalidArgumentException if the value is not a non-empty string.
+     * @throws ValueError if the value is empty.
      */
-    public static function validateNonEmptyString(&$input, $name, $message = '')
+    public static function validateNonEmptyString(string $input, string $name, string $message = '')
     {
-        self::validateString($input, $name, $message);
         if (trim($input) === '') {
-            throw new InvalidArgumentException($message === '' ? $name . ' must be non-empty' : $message);
+            throw new ValueError($message === '' ? $name . ' must be non-empty' : $message);
         }
     }
 
@@ -100,7 +65,7 @@ final class Util
      * @return void
      * @throws InvalidArgumentException if the value cannot be used for streaming.
      */
-    public static function validateStreamable(&$input, $name, $message = '')
+    public static function validateStreamable(mixed $input, string $name, string $message = '')
     {
         if (!is_string($input) && !is_resource($input) && !is_callable($input)) {
             self::_throwIncorrectlyTypedException($name, $message);
@@ -116,7 +81,7 @@ final class Util
      * @return never
      * @throws InvalidArgumentException always.
      */
-    private static function _throwIncorrectlyTypedException($name, $message)
+    private static function _throwIncorrectlyTypedException(string $name, string $message)
     {
         throw new InvalidArgumentException($message === '' ? $name . ' is incorrectly typed' : $message);
     }

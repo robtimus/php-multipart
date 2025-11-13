@@ -114,14 +114,14 @@ To send a multipart object with a cURL request, you need to follow some steps:
 
 * Set the request type using `CURLOPT_CUSTOMREQUEST`.
 * Set the `CURLOPT_UPLOAD` option to `true`.
-* Set the object's `curl_read` method as the `CURLOPT_READFUNCTION`.
+* Set the object's `curlRead` method as the `CURLOPT_READFUNCTION`.
 * Make sure the `Content-Type` and `Content-Length` headers are set. Note that the `Content-Length` header is optional.
 
 For instance:
 
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
     curl_setopt($ch, CURLOPT_UPLOAD, true);
-    curl_setopt($ch, CURLOPT_READFUNCTION, array($multipart, 'curl_read'));
+    curl_setopt($ch, CURLOPT_READFUNCTION, array($multipart, 'curlRead'));
     
     $headers = ['Content-Type: ' . $multipart->getContentType()];
     $contentLength = $multipart->getContentLength();
@@ -132,6 +132,6 @@ For instance:
 
 ## Non-streaming support
 
-If streaming is not possible (e.g. because a string is required, like in the `mail` function), you can buffer a multipart object in-memory by calling the `buffer` method. This method takes an optional buffer size, and returns the buffered contents. The content length will be set accordingly. Note that you should do this before calling `read` (or `curl_read`), otherwise the buffered contents may not contain all desired contents (especially if you're using resources or callables).
+If streaming is not possible (e.g. because a string is required, like in the `mail` function), you can buffer a multipart object in-memory by calling the `buffer` method. This method takes an optional buffer size, and returns the buffered contents. The content length will be set accordingly. Note that you should do this before calling `read` (or `curlRead`), otherwise the buffered contents may not contain all desired contents (especially if you're using resources or callables).
 
 `Multipart.__toString()` has been overridden to buffer the multipart object as well, so you can achieve the same by casting a multipart object to `string`. The difference is that `buffer` requires the multipart object to be finished.

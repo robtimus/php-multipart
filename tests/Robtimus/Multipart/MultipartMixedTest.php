@@ -2,14 +2,16 @@
 namespace Robtimus\Multipart;
 
 use InvalidArgumentException;
+use ValueError;
 
 class MultipartMixedTest extends MultipartTestBase
 {
-    public function testAddPartInvalidTypeOfContent()
+    public function testAddPartInvalidTypeOfContent(): void
     {
         $multipart = new MultipartMixed();
 
         try {
+            // @phpstan-ignore argument.type
             $multipart->addPart(0, 'text/plain');
 
             $this->fail('Expected an InvalidArgumentException');
@@ -18,89 +20,38 @@ class MultipartMixedTest extends MultipartTestBase
         }
     }
 
-    public function testAddPartInvalidTypeOfContentType()
-    {
-        $multipart = new MultipartMixed();
-
-        try {
-            $multipart->addPart('Hello World', 0);
-
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
-            $this->assertEquals('$contentType is incorrectly typed', $e->getMessage());
-        }
-    }
-
-    public function testAddPartEmptyContentType()
+    public function testAddPartEmptyContentType(): void
     {
         $multipart = new MultipartMixed();
 
         try {
             $multipart->addPart('Hello World', '');
 
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
+            $this->fail('Expected a ValueError');
+        } catch (ValueError $e) {
             $this->assertEquals('$contentType must be non-empty', $e->getMessage());
         }
     }
 
-    public function testAddPartInvalidTypeOfContentLength()
-    {
-        $multipart = new MultipartMixed();
-
-        try {
-            $multipart->addPart('Hello World', 'text/plain', '');
-
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
-            $this->assertEquals('$contentLength is incorrectly typed', $e->getMessage());
-        }
-    }
-
-    public function testAddPartInvalidTypeOfContentTransferEncoding()
-    {
-        $multipart = new MultipartMixed();
-
-        try {
-            $multipart->addPart('Hello World', 'text/plain', -1, 0);
-
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
-            $this->assertEquals('$contentTransferEncoding is incorrectly typed', $e->getMessage());
-        }
-    }
-
-    public function testAddAttachmentInvalidTypeOfFilename()
-    {
-        $multipart = new MultipartMixed();
-
-        try {
-            $multipart->addAttachment(0, 'Hello World', 'text/plain');
-
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
-            $this->assertEquals('$filename is incorrectly typed', $e->getMessage());
-        }
-    }
-
-    public function testAddAttachmentEmptyFilename()
+    public function testAddAttachmentEmptyFilename(): void
     {
         $multipart = new MultipartMixed();
 
         try {
             $multipart->addAttachment('', 'Hello World', 'text/plain');
 
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
+            $this->fail('Expected a ValueError');
+        } catch (ValueError $e) {
             $this->assertEquals('$filename must be non-empty', $e->getMessage());
         }
     }
 
-    public function testAddAttachmentInvalidTypeOfContent()
+    public function testAddAttachmentInvalidTypeOfContent(): void
     {
         $multipart = new MultipartMixed();
 
         try {
+            // @phpstan-ignore argument.type
             $multipart->addAttachment('file.txt', 0, 'text/plain');
 
             $this->fail('Expected an InvalidArgumentException');
@@ -109,59 +60,20 @@ class MultipartMixedTest extends MultipartTestBase
         }
     }
 
-    public function testAddAttachmentInvalidTypeOfContentType()
-    {
-        $multipart = new MultipartMixed();
-
-        try {
-            $multipart->addAttachment('file.txt', 'Hello World', 0);
-
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
-            $this->assertEquals('$contentType is incorrectly typed', $e->getMessage());
-        }
-    }
-
-    public function testAddAttachmentEmptyContentType()
+    public function testAddAttachmentEmptyContentType(): void
     {
         $multipart = new MultipartMixed();
 
         try {
             $multipart->addAttachment('file.txt', 'Hello World', '');
 
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
+            $this->fail('Expected a ValueError');
+        } catch (ValueError $e) {
             $this->assertEquals('$contentType must be non-empty', $e->getMessage());
         }
     }
 
-    public function testAddAttachmentInvalidTypeOfContentLength()
-    {
-        $multipart = new MultipartMixed();
-
-        try {
-            $multipart->addAttachment('file.txt', 'Hello World', 'text/plain', '');
-
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
-            $this->assertEquals('$contentLength is incorrectly typed', $e->getMessage());
-        }
-    }
-
-    public function testAddAttachmentInvalidTypeOfContentTransferEncoding()
-    {
-        $multipart = new MultipartMixed();
-
-        try {
-            $multipart->addAttachment('file.txt', 'Hello World', 'text/plain', -1, 0);
-
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
-            $this->assertEquals('$contentTransferEncoding is incorrectly typed', $e->getMessage());
-        }
-    }
-
-    public function testReadPlainTextOnly()
+    public function testReadPlainTextOnly(): void
     {
         $multipart = new MultipartMixed('test-boundary');
         $multipart->addPart('Hello World', 'text/plain');
@@ -208,7 +120,7 @@ EOS;
         $this->assertEquals(strlen($expected), $multipart->getContentLength());
     }
 
-    public function testReadWithAlternative()
+    public function testReadWithAlternative(): void
     {
         $alternative = new MultipartAlternative('alternative-boundary');
         $alternative->addPart('Hello World', 'text/plain');
@@ -272,10 +184,10 @@ EOS;
     /**
      * @doesNotPerformAssertions
      */
-    public function testMailPlainTextOnly()
+    public function testMailPlainTextOnly(): void
     {
-        $fromAddress = $this->getConfigValue('mail.from', false);
-        $toAddress = $this->getConfigValue('mail.to', false);
+        $fromAddress = $this->getStringConfigValue('mail.from', false);
+        $toAddress = $this->getStringConfigValue('mail.to', false);
         if (is_null($fromAddress) || is_null($toAddress)) {
             $this->markTestSkipped('mail.from and/or mail.to is missing');
         }
@@ -298,10 +210,10 @@ EOS;
     /**
      * @doesNotPerformAssertions
      */
-    public function testMailWithRelatedOnly()
+    public function testMailWithRelatedOnly(): void
     {
-        $fromAddress = $this->getConfigValue('mail.from', false);
-        $toAddress = $this->getConfigValue('mail.to', false);
+        $fromAddress = $this->getStringConfigValue('mail.from', false);
+        $toAddress = $this->getStringConfigValue('mail.to', false);
         if (is_null($fromAddress) || is_null($toAddress)) {
             $this->markTestSkipped('mail.from and/or mail.to is missing');
         }
@@ -311,11 +223,13 @@ EOS;
         $this->setIniFromConfig('mail.sendmail.path', 'sendmail_path', false);
 
         $imagePath = dirname(__FILE__) . '/../../test.png';
+        // @phpstan-ignore argument.type
         $imageContent = base64_encode(file_get_contents($imagePath));
         $imageSize = filesize($imagePath);
 
         $related = new MultipartRelated();
         $related->addPart('<html>Hello World <img src="cid:inline_file">', 'text/html');
+        // @phpstan-ignore argument.type
         $related->addInlineFile('inline_file', 'test.png', $imageContent, 'image/png', $imageSize, 'base64');
         $related->finish();
 
@@ -333,10 +247,10 @@ EOS;
     /**
      * @doesNotPerformAssertions
      */
-    public function testMailWithAlternativeAndRelated()
+    public function testMailWithAlternativeAndRelated(): void
     {
-        $fromAddress = $this->getConfigValue('mail.from', false);
-        $toAddress = $this->getConfigValue('mail.to', false);
+        $fromAddress = $this->getStringConfigValue('mail.from', false);
+        $toAddress = $this->getStringConfigValue('mail.to', false);
         if (is_null($fromAddress) || is_null($toAddress)) {
             $this->markTestSkipped('mail.from and/or mail.to is missing');
         }
@@ -346,11 +260,13 @@ EOS;
         $this->setIniFromConfig('mail.sendmail.path', 'sendmail_path', false);
 
         $imagePath = dirname(__FILE__) . '/../../test.png';
+        // @phpstan-ignore argument.type
         $imageContent = base64_encode(file_get_contents($imagePath));
         $imageSize = filesize($imagePath);
 
         $related = new MultipartRelated();
         $related->addPart('<html>Hello World <img src="cid:inline_file">', 'text/html');
+        // @phpstan-ignore argument.type
         $related->addInlineFile('inline_file', 'test.png', $imageContent, 'image/png', $imageSize, 'base64');
         $related->finish();
 
