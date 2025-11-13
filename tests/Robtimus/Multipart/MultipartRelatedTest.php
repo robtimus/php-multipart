@@ -2,14 +2,16 @@
 namespace Robtimus\Multipart;
 
 use InvalidArgumentException;
+use ValueError;
 
 class MultipartRelatedTest extends MultipartTestBase
 {
-    public function testAddPartInvalidTypeOfContent()
+    public function testAddPartInvalidTypeOfContent(): void
     {
         $multipart = new MultipartRelated();
 
         try {
+            // @phpstan-ignore argument.type
             $multipart->addPart(0, 'text/plain');
 
             $this->fail('Expected an InvalidArgumentException');
@@ -18,115 +20,51 @@ class MultipartRelatedTest extends MultipartTestBase
         }
     }
 
-    public function testAddPartInvalidTypeOfContentType()
-    {
-        $multipart = new MultipartRelated();
-
-        try {
-            $multipart->addPart('Hello World', 0);
-
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
-            $this->assertEquals('$contentType is incorrectly typed', $e->getMessage());
-        }
-    }
-
-    public function testAddPartEmptyContentType()
+    public function testAddPartEmptyContentType(): void
     {
         $multipart = new MultipartRelated();
 
         try {
             $multipart->addPart('Hello World', '');
 
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
+            $this->fail('Expected a ValueError');
+        } catch (ValueError $e) {
             $this->assertEquals('$contentType must be non-empty', $e->getMessage());
         }
     }
 
-    public function testAddPartInvalidTypeOfContentLength()
-    {
-        $multipart = new MultipartRelated();
-
-        try {
-            $multipart->addPart('Hello World', 'text/plain', '');
-
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
-            $this->assertEquals('$contentLength is incorrectly typed', $e->getMessage());
-        }
-    }
-
-    public function testAddPartInvalidTypeOfContentTransferEncoding()
-    {
-        $multipart = new MultipartRelated();
-
-        try {
-            $multipart->addPart('Hello World', 'text/plain', -1, 0);
-
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
-            $this->assertEquals('$contentTransferEncoding is incorrectly typed', $e->getMessage());
-        }
-    }
-
-    public function testAddInlineFileInvalidTypeOfContentID()
-    {
-        $multipart = new MultipartRelated();
-
-        try {
-            $multipart->addInlineFile(0, 'file.txt', 'Hello World', 'text/plain');
-
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
-            $this->assertEquals('$contentID is incorrectly typed', $e->getMessage());
-        }
-    }
-
-    public function testAddInlineFileEmptyContentID()
+    public function testAddInlineFileEmptyContentID(): void
     {
         $multipart = new MultipartRelated();
 
         try {
             $multipart->addInlineFile('', 'file.txt', 'Hello World', 'text/plain');
 
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
+            $this->fail('Expected a ValueError');
+        } catch (ValueError $e) {
             $this->assertEquals('$contentID must be non-empty', $e->getMessage());
         }
     }
 
-    public function testAddInlineFileInvalidTypeOfFilename()
-    {
-        $multipart = new MultipartRelated();
-
-        try {
-            $multipart->addInlineFile('cid', 0, 'Hello World', 'text/plain');
-
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
-            $this->assertEquals('$filename is incorrectly typed', $e->getMessage());
-        }
-    }
-
-    public function testAddInlineFileEmptyFilename()
+    public function testAddInlineFileEmptyFilename(): void
     {
         $multipart = new MultipartRelated();
 
         try {
             $multipart->addInlineFile('cid', '', 'Hello World', 'text/plain');
 
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
+            $this->fail('Expected a ValueError');
+        } catch (ValueError $e) {
             $this->assertEquals('$filename must be non-empty', $e->getMessage());
         }
     }
 
-    public function testAddInlineFileInvalidTypeOfContent()
+    public function testAddInlineFileInvalidTypeOfContent(): void
     {
         $multipart = new MultipartRelated();
 
         try {
+            // @phpstan-ignore argument.type
             $multipart->addInlineFile('cid', 'file.txt', 0, 'text/plain');
 
             $this->fail('Expected an InvalidArgumentException');
@@ -135,59 +73,20 @@ class MultipartRelatedTest extends MultipartTestBase
         }
     }
 
-    public function testAddInlineFileInvalidTypeOfContentType()
-    {
-        $multipart = new MultipartRelated();
-
-        try {
-            $multipart->addInlineFile('cid', 'file.txt', 'Hello World', 0);
-
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
-            $this->assertEquals('$contentType is incorrectly typed', $e->getMessage());
-        }
-    }
-
-    public function testAddInlineFileEmptyContentType()
+    public function testAddInlineFileEmptyContentType(): void
     {
         $multipart = new MultipartRelated();
 
         try {
             $multipart->addInlineFile('cid', 'file.txt', 'Hello World', '');
 
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
+            $this->fail('Expected a ValueError');
+        } catch (ValueError $e) {
             $this->assertEquals('$contentType must be non-empty', $e->getMessage());
         }
     }
 
-    public function testAddInlineFileInvalidTypeOfContentLength()
-    {
-        $multipart = new MultipartRelated();
-
-        try {
-            $multipart->addInlineFile('cid', 'file.txt', 'Hello World', 'text/plain', '');
-
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
-            $this->assertEquals('$contentLength is incorrectly typed', $e->getMessage());
-        }
-    }
-
-    public function testAddInlineFileInvalidTypeOfContentTransferEncoding()
-    {
-        $multipart = new MultipartRelated();
-
-        try {
-            $multipart->addInlineFile('cid', 'file.txt', 'Hello World', 'text/plain', -1, 0);
-
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
-            $this->assertEquals('$contentTransferEncoding is incorrectly typed', $e->getMessage());
-        }
-    }
-
-    public function testRead()
+    public function testRead(): void
     {
         $multipart = new MultipartRelated('test-boundary');
         $multipart->addPart("<html>\nHello World\n</html>", 'text/html');
@@ -225,10 +124,10 @@ EOS;
     /**
      * @doesNotPerformAssertions
      */
-    public function testMail()
+    public function testMail(): void
     {
-        $fromAddress = $this->getConfigValue('mail.from', false);
-        $toAddress = $this->getConfigValue('mail.to', false);
+        $fromAddress = $this->getStringConfigValue('mail.from', false);
+        $toAddress = $this->getStringConfigValue('mail.to', false);
         if (is_null($fromAddress) || is_null($toAddress)) {
             $this->markTestSkipped('mail.from and/or mail.to is missing');
         }
@@ -238,11 +137,13 @@ EOS;
         $this->setIniFromConfig('mail.sendmail.path', 'sendmail_path', false);
 
         $imagePath = dirname(__FILE__) . '/../../test.png';
+        // @phpstan-ignore argument.type
         $imageContent = base64_encode(file_get_contents($imagePath));
         $imageSize = filesize($imagePath);
 
         $multipart = new MultipartRelated();
         $multipart->addPart('<html>Hello World <img src="cid:inline_file">', 'text/html');
+        // @phpstan-ignore argument.type
         $multipart->addInlineFile('inline_file', 'test.png', $imageContent, 'image/png', $imageSize, 'base64');
         $multipart->finish();
 

@@ -3,6 +3,7 @@ namespace Robtimus\Multipart;
 
 use InvalidArgumentException;
 use LogicException;
+use ValueError;
 
 /**
  * A multipart/alternative object.
@@ -18,9 +19,9 @@ final class MultipartAlternative extends Multipart
      *
      * @param string $boundary The multipart boundary. If empty a new boundary will be generated.
      *
-     * @throws InvalidArgumentException If the given content type is empty.
+     * @throws ValueError If the given content type is empty.
      */
-    public function __construct($boundary = '')
+    public function __construct(string $boundary = '')
     {
         parent::__construct($boundary, 'multipart/alternative');
     }
@@ -33,7 +34,7 @@ final class MultipartAlternative extends Multipart
      * @return MultipartAlternative this object.
      * @throws LogicException If the multipart is already finished.
      */
-    public function addMultipart(Multipart $multipart)
+    public function addMultipart(Multipart $multipart): MultipartAlternative
     {
         $this->addNestedMultipart($multipart);
         return $this;
@@ -52,15 +53,13 @@ final class MultipartAlternative extends Multipart
      *
      * @return MultipartAlternative this object.
      * @throws InvalidArgumentException If the content is not a string, resource or callable.
-     * @throws InvalidArgumentException If the content type is empty.
+     * @throws ValueError               If the content type is empty.
      * @throws LogicException           If the multipart is already finished.
      */
-    public function addPart($content, $contentType, $contentLength = -1, $contentTransferEncoding = '')
+    public function addPart(mixed $content, string $contentType, int $contentLength = -1, string $contentTransferEncoding = ''): MultipartAlternative
     {
         Util::validateStreamable($content, '$content');
         Util::validateNonEmptyString($contentType, '$contentType');
-        Util::validateInt($contentLength, '$contentLength');
-        Util::validateString($contentTransferEncoding, '$contentTransferEncoding');
 
         $this->startPart();
         $this->addContentType($contentType);

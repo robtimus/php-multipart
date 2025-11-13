@@ -3,6 +3,7 @@ namespace Robtimus\Multipart;
 
 use InvalidArgumentException;
 use LogicException;
+use ValueError;
 
 /**
  * A multipart/form-data object.
@@ -18,9 +19,9 @@ final class MultipartFormData extends Multipart
      *
      * @param string $boundary the multipart boundary. If empty a new boundary will be generated.
      *
-     * @throws InvalidArgumentException If the given content type is empty.
+     * @throws ValueError If the given content type is empty.
      */
-    public function __construct($boundary = '')
+    public function __construct(string $boundary = '')
     {
         parent::__construct($boundary, 'multipart/form-data');
     }
@@ -32,13 +33,12 @@ final class MultipartFormData extends Multipart
      * @param string $value The parameter value.
      *
      * @return MultipartFormData this object.
-     * @throws InvalidArgumentException If the parameter name is empty.
-     * @throws LogicException           If the multipart is already finished.
+     * @throws ValueError     If the parameter name is empty.
+     * @throws LogicException If the multipart is already finished.
      */
-    public function addValue($name, $value)
+    public function addValue(string $name, string $value): MultipartFormData
     {
         Util::validateNonEmptyString($name, '$name');
-        Util::validateString($value, '$value');
 
         $this->startPart();
         $this->addContentDisposition('form-data', $name);
@@ -62,17 +62,16 @@ final class MultipartFormData extends Multipart
      *                                                            Ignored if the file's content is a string.
      *
      * @return MultipartFormData this object.
-     * @throws InvalidArgumentException If the parameter name, file name or content type is empty.
+     * @throws ValueError               If the parameter name, file name or content type is empty.
      * @throws InvalidArgumentException If the content is not a string, resource or callable.
      * @throws LogicException           If the multipart is already finished.
      */
-    public function addFile($name, $filename, $content, $contentType, $contentLength = -1)
+    public function addFile(string $name, string $filename, mixed $content, string $contentType, int $contentLength = -1): MultipartFormData
     {
         Util::validateNonEmptyString($name, '$name');
         Util::validateNonEmptyString($filename, '$filename');
         Util::validateStreamable($content, '$content');
         Util::validateNonEmptyString($contentType, '$contentType');
-        Util::validateInt($contentLength, '$contentLength');
 
         $this->startPart();
         $this->addContentDisposition('form-data', $name, $filename);

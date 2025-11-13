@@ -4,43 +4,22 @@ namespace Robtimus\Multipart;
 use InvalidArgumentException;
 use LogicException;
 use UnexpectedValueException;
+use ValueError;
 
 class MultipartTest extends MultipartTestBase
 {
-    public function testConstructWithNonStringBoundary()
-    {
-        try {
-            new TestMultipart(0);
-
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
-            $this->assertEquals('$boundary is incorrectly typed', $e->getMessage());
-        }
-    }
-
-    public function testConstructWithNonStringContentType()
-    {
-        try {
-            new TestMultipart('', 0);
-
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
-            $this->assertEquals('$contentType is incorrectly typed', $e->getMessage());
-        }
-    }
-
-    public function testConstructWithEmptyContentType()
+    public function testConstructWithEmptyContentType(): void
     {
         try {
             new TestMultipart('', '');
 
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
+            $this->fail('Expected a ValueError');
+        } catch (ValueError $e) {
             $this->assertEquals('$contentType must be non-empty', $e->getMessage());
         }
     }
 
-    public function testAddWhenFinished()
+    public function testAddWhenFinished(): void
     {
         $multipart = new TestMultipart();
         $multipart->finish();
@@ -54,11 +33,12 @@ class MultipartTest extends MultipartTestBase
         }
     }
 
-    public function testAddInvalidType()
+    public function testAddInvalidType(): void
     {
         $multipart = new TestMultipart();
 
         try {
+            // @phpstan-ignore argument.type
             $multipart->add(0);
 
             $this->fail('Expected an InvalidArgumentException');
@@ -67,7 +47,7 @@ class MultipartTest extends MultipartTestBase
         }
     }
 
-    public function testReadBeforeFinish()
+    public function testReadBeforeFinish(): void
     {
         $multipart = new TestMultipart();
         $multipart->add('Hello World');
@@ -81,7 +61,7 @@ class MultipartTest extends MultipartTestBase
         }
     }
 
-    public function testBufferBeforeFinish()
+    public function testBufferBeforeFinish(): void
     {
         $multipart = new TestMultipart();
         $multipart->add('Hello World');
@@ -95,22 +75,7 @@ class MultipartTest extends MultipartTestBase
         }
     }
 
-    public function testReadNonIntegerLength()
-    {
-        $multipart = new TestMultipart('test-boundary');
-        $multipart->add('Hello World');
-        $multipart->finish();
-
-        try {
-            $multipart->read('');
-
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
-            $this->assertEquals('$length is incorrectly typed', $e->getMessage());
-        }
-    }
-
-    public function testReadNonPositiveLength()
+    public function testReadNonPositiveLength(): void
     {
         $multipart = new TestMultipart('test-boundary');
         $multipart->add('Hello World');
@@ -129,7 +94,7 @@ class MultipartTest extends MultipartTestBase
         $this->assertEquals($expected, $result);
     }
 
-    public function testReadEmpty()
+    public function testReadEmpty(): void
     {
         $multipart = new TestMultipart('test-boundary');
         $multipart->finish();
@@ -143,7 +108,7 @@ class MultipartTest extends MultipartTestBase
         $this->assertEquals($expected, $result);
     }
 
-    public function testReadOnlyStrings()
+    public function testReadOnlyStrings(): void
     {
         $multipart = new TestMultipart('test-boundary');
         $expected = '';
@@ -163,10 +128,11 @@ class MultipartTest extends MultipartTestBase
         $this->assertEquals($expected, $result);
     }
 
-    public function testReadOnlyFileResources()
+    public function testReadOnlyFileResources(): void
     {
         $multipart = new TestMultipart('test-boundary');
         $resource = fopen(__FILE__, 'rb');
+        // @phpstan-ignore argument.type
         $multipart->add($resource);
         $expected = file_get_contents(__FILE__);
         $multipart->finish();
@@ -179,14 +145,16 @@ class MultipartTest extends MultipartTestBase
 
         $this->assertEquals($expected, $result);
 
+        // @phpstan-ignore argument.type
         fclose($resource);
     }
 
-    public function testReadOnlyUrlResources()
+    public function testReadOnlyUrlResources(): void
     {
         $url = 'http://www.example.org/';
         $multipart = new TestMultipart('test-boundary');
         $resource = fopen($url, 'rb');
+        // @phpstan-ignore argument.type
         $multipart->add($resource);
         $expected = file_get_contents($url);
         $multipart->finish();
@@ -199,17 +167,20 @@ class MultipartTest extends MultipartTestBase
 
         $this->assertEquals($expected, $result);
 
+        // @phpstan-ignore argument.type
         fclose($resource);
     }
 
-    public function testReadOnlyCallables()
+    public function testReadOnlyCallables(): void
     {
         $resource = fopen(__FILE__, 'rb');
         $callable = function ($length) use ($resource) {
+            // @phpstan-ignore argument.type
             return fread($resource, $length);
         };
 
         $multipart = new TestMultipart('test-boundary');
+        // @phpstan-ignore argument.type
         $multipart->add($callable);
         $expected = file_get_contents(__FILE__);
         $multipart->finish();
@@ -222,10 +193,11 @@ class MultipartTest extends MultipartTestBase
 
         $this->assertEquals($expected, $result);
 
+        // @phpstan-ignore argument.type
         fclose($resource);
     }
 
-    public function testReadMixed()
+    public function testReadMixed(): void
     {
         $multipart = new TestMultipart('test-boundary');
         $expected = '';
@@ -236,14 +208,17 @@ class MultipartTest extends MultipartTestBase
         }
 
         $resource = fopen(__FILE__, 'rb');
+        // @phpstan-ignore argument.type
         $multipart->add($resource);
         $expected .= file_get_contents(__FILE__);
 
         $resource2 = fopen(__FILE__, 'rb');
         $callable = function ($length) use ($resource2) {
+            // @phpstan-ignore argument.type
             return fread($resource2, $length);
         };
 
+        // @phpstan-ignore argument.type
         $multipart->add($callable);
         $expected .= file_get_contents(__FILE__);
 
@@ -262,17 +237,21 @@ class MultipartTest extends MultipartTestBase
 
         $this->assertEquals($expected, $result);
 
+        // @phpstan-ignore argument.type
         fclose($resource);
+        // @phpstan-ignore argument.type
         fclose($resource2);
     }
 
-    public function testReadClosedResource()
+    public function testReadClosedResource(): void
     {
         $multipart = new TestMultipart();
         $file = fopen(__FILE__, 'rb');
+        // @phpstan-ignore argument.type
         $multipart->add($file);
         $multipart->finish();
 
+        // @phpstan-ignore argument.type
         fclose($file);
 
         try {
@@ -284,23 +263,19 @@ class MultipartTest extends MultipartTestBase
         }
     }
 
-    public function testContentTypeWithGeneratedBoundary()
+    public function testContentTypeWithGeneratedBoundary(): void
     {
         $multipart = new TestMultipart();
 
         $uuidRegExp = '[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{8}';
         $expected = '/multipart\/test; boundary=' . $uuidRegExp . '/';
-        if (method_exists($this, 'assertMatchesRegularExpression')) {
-            $this->assertMatchesRegularExpression($expected, $multipart->getContentType());
-        } else {
-            $this->assertRegExp($expected, $multipart->getContentType());
-        }
+        $this->assertMatchesRegularExpression($expected, $multipart->getContentType());
 
         $boundary = $multipart->getBoundary();
         $this->assertEquals('multipart/test; boundary=' . $boundary, $multipart->getContentType());
     }
 
-    public function testContentTypeWithCustomBoundary()
+    public function testContentTypeWithCustomBoundary(): void
     {
         $multipart = new TestMultipart('test-boundary');
 
@@ -308,14 +283,14 @@ class MultipartTest extends MultipartTestBase
         $this->assertEquals('test-boundary', $multipart->getBoundary());
     }
 
-    public function testContentLength()
+    public function testContentLength(): void
     {
         $multipart = new TestMultipart('');
 
         $this->assertEquals(0, $multipart->getContentLength());
     }
 
-    public function testContentLengthOnlyStrings()
+    public function testContentLengthOnlyStrings(): void
     {
         $multipart = new TestMultipart();
         $expected = 0;
@@ -328,26 +303,28 @@ class MultipartTest extends MultipartTestBase
         $this->assertEquals($expected, $multipart->getContentLength());
     }
 
-    public function testContentLengthOnlyNonStringsNoContentLengthGiven()
+    public function testContentLengthOnlyNonStringsNoContentLengthGiven(): void
     {
         $multipart = new TestMultipart();
         $resource = fopen(__FILE__, 'rb');
+        // @phpstan-ignore argument.type
         $multipart->add($resource);
 
         $this->assertEquals(-1, $multipart->getContentLength());
     }
 
-    public function testContentLengthOnlyNonStringsContentLengthGiven()
+    public function testContentLengthOnlyNonStringsContentLengthGiven(): void
     {
         $multipart = new TestMultipart();
         $resource = fopen(__FILE__, 'rb');
         $length = filesize(__FILE__);
+        // @phpstan-ignore argument.type, argument.type
         $multipart->add($resource, $length);
 
         $this->assertEquals($length, $multipart->getContentLength());
     }
 
-    public function testContentLengthMixedContentLengthsGiven()
+    public function testContentLengthMixedContentLengthsGiven(): void
     {
         $multipart = new TestMultipart();
         $expected = 0;
@@ -359,6 +336,7 @@ class MultipartTest extends MultipartTestBase
 
         $resource = fopen(__FILE__, 'rb');
         $length = filesize(__FILE__);
+        // @phpstan-ignore argument.type, argument.type
         $multipart->add($resource, $length);
         $expected += $length;
 
@@ -370,10 +348,11 @@ class MultipartTest extends MultipartTestBase
 
         $this->assertEquals($expected, $multipart->getContentLength());
 
+        // @phpstan-ignore argument.type
         fclose($resource);
     }
 
-    public function testContentLengthMixedNoContentLengthsGiven()
+    public function testContentLengthMixedNoContentLengthsGiven(): void
     {
         $multipart = new TestMultipart();
         for ($i = 0; $i < 100; $i++) {
@@ -382,6 +361,7 @@ class MultipartTest extends MultipartTestBase
         }
 
         $resource = fopen(__FILE__, 'rb');
+        // @phpstan-ignore argument.type
         $multipart->add($resource);
 
         for ($i = 0; $i < 100; $i++) {
@@ -391,25 +371,11 @@ class MultipartTest extends MultipartTestBase
 
         $this->assertEquals(-1, $multipart->getContentLength());
 
+        // @phpstan-ignore argument.type
         fclose($resource);
     }
 
-    public function testBufferNonIntegerLength()
-    {
-        $multipart = new TestMultipart('test-boundary');
-        $multipart->add('Hello World');
-        $multipart->finish();
-
-        try {
-            $multipart->buffer('');
-
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
-            $this->assertEquals('$bufferSize is incorrectly typed', $e->getMessage());
-        }
-    }
-
-    public function testBufferNonPositiveLength()
+    public function testBufferNonPositiveLength(): void
     {
         $multipart = new TestMultipart('test-boundary');
         $multipart->add('Hello World');
@@ -418,21 +384,21 @@ class MultipartTest extends MultipartTestBase
         try {
             $multipart->buffer(0);
 
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
+            $this->fail('Expected a ValueError');
+        } catch (ValueError $e) {
             $this->assertEquals('$bufferSize <= 0', $e->getMessage());
         }
 
         try {
             $multipart->buffer(-1);
 
-            $this->fail('Expected an InvalidArgumentException');
-        } catch (InvalidArgumentException $e) {
+            $this->fail('Expected a ValueError');
+        } catch (ValueError $e) {
             $this->assertEquals('$bufferSize <= 0', $e->getMessage());
         }
     }
 
-    public function testBuffer()
+    public function testBuffer(): void
     {
         $multipart = new TestMultipart('test-boundary');
         $expected = '';
@@ -445,6 +411,7 @@ class MultipartTest extends MultipartTestBase
         }
 
         $resource = fopen(__FILE__, 'rb');
+        // @phpstan-ignore argument.type
         $multipart->add($resource);
         $expected .= file_get_contents(__FILE__);
         $this->assertFalse($multipart->isBuffered());
@@ -452,9 +419,11 @@ class MultipartTest extends MultipartTestBase
 
         $resource2 = fopen(__FILE__, 'rb');
         $callable = function ($length) use ($resource2) {
+            // @phpstan-ignore argument.type
             return fread($resource2, $length);
         };
 
+        // @phpstan-ignore argument.type
         $multipart->add($callable);
         $expected .= file_get_contents(__FILE__);
         $this->assertFalse($multipart->isBuffered());
@@ -476,7 +445,9 @@ class MultipartTest extends MultipartTestBase
         $result = $multipart->buffer();
         $this->assertTrue($multipart->isBuffered());
 
+        // @phpstan-ignore argument.type
         fclose($resource);
+        // @phpstan-ignore argument.type
         fclose($resource2);
 
         $this->assertEquals($expected, $result);
@@ -502,7 +473,7 @@ class MultipartTest extends MultipartTestBase
         $this->assertEquals($expected, $result);
     }
 
-    public function testToString()
+    public function testToString(): void
     {
         $multipart = new TestMultipart('test-boundary');
         $expected = '';
@@ -515,6 +486,7 @@ class MultipartTest extends MultipartTestBase
         }
 
         $resource = fopen(__FILE__, 'rb');
+        // @phpstan-ignore argument.type
         $multipart->add($resource);
         $expected .= file_get_contents(__FILE__);
         $this->assertFalse($multipart->isBuffered());
@@ -522,9 +494,11 @@ class MultipartTest extends MultipartTestBase
 
         $resource2 = fopen(__FILE__, 'rb');
         $callable = function ($length) use ($resource2) {
+            // @phpstan-ignore argument.type
             return fread($resource2, $length);
         };
 
+        // @phpstan-ignore argument.type
         $multipart->add($callable);
         $expected .= file_get_contents(__FILE__);
         $this->assertFalse($multipart->isBuffered());
@@ -546,7 +520,9 @@ class MultipartTest extends MultipartTestBase
         $result = (string) $multipart;
         $this->assertTrue($multipart->isBuffered());
 
+        // @phpstan-ignore argument.type
         fclose($resource);
+        // @phpstan-ignore argument.type
         fclose($resource2);
 
         $this->assertEquals($expected, $result);
@@ -572,7 +548,7 @@ class MultipartTest extends MultipartTestBase
         $this->assertEquals($expected, $result);
     }
 
-    public function testToStringNoFinish()
+    public function testToStringNoFinish(): void
     {
         $multipart = new TestMultipart();
         $expected = '';
@@ -585,6 +561,7 @@ class MultipartTest extends MultipartTestBase
         }
 
         $resource = fopen(__FILE__, 'rb');
+        // @phpstan-ignore argument.type
         $multipart->add($resource);
         $expected .= file_get_contents(__FILE__);
         $this->assertFalse($multipart->isBuffered());
@@ -592,9 +569,11 @@ class MultipartTest extends MultipartTestBase
 
         $resource2 = fopen(__FILE__, 'rb');
         $callable = function ($length) use ($resource2) {
+            // @phpstan-ignore argument.type
             return fread($resource2, $length);
         };
 
+        // @phpstan-ignore argument.type
         $multipart->add($callable);
         $expected .= file_get_contents(__FILE__);
         $this->assertFalse($multipart->isBuffered());
@@ -612,7 +591,9 @@ class MultipartTest extends MultipartTestBase
         $this->assertTrue($multipart->isBuffered());
         $this->assertFalse($multipart->isFinished());
 
+        // @phpstan-ignore argument.type
         fclose($resource);
+        // @phpstan-ignore argument.type
         fclose($resource2);
 
         $this->assertEquals($expected, $result);
@@ -626,18 +607,20 @@ class MultipartTest extends MultipartTestBase
 class TestMultipart extends Multipart
 {
     /**
-     * @param string|int $boundary
-     * @param string|int $contentType
+     * @param string $boundary
+     * @param string $contentType
      *
-     * @throws InvalidArgumentException If either argument is not a string.
-     * @throws InvalidArgumentException If the given content type is empty.
+     * @throws ValueError If the given content type is empty.
      */
-    public function __construct($boundary = '', $contentType = 'multipart/test')
+    public function __construct(string $boundary = '', string $contentType = 'multipart/test')
     {
         parent::__construct($boundary, $contentType);
     }
 
-    public function add($content, $length = -1)
+    /**
+     * @param string|resource|callable(int):string $content
+     */
+    public function add(mixed $content, int $length = -1): void
     {
         $this->addContent($content, $length);
     }

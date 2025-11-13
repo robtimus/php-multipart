@@ -6,6 +6,7 @@ use ErrorException;
 use InvalidArgumentException;
 use LogicException;
 use UnexpectedValueException;
+use ValueError;
 
 /**
  * Base class of multipart types.
@@ -78,11 +79,10 @@ abstract class Multipart
      * @param string $boundary    The multipart boundary. If empty a new boundary will be generated.
      * @param string $contentType The content type without the boundary.
      *
-     * @throws InvalidArgumentException If the given content type is empty.
+     * @throws ValueError If the given content type is empty.
      */
-    protected function __construct($boundary, $contentType)
+    protected function __construct(string $boundary, string $contentType)
     {
-        Util::validateString($boundary, '$boundary');
         Util::validateNonEmptyString($contentType, '$contentType');
 
         $this->_boundary = $boundary !== '' ? $boundary : $this->_generateBoundary();
@@ -94,7 +94,7 @@ abstract class Multipart
      *
      * @return string
      */
-    private function _generateBoundary()
+    private function _generateBoundary(): string
     {
         return sprintf(
             '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
@@ -114,7 +114,7 @@ abstract class Multipart
      *
      * @return string
      */
-    final public function getBoundary()
+    final public function getBoundary(): string
     {
         return $this->_boundary;
     }
@@ -124,7 +124,7 @@ abstract class Multipart
      *
      * @return string
      */
-    final public function getContentType()
+    final public function getContentType(): string
     {
         return $this->_contentType;
     }
@@ -134,7 +134,7 @@ abstract class Multipart
      *
      * @return int
      */
-    final public function getContentLength()
+    final public function getContentLength(): int
     {
         return $this->_contentLength;
     }
@@ -145,7 +145,7 @@ abstract class Multipart
      * @return void
      * @throws LogicException If the multipart is already finished.
      */
-    final protected function startPart()
+    final protected function startPart(): void
     {
         $this->_add('--' . $this->_boundary . "\r\n");
     }
@@ -160,7 +160,7 @@ abstract class Multipart
      * @return void
      * @throws LogicException If the multipart is already finished.
      */
-    final protected function addContentDisposition($type, $name = '', $filename = '')
+    final protected function addContentDisposition(string $type, string $name = '', string $filename = '')
     {
         $header = 'Content-Disposition: ' . $type;
         if ($name !== '') {
@@ -180,7 +180,7 @@ abstract class Multipart
      * @return void
      * @throws LogicException If the multipart is already finished.
      */
-    final protected function addContentID($contentID)
+    final protected function addContentID(string $contentID): void
     {
         $this->_add('Content-ID: ' . $contentID . "\r\n");
     }
@@ -193,7 +193,7 @@ abstract class Multipart
      * @return void
      * @throws LogicException If the multipart is already finished.
      */
-    final protected function addContentType($contentType)
+    final protected function addContentType(string $contentType): void
     {
         $this->_add('Content-Type: ' . $contentType . "\r\n");
     }
@@ -206,7 +206,7 @@ abstract class Multipart
      * @return void
      * @throws LogicException If the multipart is already finished.
      */
-    final protected function addContentTransferEncoding($contentTransferEncoding)
+    final protected function addContentTransferEncoding(string $contentTransferEncoding): void
     {
         $this->_add('Content-Transfer-Encoding: ' . $contentTransferEncoding . "\r\n");
     }
@@ -217,7 +217,7 @@ abstract class Multipart
      * @return void
      * @throws LogicException If the multipart is already finished.
      */
-    final protected function endHeaders()
+    final protected function endHeaders(): void
     {
         $this->_add("\r\n");
     }
@@ -235,7 +235,7 @@ abstract class Multipart
      * @throws InvalidArgumentException If the content is not a string, resource or callable.
      * @throws LogicException           If the multipart is already finished.
      */
-    final protected function addContent($content, $length = -1)
+    final protected function addContent(mixed $content, int $length = -1): void
     {
         $this->_add($content, $length);
     }
@@ -248,7 +248,7 @@ abstract class Multipart
      * @return void
      * @throws LogicException If the multipart is already finished.
      */
-    final protected function addNestedMultipart(Multipart $multipart)
+    final protected function addNestedMultipart(Multipart $multipart): void
     {
         $this->startPart();
         $this->addContentType($multipart->getContentType());
@@ -263,7 +263,7 @@ abstract class Multipart
      * @return void
      * @throws LogicException If the multipart is already finished.
      */
-    final protected function endPart()
+    final protected function endPart(): void
     {
         $this->_add("\r\n");
     }
@@ -274,7 +274,7 @@ abstract class Multipart
      * @return Multipart this object.
      * @throws LogicException If the multipart is already finished.
      */
-    final public function finish()
+    final public function finish(): Multipart
     {
         $this->_add('--' . $this->_boundary . "--\r\n");
         $this->_finished = true;
@@ -287,7 +287,7 @@ abstract class Multipart
      *
      * @return bool
      */
-    final public function isFinished()
+    final public function isFinished(): bool
     {
         return $this->_finished;
     }
@@ -304,7 +304,7 @@ abstract class Multipart
      * @return void
      * @throws LogicException If the multipart is already finished.
      */
-    private function _add($part, $length = -1)
+    private function _add(mixed $part, int $length = -1): void
     {
         if ($this->_finished) {
             throw new LogicException('can\'t add to a finished multipart object');
@@ -340,13 +340,12 @@ abstract class Multipart
      * @throws LogicException           If the multipart is not yet finished.
      * @throws UnexpectedValueException If any resource part is no longer readable.
      */
-    final public function read($length)
+    final public function read(int $length): string
     {
         if (!$this->_finished) {
             throw new LogicException('can\'t read from a non-finished multipart object');
         }
 
-        Util::validateInt($length, '$length');
         if ($length <= 0) {
             return '';
         }
@@ -363,7 +362,7 @@ abstract class Multipart
      *                or an empty string if nothing remains to be read.
      * @throws UnexpectedValueException If any resource part is no longer readable.
      */
-    private function _doRead($length)
+    private function _doRead(int $length): string
     {
         while ($this->_index < $this->_partCount) {
             $data = $this->_doReadFromPart($length);
@@ -385,7 +384,7 @@ abstract class Multipart
      *                or an empty string if nothing remains to be read.
      * @throws UnexpectedValueException If any resource part is no longer readable.
      */
-    private function _doReadFromPart($length)
+    private function _doReadFromPart(int $length): string
     {
         $part = $this->_parts[$this->_index];
         if (is_string($part)) {
@@ -397,6 +396,7 @@ abstract class Multipart
         } elseif (is_resource($part)) {
             $result = @fread($part, $length);
             if ($result === false) {
+                // @phpstan-ignore offsetAccess.notFound
                 throw new ErrorException(error_get_last()['message']);
             }
             return $result;
@@ -420,7 +420,7 @@ abstract class Multipart
      * @throws LogicException           If the multipart is not yet finished.
      * @throws UnexpectedValueException If any resource part is no longer readable.
      */
-    final public function curl_read($ch, $fd, $length)
+    final public function curlRead($ch, $fd, int $length): string
     {
         return $this->read($length);
     }
@@ -435,17 +435,20 @@ abstract class Multipart
      * @param int $bufferSize The size to use for reading parts of the content.
      *
      * @return string The content of this multipart object.
-     * @throws InvalidArgumentException If the buffer size is not at least 1.
+     * @throws ValueError               If the buffer size is not at least 1.
      * @throws LogicException           If the multipart is not yet finished.
      * @throws UnexpectedValueException If any resource part is no longer readable.
      */
-    final public function buffer($bufferSize = 8192)
+    final public function buffer(int $bufferSize = 8192): string
     {
         if (!$this->_finished) {
             throw new LogicException('can\'t buffer a non-finished multipart object');
         }
 
-        Util::validatePositiveInt($bufferSize, '$bufferSize');
+        if ($bufferSize <= 0) {
+            throw new ValueError('$bufferSize <= 0');
+        }
+
         return $this->_doBuffer($bufferSize);
     }
 
@@ -457,7 +460,7 @@ abstract class Multipart
      * @return string The content of this multipart object.
      * @throws UnexpectedValueException If any resource part is no longer readable.
      */
-    private function _doBuffer($bufferSize = 8192)
+    private function _doBuffer(int $bufferSize = 8192): string
     {
         if (!$this->isBuffered()) {
 
@@ -475,6 +478,8 @@ abstract class Multipart
         $this->_index = 0;
         $this->_partIndex = 0;
 
+        // when buffered, $this->_parts is an array with a single string element
+        // @phpstan-ignore return.type
         return $this->_parts[0];
     }
 
@@ -483,7 +488,7 @@ abstract class Multipart
      *
      * @return bool
      */
-    final public function isBuffered()
+    final public function isBuffered(): bool
     {
         return $this->_partCount === 1 && is_string($this->_parts[0]) && $this->_contentLength === strlen($this->_parts[0]);
     }
@@ -495,7 +500,7 @@ abstract class Multipart
      *
      * @return string this multipart object as a string.
      */
-    final public function __toString()
+    final public function __toString(): string
     {
         return $this->_doBuffer();
     }

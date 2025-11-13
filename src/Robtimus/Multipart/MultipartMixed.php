@@ -3,6 +3,7 @@ namespace Robtimus\Multipart;
 
 use InvalidArgumentException;
 use LogicException;
+use ValueError;
 
 /**
  * A multipart/mixed object.
@@ -18,9 +19,9 @@ final class MultipartMixed extends Multipart
      *
      * @param string $boundary The multipart boundary. If empty a new boundary will be generated.
      *
-     * @throws InvalidArgumentException If the given content type is empty.
+     * @throws ValueError If the given content type is empty.
      */
-    public function __construct($boundary = '')
+    public function __construct(string $boundary = '')
     {
         parent::__construct($boundary, 'multipart/mixed');
     }
@@ -33,7 +34,7 @@ final class MultipartMixed extends Multipart
      * @return MultipartMixed this object.
      * @throws LogicException If the multipart is already finished.
      */
-    public function addMultipart(Multipart $multipart)
+    public function addMultipart(Multipart $multipart): MultipartMixed
     {
         $this->addNestedMultipart($multipart);
         return $this;
@@ -52,15 +53,13 @@ final class MultipartMixed extends Multipart
      *
      * @return MultipartMixed this object.
      * @throws InvalidArgumentException If the content is not a string, resource or callable.
-     * @throws InvalidArgumentException If the content type is empty.
+     * @throws ValueError               If the content type is empty.
      * @throws LogicException           If the multipart is already finished.
      */
-    public function addPart($content, $contentType, $contentLength = -1, $contentTransferEncoding = '')
+    public function addPart(mixed $content, string $contentType, int $contentLength = -1, string $contentTransferEncoding = ''): MultipartMixed
     {
         Util::validateStreamable($content, '$content');
         Util::validateNonEmptyString($contentType, '$contentType');
-        Util::validateInt($contentLength, '$contentLength');
-        Util::validateString($contentTransferEncoding, '$contentTransferEncoding');
 
         $this->startPart();
         $this->addContentType($contentType);
@@ -87,17 +86,20 @@ final class MultipartMixed extends Multipart
      * @param string                               $contentTransferEncoding The optional content transfer encoding.
      *
      * @return MultipartMixed this object.
-     * @throws InvalidArgumentException If the file name or content type is empty.
+     * @throws ValueError               If the file name or content type is empty.
      * @throws InvalidArgumentException If the content is not a string, resource or callable.
      * @throws LogicException           If the multipart is already finished.
      */
-    public function addAttachment($filename, $content, $contentType, $contentLength = -1, $contentTransferEncoding = '')
-    {
+    public function addAttachment(
+        string $filename,
+        mixed $content,
+        string $contentType,
+        int $contentLength = -1,
+        string $contentTransferEncoding = ''
+    ): MultipartMixed {
         Util::validateNonEmptyString($filename, '$filename');
         Util::validateStreamable($content, '$content');
         Util::validateNonEmptyString($contentType, '$contentType');
-        Util::validateInt($contentLength, '$contentLength');
-        Util::validateString($contentTransferEncoding, '$contentTransferEncoding');
 
         $this->startPart();
         $this->addContentType($contentType);
