@@ -7,18 +7,29 @@ use stdClass;
 
 abstract class MultipartTestBase extends TestCase
 {
-    private $_config = null;
+    private ?stdClass $_config = null;
 
     public function __construct()
     {
         parent::__construct();
         $configFilePath = dirname(__FILE__) . '/../../config.json';
         if (file_exists($configFilePath)) {
+            // @phpstan-ignore argument.type, assign.propertyType
             $this->_config = json_decode(file_get_contents($configFilePath));
         }
     }
 
-    protected function getConfigValue($key, $isRequired = true)
+    protected function getStringConfigValue(string $key, bool $isRequired = true): ?string
+    {
+        $value = $this->getConfigValue($key, $isRequired);
+        if (is_null($value) || is_string($value)) {
+            return $value;
+        }
+        // @phpstan-ignore binaryOp.invalid
+        throw new LogicException('non-string value for property ' . $key . ': ' . $value);
+    }
+
+    protected function getConfigValue(string $key, bool $isRequired = true): mixed
     {
         $value = is_null($this->_config) ? null : $this->_getValue($this->_config, explode('.', $key), 0);
         if (is_null($value) && $isRequired) {
@@ -27,7 +38,10 @@ abstract class MultipartTestBase extends TestCase
         return $value;
     }
 
-    private function _getValue(stdClass $object, $keyParts, $index)
+    /**
+     * @param array<string> $keyParts
+     */
+    private function _getValue(stdClass $object, array $keyParts, int $index): mixed
     {
         $key = $keyParts[$index];
         $value = property_exists($object, $key) ? $object->{$key} : null;
@@ -38,11 +52,14 @@ abstract class MultipartTestBase extends TestCase
         return $this->_getValue($value, $keyParts, $index + 1);
     }
 
-    protected function setIniFromConfig($configKey, $iniKey, $isRequired = true)
+    protected function setIniFromConfig(string $configKey, string $iniKey, bool $isRequired = true): void
     {
         $value = $this->getConfigValue($configKey, $isRequired);
-        if (!is_null($value)) {
-            ini_set($iniKey, $value);
+        if (is_string($value) || is_int($value) || is_bool($value)) {
+            ini_set($iniKey, strval($value));
+        } elseif (!is_null($value)) {
+            // @phpstan-ignore binaryOp.invalid
+            throw new LogicException('invalid value for ini_set; key: ' . $configKey . ', value: ' . $value);
         }
     }
 }
