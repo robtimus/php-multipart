@@ -2,17 +2,6 @@ parameters:
   paths:
     - src
     - tests
-  level: 6
+  level: 9
 
-  treatPhpDocTypesAsCertain: false
-  checkMissingCallableSignature: true
-
-  ignoreErrors:
-    - message: '#Property .* has no type specified.#'
-      path: tests/Robtimus/Multipart/*
-    - message: '#Method .* has no return type specified.#'
-      path: tests/Robtimus/Multipart/*
-    - message: '#Method .* has parameter .* with no type specified.#'
-      path: tests/Robtimus/Multipart/*
-    - message: '#Parameter \#[0-9]+ .* of method .* expects .*, .* given.#'
-      path: tests/Robtimus/Multipart/*
+  ignoreErrors: []
