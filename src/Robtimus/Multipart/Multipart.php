@@ -407,7 +407,6 @@ abstract class Multipart
         }
     }
 
-    // phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
     /**
      * A version of the read method that is compatible with cURL.
      *
@@ -424,7 +423,6 @@ abstract class Multipart
     {
         return $this->read($length);
     }
-    // phpcs:enable
 
     /**
      * Buffers the content of this multipart object.
