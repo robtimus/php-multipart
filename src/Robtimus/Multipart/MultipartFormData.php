@@ -32,8 +32,8 @@ final class MultipartFormData extends Multipart
      * @param string $value The parameter value.
      *
      * @return MultipartFormData this object.
-     * @throws InvalidArgumentException If the parameter name or value is empty.
-     * @throws LogicException If the multipart is already finished.
+     * @throws InvalidArgumentException If the parameter name is empty.
+     * @throws LogicException           If the multipart is already finished.
      */
     public function addValue($name, $value)
     {
@@ -62,9 +62,9 @@ final class MultipartFormData extends Multipart
      *                                                            Ignored if the file's content is a string.
      *
      * @return MultipartFormData this object.
-     * @throws InvalidArgumentException If the name or content type is empty.
+     * @throws InvalidArgumentException If the parameter name, file name or content type is empty.
      * @throws InvalidArgumentException If the content is not a string, resource or callable.
-     * @throws LogicException If the multipart is already finished.
+     * @throws LogicException           If the multipart is already finished.
      */
     public function addFile($name, $filename, $content, $contentType, $contentLength = -1)
     {

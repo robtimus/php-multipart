@@ -53,7 +53,7 @@ final class MultipartMixed extends Multipart
      * @return MultipartMixed this object.
      * @throws InvalidArgumentException If the content is not a string, resource or callable.
      * @throws InvalidArgumentException If the content type is empty.
-     * @throws LogicException If the multipart is already finished.
+     * @throws LogicException           If the multipart is already finished.
      */
     public function addPart($content, $contentType, $contentLength = -1, $contentTransferEncoding = '')
     {
@@ -87,9 +87,9 @@ final class MultipartMixed extends Multipart
      * @param string                               $contentTransferEncoding The optional content transfer encoding.
      *
      * @return MultipartMixed this object.
-     * @throws InvalidArgumentException If the filename or content type is empty.
+     * @throws InvalidArgumentException If the file name or content type is empty.
      * @throws InvalidArgumentException If the content is not a string, resource or callable.
-     * @throws LogicException If the multipart is already finished.
+     * @throws LogicException           If the multipart is already finished.
      */
     public function addAttachment($filename, $content, $contentType, $contentLength = -1, $contentTransferEncoding = '')
     {

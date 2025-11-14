@@ -39,7 +39,7 @@ final class MultipartRelated extends Multipart
      * @return MultipartRelated this object.
      * @throws InvalidArgumentException If the content is not a string, resource or callable.
      * @throws InvalidArgumentException If the content type is empty.
-     * @throws LogicException If the multipart is already finished.
+     * @throws LogicException           If the multipart is already finished.
      */
     public function addPart($content, $contentType, $contentLength = -1, $contentTransferEncoding = '')
     {
@@ -74,9 +74,9 @@ final class MultipartRelated extends Multipart
      * @param string                               $contentTransferEncoding The optional content transfer encoding.
      *
      * @return MultipartRelated this object.
-     * @throws InvalidArgumentException If the content id, filename or content type is empty.
+     * @throws InvalidArgumentException If the content id, file name or content type is empty.
      * @throws InvalidArgumentException If the content is not a string, resource or callable.
-     * @throws LogicException If the multipart is already finished.
+     * @throws LogicException           If the multipart is already finished.
      */
     public function addInlineFile($contentID, $filename, $content, $contentType, $contentLength = -1, $contentTransferEncoding = '')
     {

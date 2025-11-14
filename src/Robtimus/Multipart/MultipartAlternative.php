@@ -53,7 +53,7 @@ final class MultipartAlternative extends Multipart
      * @return MultipartAlternative this object.
      * @throws InvalidArgumentException If the content is not a string, resource or callable.
      * @throws InvalidArgumentException If the content type is empty.
-     * @throws LogicException If the multipart is already finished.
+     * @throws LogicException           If the multipart is already finished.
      */
     public function addPart($content, $contentType, $contentLength = -1, $contentTransferEncoding = '')
     {
