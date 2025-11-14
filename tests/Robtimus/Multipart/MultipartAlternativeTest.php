@@ -1,6 +1,8 @@
 <?php
 namespace Robtimus\Multipart;
 
+use InvalidArgumentException;
+
 class MultipartAlternativeTest extends MultipartTestBase
 {
     public function testAddPartInvalidTypeOfContent()
@@ -11,7 +13,7 @@ class MultipartAlternativeTest extends MultipartTestBase
             $multipart->addPart(0, 'text/plain');
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$content is incorrectly typed', $e->getMessage());
         }
     }
@@ -24,7 +26,7 @@ class MultipartAlternativeTest extends MultipartTestBase
             $multipart->addPart('Hello World', 0);
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$contentType is incorrectly typed', $e->getMessage());
         }
     }
@@ -37,7 +39,7 @@ class MultipartAlternativeTest extends MultipartTestBase
             $multipart->addPart('Hello World', '');
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$contentType must be non-empty', $e->getMessage());
         }
     }
@@ -50,7 +52,7 @@ class MultipartAlternativeTest extends MultipartTestBase
             $multipart->addPart('Hello World', 'text/plain', '');
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$contentLength is incorrectly typed', $e->getMessage());
         }
     }
@@ -63,7 +65,7 @@ class MultipartAlternativeTest extends MultipartTestBase
             $multipart->addPart('Hello World', 'text/plain', -1, 0);
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$contentTransferEncoding is incorrectly typed', $e->getMessage());
         }
     }

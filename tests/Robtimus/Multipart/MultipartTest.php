@@ -1,6 +1,10 @@
 <?php
 namespace Robtimus\Multipart;
 
+use InvalidArgumentException;
+use LogicException;
+use UnexpectedValueException;
+
 class MultipartTest extends MultipartTestBase
 {
     public function testConstructWithNonStringBoundary()
@@ -9,7 +13,7 @@ class MultipartTest extends MultipartTestBase
             new TestMultipart(0);
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$boundary is incorrectly typed', $e->getMessage());
         }
     }
@@ -20,7 +24,7 @@ class MultipartTest extends MultipartTestBase
             new TestMultipart('', 0);
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$contentType is incorrectly typed', $e->getMessage());
         }
     }
@@ -31,7 +35,7 @@ class MultipartTest extends MultipartTestBase
             new TestMultipart('', '');
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$contentType must be non-empty', $e->getMessage());
         }
     }
@@ -45,7 +49,7 @@ class MultipartTest extends MultipartTestBase
             $multipart->add('Hello World');
 
             $this->fail('Expected a LogicException');
-        } catch (\LogicException $e) {
+        } catch (LogicException $e) {
             $this->assertEquals('can\'t add to a finished multipart object', $e->getMessage());
         }
     }
@@ -58,7 +62,7 @@ class MultipartTest extends MultipartTestBase
             $multipart->add(0);
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('non-supported part type: integer', $e->getMessage());
         }
     }
@@ -72,7 +76,7 @@ class MultipartTest extends MultipartTestBase
             $multipart->read(20);
 
             $this->fail('Expected a LogicException');
-        } catch (\LogicException $e) {
+        } catch (LogicException $e) {
             $this->assertEquals('can\'t read from a non-finished multipart object', $e->getMessage());
         }
     }
@@ -86,7 +90,7 @@ class MultipartTest extends MultipartTestBase
             $multipart->buffer();
 
             $this->fail('Expected a LogicException');
-        } catch (\LogicException $e) {
+        } catch (LogicException $e) {
             $this->assertEquals('can\'t buffer a non-finished multipart object', $e->getMessage());
         }
     }
@@ -101,7 +105,7 @@ class MultipartTest extends MultipartTestBase
             $multipart->read('');
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$length is incorrectly typed', $e->getMessage());
         }
     }
@@ -275,7 +279,7 @@ class MultipartTest extends MultipartTestBase
             $multipart->read(20);
 
             $this->fail('Expected an UnexpectedValueException');
-        } catch (\UnexpectedValueException $e) {
+        } catch (UnexpectedValueException $e) {
             $this->assertEquals('non-supported part type: ' . gettype($file), $e->getMessage());
         }
     }
@@ -400,7 +404,7 @@ class MultipartTest extends MultipartTestBase
             $multipart->buffer('');
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$bufferSize is incorrectly typed', $e->getMessage());
         }
     }
@@ -415,7 +419,7 @@ class MultipartTest extends MultipartTestBase
             $multipart->buffer(0);
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$bufferSize <= 0', $e->getMessage());
         }
 
@@ -423,7 +427,7 @@ class MultipartTest extends MultipartTestBase
             $multipart->buffer(-1);
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$bufferSize <= 0', $e->getMessage());
         }
     }
@@ -624,6 +628,9 @@ class TestMultipart extends Multipart
     /**
      * @param string|int $boundary
      * @param string|int $contentType
+     *
+     * @throws InvalidArgumentException If either argument is not a string.
+     * @throws InvalidArgumentException If the given content type is empty.
      */
     public function __construct($boundary = '', $contentType = 'multipart/test')
     {

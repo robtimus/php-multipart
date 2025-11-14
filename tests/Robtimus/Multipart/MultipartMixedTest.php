@@ -1,6 +1,8 @@
 <?php
 namespace Robtimus\Multipart;
 
+use InvalidArgumentException;
+
 class MultipartMixedTest extends MultipartTestBase
 {
     public function testAddPartInvalidTypeOfContent()
@@ -11,7 +13,7 @@ class MultipartMixedTest extends MultipartTestBase
             $multipart->addPart(0, 'text/plain');
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$content is incorrectly typed', $e->getMessage());
         }
     }
@@ -24,7 +26,7 @@ class MultipartMixedTest extends MultipartTestBase
             $multipart->addPart('Hello World', 0);
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$contentType is incorrectly typed', $e->getMessage());
         }
     }
@@ -37,7 +39,7 @@ class MultipartMixedTest extends MultipartTestBase
             $multipart->addPart('Hello World', '');
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$contentType must be non-empty', $e->getMessage());
         }
     }
@@ -50,7 +52,7 @@ class MultipartMixedTest extends MultipartTestBase
             $multipart->addPart('Hello World', 'text/plain', '');
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$contentLength is incorrectly typed', $e->getMessage());
         }
     }
@@ -63,7 +65,7 @@ class MultipartMixedTest extends MultipartTestBase
             $multipart->addPart('Hello World', 'text/plain', -1, 0);
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$contentTransferEncoding is incorrectly typed', $e->getMessage());
         }
     }
@@ -76,7 +78,7 @@ class MultipartMixedTest extends MultipartTestBase
             $multipart->addAttachment(0, 'Hello World', 'text/plain');
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$filename is incorrectly typed', $e->getMessage());
         }
     }
@@ -89,7 +91,7 @@ class MultipartMixedTest extends MultipartTestBase
             $multipart->addAttachment('', 'Hello World', 'text/plain');
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$filename must be non-empty', $e->getMessage());
         }
     }
@@ -102,7 +104,7 @@ class MultipartMixedTest extends MultipartTestBase
             $multipart->addAttachment('file.txt', 0, 'text/plain');
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$content is incorrectly typed', $e->getMessage());
         }
     }
@@ -115,7 +117,7 @@ class MultipartMixedTest extends MultipartTestBase
             $multipart->addAttachment('file.txt', 'Hello World', 0);
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$contentType is incorrectly typed', $e->getMessage());
         }
     }
@@ -128,7 +130,7 @@ class MultipartMixedTest extends MultipartTestBase
             $multipart->addAttachment('file.txt', 'Hello World', '');
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$contentType must be non-empty', $e->getMessage());
         }
     }
@@ -141,7 +143,7 @@ class MultipartMixedTest extends MultipartTestBase
             $multipart->addAttachment('file.txt', 'Hello World', 'text/plain', '');
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$contentLength is incorrectly typed', $e->getMessage());
         }
     }
@@ -154,7 +156,7 @@ class MultipartMixedTest extends MultipartTestBase
             $multipart->addAttachment('file.txt', 'Hello World', 'text/plain', -1, 0);
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$contentTransferEncoding is incorrectly typed', $e->getMessage());
         }
     }

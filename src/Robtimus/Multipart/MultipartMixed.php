@@ -1,11 +1,14 @@
 <?php
 namespace Robtimus\Multipart;
 
+use InvalidArgumentException;
+use LogicException;
+
 /**
  * A multipart/mixed object.
  *
  * @package Robtimus\Multipart
- * @author  Rob Spoor
+ * @author  Rob Spoor <robtimus@users.noreply.github.com>
  * @license https://www.apache.org/licenses/LICENSE-2.0.txt The Apache Software License, Version 2.0
  */
 final class MultipartMixed extends Multipart
@@ -14,6 +17,8 @@ final class MultipartMixed extends Multipart
      * Creates a new multipart/mixed object.
      *
      * @param string $boundary The multipart boundary. If empty a new boundary will be generated.
+     *
+     * @throws InvalidArgumentException If the given content type is empty.
      */
     public function __construct($boundary = '')
     {
@@ -26,6 +31,7 @@ final class MultipartMixed extends Multipart
      * @param Multipart $multipart The nested multipart.
      *
      * @return MultipartMixed this object.
+     * @throws LogicException If the multipart is already finished.
      */
     public function addMultipart(Multipart $multipart)
     {
@@ -45,6 +51,9 @@ final class MultipartMixed extends Multipart
      * @param string                               $contentTransferEncoding The optional content transfer encoding.
      *
      * @return MultipartMixed this object.
+     * @throws InvalidArgumentException If the content is not a string, resource or callable.
+     * @throws InvalidArgumentException If the content type is empty.
+     * @throws LogicException If the multipart is already finished.
      */
     public function addPart($content, $contentType, $contentLength = -1, $contentTransferEncoding = '')
     {
@@ -78,6 +87,9 @@ final class MultipartMixed extends Multipart
      * @param string                               $contentTransferEncoding The optional content transfer encoding.
      *
      * @return MultipartMixed this object.
+     * @throws InvalidArgumentException If the filename or content type is empty.
+     * @throws InvalidArgumentException If the content is not a string, resource or callable.
+     * @throws LogicException If the multipart is already finished.
      */
     public function addAttachment($filename, $content, $contentType, $contentLength = -1, $contentTransferEncoding = '')
     {

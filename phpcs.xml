@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ruleset name="Robtimus">
+  <rule ref="PEAR">
+    <exclude name="PEAR.Commenting.FileComment"/>
+  </rule>
+  <rule ref="Generic.Commenting.DocComment">
+    <exclude-pattern>*/tests/*</exclude-pattern>
+  </rule>
+  <rule ref="Generic.Files.LineLength">
+    <properties>
+      <property name="lineLimit" value="150"/>
+    </properties>
+  </rule>
+  <rule ref="PEAR.Commenting.ClassComment">
+    <exclude-pattern>*/tests/*</exclude-pattern>
+  </rule>
+  <rule ref="PEAR.Commenting.ClassComment.MissingCategoryTag">
+    <exclude-pattern>*</exclude-pattern>
+  </rule>
+  <rule ref="PEAR.Commenting.ClassComment.MissingLinkTag">
+    <exclude-pattern>*</exclude-pattern>
+  </rule>
+  <rule ref="PEAR.Commenting.FunctionComment">
+    <properties>
+      <property name="minimumVisibility" value="protected"/>
+    </properties>
+    <exclude-pattern>*/tests/*</exclude-pattern>
+  </rule>
+</ruleset>

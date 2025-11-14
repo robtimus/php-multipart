@@ -1,6 +1,9 @@
 <?php
 namespace Robtimus\Multipart;
 
+use InvalidArgumentException;
+use stdClass;
+
 class MultipartFormDataTest extends MultipartTestBase
 {
     public function testAddValueInvalidTypeOfName()
@@ -11,7 +14,7 @@ class MultipartFormDataTest extends MultipartTestBase
             $multipart->addValue(0, 'value');
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$name is incorrectly typed', $e->getMessage());
         }
     }
@@ -24,7 +27,7 @@ class MultipartFormDataTest extends MultipartTestBase
             $multipart->addValue('', 'value');
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$name must be non-empty', $e->getMessage());
         }
     }
@@ -37,7 +40,7 @@ class MultipartFormDataTest extends MultipartTestBase
             $multipart->addValue('name', 0);
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$value is incorrectly typed', $e->getMessage());
         }
     }
@@ -50,7 +53,7 @@ class MultipartFormDataTest extends MultipartTestBase
             $multipart->addFile(0, 'file.txt', 'Hello World', 'text/plain');
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$name is incorrectly typed', $e->getMessage());
         }
     }
@@ -63,7 +66,7 @@ class MultipartFormDataTest extends MultipartTestBase
             $multipart->addFile('', 'file.txt', 'Hello World', 'text/plain');
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$name must be non-empty', $e->getMessage());
         }
     }
@@ -76,7 +79,7 @@ class MultipartFormDataTest extends MultipartTestBase
             $multipart->addFile('name', 0, 'Hello World', 'text/plain');
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$filename is incorrectly typed', $e->getMessage());
         }
     }
@@ -89,7 +92,7 @@ class MultipartFormDataTest extends MultipartTestBase
             $multipart->addFile('name', '', 'Hello World', 'text/plain');
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$filename must be non-empty', $e->getMessage());
         }
     }
@@ -102,7 +105,7 @@ class MultipartFormDataTest extends MultipartTestBase
             $multipart->addFile('name', 'file.txt', 0, 'text/plain');
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$content is incorrectly typed', $e->getMessage());
         }
     }
@@ -115,7 +118,7 @@ class MultipartFormDataTest extends MultipartTestBase
             $multipart->addFile('name', 'file.txt', 'Hello World', 0);
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$contentType is incorrectly typed', $e->getMessage());
         }
     }
@@ -128,7 +131,7 @@ class MultipartFormDataTest extends MultipartTestBase
             $multipart->addFile('name', 'file.txt', 'Hello World', '');
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$contentType must be non-empty', $e->getMessage());
         }
     }
@@ -141,7 +144,7 @@ class MultipartFormDataTest extends MultipartTestBase
             $multipart->addFile('name', 'file.txt', 'Hello World', 'text/plain', '');
 
             $this->fail('Expected an InvalidArgumentException');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$contentLength is incorrectly typed', $e->getMessage());
         }
     }
@@ -180,14 +183,14 @@ EOS;
 
     public function testUploadStringsOnly()
     {
-        $this->skipUploadIfNeeded();
+        $this->_skipUploadIfNeeded();
 
         $multipart = new MultipartFormData();
         $multipart->addValue('name1', 'value1');
         $multipart->addValue('name2', 'value2');
         $multipart->finish();
 
-        $ch = $this->setupCurl($multipart);
+        $ch = $this->_setupCurl($multipart);
 
         $responseString = curl_exec($ch);
         $info = curl_getinfo($ch);
@@ -198,7 +201,7 @@ EOS;
         $response = json_decode($responseString);
 
         $this->assertObjectHasAttribute('files', $response);
-        $this->assertEquals(new \stdClass(), $response->files);
+        $this->assertEquals(new stdClass(), $response->files);
 
         $this->assertObjectHasAttribute('form', $response);
 
@@ -239,13 +242,13 @@ EOS;
 
     public function testUploadSingleFileOnly()
     {
-        $this->skipUploadIfNeeded();
+        $this->_skipUploadIfNeeded();
 
         $multipart = new MultipartFormData();
         $multipart->addFile('file', 'file.txt', 'Hello World', 'text/plain');
         $multipart->finish();
 
-        $ch = $this->setupCurl($multipart);
+        $ch = $this->_setupCurl($multipart);
 
         $responseString = curl_exec($ch);
         $info = curl_getinfo($ch);
@@ -261,7 +264,7 @@ EOS;
         $this->assertEquals('Hello World', $response->files->file);
 
         $this->assertObjectHasAttribute('form', $response);
-        $this->assertEquals(new \stdClass(), $response->form);
+        $this->assertEquals(new stdClass(), $response->form);
     }
 
     public function testReadMultipleFilesOnly()
@@ -301,14 +304,14 @@ EOS;
 
     public function testUploadMultipleFilesOnly()
     {
-        $this->skipUploadIfNeeded();
+        $this->_skipUploadIfNeeded();
 
         $multipart = new MultipartFormData();
         $multipart->addFile('file1', 'file.txt', 'Hello World', 'text/plain');
         $multipart->addFile('file2', 'file.html', "<html>\nHello World\n</html>", 'text/html');
         $multipart->finish();
 
-        $ch = $this->setupCurl($multipart);
+        $ch = $this->_setupCurl($multipart);
 
         $responseString = curl_exec($ch);
         $info = curl_getinfo($ch);
@@ -327,7 +330,7 @@ EOS;
         $this->assertEquals("<html>\nHello World\n</html>", $response->files->file2);
 
         $this->assertObjectHasAttribute('form', $response);
-        $this->assertEquals(new \stdClass(), $response->form);
+        $this->assertEquals(new stdClass(), $response->form);
     }
 
     public function testReadMixed()
@@ -377,7 +380,7 @@ EOS;
 
     public function testUploadMixed()
     {
-        $this->skipUploadIfNeeded();
+        $this->_skipUploadIfNeeded();
 
         $multipart = new MultipartFormData();
         $multipart->addValue('name1', 'value1');
@@ -386,7 +389,7 @@ EOS;
         $multipart->addFile('file2', 'file.html', "<html>\nHello World\n</html>", 'text/html');
         $multipart->finish();
 
-        $ch = $this->setupCurl($multipart);
+        $ch = $this->_setupCurl($multipart);
 
         $responseString = curl_exec($ch);
         $info = curl_getinfo($ch);
@@ -464,7 +467,7 @@ EOS;
 
     public function testUploadMixedWithDuplicateParameterNames()
     {
-        $this->skipUploadIfNeeded();
+        $this->_skipUploadIfNeeded();
 
         $multipart = new MultipartFormData();
         $multipart->addValue('name', 'value1');
@@ -473,7 +476,7 @@ EOS;
         $multipart->addFile('file', 'file.html', "<html>\nHello World\n</html>", 'text/html');
         $multipart->finish();
 
-        $ch = $this->setupCurl($multipart);
+        $ch = $this->_setupCurl($multipart);
 
         $responseString = curl_exec($ch);
         $info = curl_getinfo($ch);
@@ -495,7 +498,7 @@ EOS;
         $this->assertEquals(['value1', 'value2'], $response->form->name);
     }
 
-    private function skipUploadIfNeeded()
+    private function _skipUploadIfNeeded()
     {
         $skipUpload = $this->getConfigValue('http.upload.skip', false);
         if ($skipUpload === true) {
@@ -503,12 +506,14 @@ EOS;
         }
     }
 
-    private function setupCurl($multipart)
+    private function _setupCurl($multipart)
     {
+        $httpBinUrl = $this->getConfigValue('http.upload.httpBinUrl', false) ?: 'http://httpbin.org';
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLOPT_URL, 'http://httpbin.org/post');
+        curl_setopt($ch, CURLOPT_URL, $httpBinUrl . '/post');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
         curl_setopt($ch, CURLOPT_UPLOAD, true);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);

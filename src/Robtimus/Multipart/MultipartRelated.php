@@ -1,11 +1,14 @@
 <?php
 namespace Robtimus\Multipart;
 
+use InvalidArgumentException;
+use LogicException;
+
 /**
  * A multipart/related object.
  *
  * @package Robtimus\Multipart
- * @author  Rob Spoor
+ * @author  Rob Spoor <robtimus@users.noreply.github.com>
  * @license https://www.apache.org/licenses/LICENSE-2.0.txt The Apache Software License, Version 2.0
  */
 final class MultipartRelated extends Multipart
@@ -14,6 +17,8 @@ final class MultipartRelated extends Multipart
      * Creates a new multipart/related object.
      *
      * @param string $boundary The multipart boundary. If empty a new boundary will be generated.
+     *
+     * @throws InvalidArgumentException If the given content type is empty.
      */
     public function __construct($boundary = '')
     {
@@ -32,6 +37,9 @@ final class MultipartRelated extends Multipart
      * @param string                               $contentTransferEncoding The optional content transfer encoding.
      *
      * @return MultipartRelated this object.
+     * @throws InvalidArgumentException If the content is not a string, resource or callable.
+     * @throws InvalidArgumentException If the content type is empty.
+     * @throws LogicException If the multipart is already finished.
      */
     public function addPart($content, $contentType, $contentLength = -1, $contentTransferEncoding = '')
     {
@@ -66,6 +74,9 @@ final class MultipartRelated extends Multipart
      * @param string                               $contentTransferEncoding The optional content transfer encoding.
      *
      * @return MultipartRelated this object.
+     * @throws InvalidArgumentException If the content id, filename or content type is empty.
+     * @throws InvalidArgumentException If the content is not a string, resource or callable.
+     * @throws LogicException If the multipart is already finished.
      */
     public function addInlineFile($contentID, $filename, $content, $contentType, $contentLength = -1, $contentTransferEncoding = '')
     {

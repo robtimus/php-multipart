@@ -1,6 +1,8 @@
 /composer.lock
 /vendor/
-/.buildpath
-/.project
-/.settings
+/docs/
+
+/.phpunit.cache
+.phpunit.result.cache
+
 tests/config.json

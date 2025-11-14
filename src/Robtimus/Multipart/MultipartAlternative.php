@@ -1,11 +1,14 @@
 <?php
 namespace Robtimus\Multipart;
 
+use InvalidArgumentException;
+use LogicException;
+
 /**
  * A multipart/alternative object.
  *
  * @package Robtimus\Multipart
- * @author  Rob Spoor
+ * @author  Rob Spoor <robtimus@users.noreply.github.com>
  * @license https://www.apache.org/licenses/LICENSE-2.0.txt The Apache Software License, Version 2.0
  */
 final class MultipartAlternative extends Multipart
@@ -14,6 +17,8 @@ final class MultipartAlternative extends Multipart
      * Creates a new multipart/alternative object.
      *
      * @param string $boundary The multipart boundary. If empty a new boundary will be generated.
+     *
+     * @throws InvalidArgumentException If the given content type is empty.
      */
     public function __construct($boundary = '')
     {
@@ -26,6 +31,7 @@ final class MultipartAlternative extends Multipart
      * @param Multipart $multipart The nested multipart.
      *
      * @return MultipartAlternative this object.
+     * @throws LogicException If the multipart is already finished.
      */
     public function addMultipart(Multipart $multipart)
     {
@@ -45,6 +51,9 @@ final class MultipartAlternative extends Multipart
      * @param string                               $contentTransferEncoding The optional content transfer encoding.
      *
      * @return MultipartAlternative this object.
+     * @throws InvalidArgumentException If the content is not a string, resource or callable.
+     * @throws InvalidArgumentException If the content type is empty.
+     * @throws LogicException If the multipart is already finished.
      */
     public function addPart($content, $contentType, $contentLength = -1, $contentTransferEncoding = '')
     {

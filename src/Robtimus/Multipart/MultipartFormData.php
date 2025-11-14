@@ -1,11 +1,14 @@
 <?php
 namespace Robtimus\Multipart;
 
+use InvalidArgumentException;
+use LogicException;
+
 /**
  * A multipart/form-data object.
  *
  * @package Robtimus\Multipart
- * @author  Rob Spoor
+ * @author  Rob Spoor <robtimus@users.noreply.github.com>
  * @license https://www.apache.org/licenses/LICENSE-2.0.txt The Apache Software License, Version 2.0
  */
 final class MultipartFormData extends Multipart
@@ -14,6 +17,8 @@ final class MultipartFormData extends Multipart
      * Creates a new multipart/form-data object.
      *
      * @param string $boundary the multipart boundary. If empty a new boundary will be generated.
+     *
+     * @throws InvalidArgumentException If the given content type is empty.
      */
     public function __construct($boundary = '')
     {
@@ -27,6 +32,8 @@ final class MultipartFormData extends Multipart
      * @param string $value The parameter value.
      *
      * @return MultipartFormData this object.
+     * @throws InvalidArgumentException If the parameter name or value is empty.
+     * @throws LogicException If the multipart is already finished.
      */
     public function addValue($name, $value)
     {
@@ -55,6 +62,9 @@ final class MultipartFormData extends Multipart
      *                                                            Ignored if the file's content is a string.
      *
      * @return MultipartFormData this object.
+     * @throws InvalidArgumentException If the name or content type is empty.
+     * @throws InvalidArgumentException If the content is not a string, resource or callable.
+     * @throws LogicException If the multipart is already finished.
      */
     public function addFile($name, $filename, $content, $contentType, $contentLength = -1)
     {
