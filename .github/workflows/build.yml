@@ -73,6 +73,14 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    services:
+      httpbin:
+        image: kennethreitz/httpbin
+        ports:
+          - 8080:80
+        credentials:
+          username: ${{ secrets.dockerhub_username }}
+          password: ${{ secrets.dockerhub_password }}
     strategy:
       matrix:
         # PHP Unit 4.x is needed for PHP 5.4 but is not supported on PHP 8.x
@@ -98,7 +106,7 @@ jobs:
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - name: PHP Unit
         run: |
-          echo '{}' | jq '.http.upload.skip |= true' > tests/config.json
+          echo '{}' | jq '.http.upload.skip |= false | .http.upload.httpBinUrl |= "http://localhost:8080"' > tests/config.json
           vendor/bin/phpunit tests
 
   test-php8:
