@@ -29,19 +29,31 @@ final class MultipartFormData extends Multipart
     /**
      * Adds a string parameter.
      *
-     * @param string $name  The parameter name.
-     * @param string $value The parameter value.
+     * @param string $name                    The parameter name.
+     * @param string $value                   The parameter value.
+     * @param string $contentType             The part's optional content type.
+     * @param string $contentTransferEncoding The part's optional content transfer encoding.
      *
      * @return MultipartFormData this object.
      * @throws ValueError     If the parameter name is empty.
      * @throws LogicException If the multipart is already finished.
      */
-    public function addValue(string $name, string $value): MultipartFormData
-    {
+    public function addValue(
+        string $name,
+        string $value,
+        string $contentType = '',
+        string $contentTransferEncoding = ''
+    ): MultipartFormData {
         Util::validateNonEmptyString($name, '$name');
 
         $this->startPart();
         $this->addContentDisposition('form-data', $name);
+        if ($contentType !== '') {
+            $this->addContentType($contentType);
+        }
+        if ($contentTransferEncoding !== '') {
+            $this->addContentTransferEncoding($contentTransferEncoding);
+        }
         $this->endHeaders();
         $this->addContent($value);
         $this->endPart();
@@ -52,22 +64,29 @@ final class MultipartFormData extends Multipart
     /**
      * Adds a file parameter.
      *
-     * @param string                               $name          The parameter name.
-     * @param string                               $filename      The name of the file.
-     * @param string|resource|callable(int):string $content       The file's content.
-     *                                                            If it's a callable it should take a length argument
-     *                                                            and return a string that is not larger than the input.
-     * @param string                               $contentType   The file's content type.
-     * @param int                                  $contentLength The file's content length, or -1 if not known.
-     *                                                            Ignored if the file's content is a string.
+     * @param string                               $name                    The parameter name.
+     * @param string                               $filename                The name of the file.
+     * @param string|resource|callable(int):string $content                 The file's content.
+     *                                                                      If it's a callable it should take a length argument
+     *                                                                      and return a string that is not larger than the input.
+     * @param string                               $contentType             The file's content type.
+     * @param int                                  $contentLength           The file's content length, or -1 if not known.
+     *                                                                      Ignored if the file's content is a string.
+     * @param string                               $contentTransferEncoding The part's optional content transfer encoding.
      *
      * @return MultipartFormData this object.
      * @throws ValueError               If the parameter name, file name or content type is empty.
      * @throws InvalidArgumentException If the content is not a string, resource or callable.
      * @throws LogicException           If the multipart is already finished.
      */
-    public function addFile(string $name, string $filename, mixed $content, string $contentType, int $contentLength = -1): MultipartFormData
-    {
+    public function addFile(
+        string $name,
+        string $filename,
+        mixed  $content,
+        string $contentType,
+        int    $contentLength = -1,
+        string $contentTransferEncoding = ''
+    ): MultipartFormData {
         Util::validateNonEmptyString($name, '$name');
         Util::validateNonEmptyString($filename, '$filename');
         Util::validateStreamable($content, '$content');
@@ -76,6 +95,9 @@ final class MultipartFormData extends Multipart
         $this->startPart();
         $this->addContentDisposition('form-data', $name, $filename);
         $this->addContentType($contentType);
+        if ($contentTransferEncoding !== '') {
+            $this->addContentTransferEncoding($contentTransferEncoding);
+        }
         $this->endHeaders();
         $this->addContent($content, $contentLength);
         $this->endPart();

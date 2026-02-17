@@ -49,15 +49,19 @@ final class MultipartMixed extends Multipart
      * @param string                               $contentType             The part's content type.
      * @param int                                  $contentLength           The part's content length, or -1 if not known.
      *                                                                      Ignored if the part's content is a string.
-     * @param string                               $contentTransferEncoding The optional content transfer encoding.
+     * @param string                               $contentTransferEncoding The part's optional content transfer encoding.
      *
      * @return MultipartMixed this object.
      * @throws InvalidArgumentException If the content is not a string, resource or callable.
      * @throws ValueError               If the content type is empty.
      * @throws LogicException           If the multipart is already finished.
      */
-    public function addPart(mixed $content, string $contentType, int $contentLength = -1, string $contentTransferEncoding = ''): MultipartMixed
-    {
+    public function addPart(
+        mixed  $content,
+        string $contentType,
+        int    $contentLength = -1,
+        string $contentTransferEncoding = ''
+    ): MultipartMixed {
         Util::validateStreamable($content, '$content');
         Util::validateNonEmptyString($contentType, '$contentType');
 
@@ -83,7 +87,7 @@ final class MultipartMixed extends Multipart
      * @param string                               $contentType             The file's content type.
      * @param int                                  $contentLength           The file's content length, or -1 if not known.
      *                                                                      Ignored if the file's content is a string.
-     * @param string                               $contentTransferEncoding The optional content transfer encoding.
+     * @param string                               $contentTransferEncoding The part's optional content transfer encoding.
      *
      * @return MultipartMixed this object.
      * @throws ValueError               If the file name or content type is empty.
@@ -92,9 +96,9 @@ final class MultipartMixed extends Multipart
      */
     public function addAttachment(
         string $filename,
-        mixed $content,
+        mixed  $content,
         string $contentType,
-        int $contentLength = -1,
+        int    $contentLength = -1,
         string $contentTransferEncoding = ''
     ): MultipartMixed {
         Util::validateNonEmptyString($filename, '$filename');

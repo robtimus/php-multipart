@@ -465,6 +465,54 @@ EOS;
         $this->assertEquals(['value1', 'value2'], $response->form->name);
     }
 
+    public function testReadWithAdditionalHeaders(): void
+    {
+        $multipart = new MultipartFormData('test-boundary');
+        $multipart->addValue('name1', 'value1', 'text/plain');
+        $multipart->addValue('name2', 'value2', '', 'binary');
+        $multipart->addFile('file1', 'file.txt', 'Hello World', 'text/plain', -1, 'binary');
+        $multipart->addFile('file2', 'file.html', "<html>\nHello World\n</html>", 'text/html');
+        $multipart->finish();
+
+        $expected = <<<'EOS'
+--test-boundary
+Content-Disposition: form-data; name="name1"
+Content-Type: text/plain
+
+value1
+--test-boundary
+Content-Disposition: form-data; name="name2"
+Content-Transfer-Encoding: binary
+
+value2
+--test-boundary
+Content-Disposition: form-data; name="file1"; filename="file.txt"
+Content-Type: text/plain
+Content-Transfer-Encoding: binary
+
+Hello World
+--test-boundary
+Content-Disposition: form-data; name="file2"; filename="file.html"
+Content-Type: text/html
+
+<html>Hello World</html>
+--test-boundary--
+
+EOS;
+        $expected = str_replace("\r\n", "\n", $expected);
+        $expected = str_replace("\n", "\r\n", $expected);
+        $expected = str_replace('<html>Hello World</html>', "<html>\nHello World\n</html>", $expected);
+
+        $result = '';
+        while ($data = $multipart->read(20)) {
+            $result .= $data;
+        }
+
+        $this->assertEquals($expected, $result);
+        $this->assertEquals('multipart/form-data; boundary=test-boundary', $multipart->getContentType());
+        $this->assertEquals(strlen($expected), $multipart->getContentLength());
+    }
+
     private function _skipUploadIfNeeded(): void
     {
         $skipUpload = $this->getConfigValue('http.upload.skip', false);

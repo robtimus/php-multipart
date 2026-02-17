@@ -162,14 +162,14 @@ abstract class Multipart
      */
     final protected function addContentDisposition(string $type, string $name = '', string $filename = '')
     {
-        $header = 'Content-Disposition: ' . $type;
+        $headerValue = $type;
         if ($name !== '') {
-            $header .= '; name="' . $name . '"';
+            $headerValue .= '; name="' . $name . '"';
         }
         if ($filename !== '') {
-            $header .= '; filename="' . $filename . '"';
+            $headerValue .= '; filename="' . $filename . '"';
         }
-        $this->_add($header . "\r\n");
+        $this->_addHeader('Content-Disposition', $headerValue);
     }
 
     /**
@@ -182,7 +182,7 @@ abstract class Multipart
      */
     final protected function addContentID(string $contentID): void
     {
-        $this->_add('Content-ID: ' . $contentID . "\r\n");
+        $this->_addHeader('Content-ID', $contentID);
     }
 
     /**
@@ -195,7 +195,7 @@ abstract class Multipart
      */
     final protected function addContentType(string $contentType): void
     {
-        $this->_add('Content-Type: ' . $contentType . "\r\n");
+        $this->_addHeader('Content-Type', $contentType);
     }
 
     /**
@@ -208,7 +208,21 @@ abstract class Multipart
      */
     final protected function addContentTransferEncoding(string $contentTransferEncoding): void
     {
-        $this->_add('Content-Transfer-Encoding: ' . $contentTransferEncoding . "\r\n");
+        $this->_addHeader('Content-Transfer-Encoding', $contentTransferEncoding);
+    }
+
+    /**
+     * Adds a header.
+     *
+     * @param string $headerName  The name of the header.
+     * @param string $headerValue The value of the header.
+     *
+     * @return void
+     * @throws LogicException If the multipart is already finished.
+     */
+    private function _addHeader(string $headerName, string $headerValue): void
+    {
+        $this->_add($headerName . ': ' . $headerValue . "\r\n");
     }
 
     /**

@@ -35,15 +35,19 @@ final class MultipartRelated extends Multipart
      * @param string                               $contentType             The part's content type.
      * @param int                                  $contentLength           The part's content length, or -1 if not known.
      *                                                                      Ignored if the part's content is a string.
-     * @param string                               $contentTransferEncoding The optional content transfer encoding.
+     * @param string                               $contentTransferEncoding The part's optional content transfer encoding.
      *
      * @return MultipartRelated this object.
      * @throws InvalidArgumentException If the content is not a string, resource or callable.
      * @throws ValueError               If the content type is empty.
      * @throws LogicException           If the multipart is already finished.
      */
-    public function addPart(mixed $content, string $contentType, int $contentLength = -1, string $contentTransferEncoding = ''): MultipartRelated
-    {
+    public function addPart(
+        mixed  $content,
+        string $contentType,
+        int    $contentLength = -1,
+        string $contentTransferEncoding = ''
+    ): MultipartRelated {
         Util::validateStreamable($content, '$content');
         Util::validateNonEmptyString($contentType, '$contentType');
 
@@ -70,7 +74,7 @@ final class MultipartRelated extends Multipart
      * @param string                               $contentType             The file's content type.
      * @param int                                  $contentLength           The file's content length, or -1 if not known.
      *                                                                      Ignored if the file's content is a string.
-     * @param string                               $contentTransferEncoding The optional content transfer encoding.
+     * @param string                               $contentTransferEncoding The part's optional content transfer encoding.
      *
      * @return MultipartRelated this object.
      * @throws ValueError               If the content id, file name or content type is empty.
@@ -80,9 +84,9 @@ final class MultipartRelated extends Multipart
     public function addInlineFile(
         string $contentID,
         string $filename,
-        mixed $content,
+        mixed  $content,
         string $contentType,
-        int $contentLength = -1,
+        int    $contentLength = -1,
         string $contentTransferEncoding = ''
     ): MultipartRelated {
         Util::validateNonEmptyString($contentID, '$contentID');
