@@ -18,7 +18,7 @@ on:
   workflow_dispatch:
   push:
     # only run for branches, not tags
-    branches-ignore: php8
+    branches: ['**']
   pull_request:
   schedule:
     - cron: '0 6 27 4,10 *'
