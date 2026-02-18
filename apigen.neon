@@ -1,0 +1,14 @@
+parameters:
+  paths: ['src']
+  include: ['*.php']
+
+  excludeProtected: false
+  excludePrivate: true
+  excludeTagged: ['internal']
+
+  outputDir: '%workingDir%/docs'
+
+  title: 'robtimus/multipart'
+
+  workerCount: 8
+  memoryLimit: '512M'
