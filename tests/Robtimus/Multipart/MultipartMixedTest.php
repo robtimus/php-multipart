@@ -2,7 +2,6 @@
 namespace Robtimus\Multipart;
 
 use InvalidArgumentException;
-use ValueError;
 
 class MultipartMixedTest extends MultipartTestBase
 {
@@ -27,8 +26,8 @@ class MultipartMixedTest extends MultipartTestBase
         try {
             $multipart->addPart('Hello World', '');
 
-            $this->fail('Expected a ValueError');
-        } catch (ValueError $e) {
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$contentType must be non-empty', $e->getMessage());
         }
     }
@@ -40,8 +39,8 @@ class MultipartMixedTest extends MultipartTestBase
         try {
             $multipart->addAttachment('', 'Hello World', 'text/plain');
 
-            $this->fail('Expected a ValueError');
-        } catch (ValueError $e) {
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$filename must be non-empty', $e->getMessage());
         }
     }
@@ -67,8 +66,8 @@ class MultipartMixedTest extends MultipartTestBase
         try {
             $multipart->addAttachment('file.txt', 'Hello World', '');
 
-            $this->fail('Expected a ValueError');
-        } catch (ValueError $e) {
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$contentType must be non-empty', $e->getMessage());
         }
     }

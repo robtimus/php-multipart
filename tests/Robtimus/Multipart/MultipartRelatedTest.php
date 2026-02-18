@@ -2,7 +2,6 @@
 namespace Robtimus\Multipart;
 
 use InvalidArgumentException;
-use ValueError;
 
 class MultipartRelatedTest extends MultipartTestBase
 {
@@ -27,8 +26,8 @@ class MultipartRelatedTest extends MultipartTestBase
         try {
             $multipart->addPart('Hello World', '');
 
-            $this->fail('Expected a ValueError');
-        } catch (ValueError $e) {
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$contentType must be non-empty', $e->getMessage());
         }
     }
@@ -40,8 +39,8 @@ class MultipartRelatedTest extends MultipartTestBase
         try {
             $multipart->addInlineFile('', 'file.txt', 'Hello World', 'text/plain');
 
-            $this->fail('Expected a ValueError');
-        } catch (ValueError $e) {
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$contentID must be non-empty', $e->getMessage());
         }
     }
@@ -53,8 +52,8 @@ class MultipartRelatedTest extends MultipartTestBase
         try {
             $multipart->addInlineFile('cid', '', 'Hello World', 'text/plain');
 
-            $this->fail('Expected a ValueError');
-        } catch (ValueError $e) {
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$filename must be non-empty', $e->getMessage());
         }
     }
@@ -80,8 +79,8 @@ class MultipartRelatedTest extends MultipartTestBase
         try {
             $multipart->addInlineFile('cid', 'file.txt', 'Hello World', '');
 
-            $this->fail('Expected a ValueError');
-        } catch (ValueError $e) {
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$contentType must be non-empty', $e->getMessage());
         }
     }

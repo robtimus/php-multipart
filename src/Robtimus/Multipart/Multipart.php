@@ -6,7 +6,6 @@ use ErrorException;
 use InvalidArgumentException;
 use LogicException;
 use UnexpectedValueException;
-use ValueError;
 
 /**
  * Base class of multipart types.
@@ -79,7 +78,7 @@ abstract class Multipart
      * @param string $boundary    The multipart boundary. If empty a new boundary will be generated.
      * @param string $contentType The content type without the boundary.
      *
-     * @throws ValueError If the given content type is empty.
+     * @throws InvalidArgumentException If the given content type is empty.
      */
     protected function __construct(string $boundary, string $contentType)
     {
@@ -440,7 +439,7 @@ abstract class Multipart
      * @param int $bufferSize The size to use for reading parts of the content.
      *
      * @return string The content of this multipart object.
-     * @throws ValueError               If the buffer size is not at least 1.
+     * @throws InvalidArgumentException If the buffer size is not at least 1.
      * @throws LogicException           If the multipart is not yet finished.
      * @throws UnexpectedValueException If any resource part is no longer readable.
      */
@@ -451,7 +450,7 @@ abstract class Multipart
         }
 
         if ($bufferSize <= 0) {
-            throw new ValueError('$bufferSize <= 0');
+            throw new InvalidArgumentException('$bufferSize <= 0');
         }
 
         return $this->_doBuffer($bufferSize);

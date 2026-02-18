@@ -4,7 +4,6 @@ namespace Robtimus\Multipart;
 use InvalidArgumentException;
 use LogicException;
 use UnexpectedValueException;
-use ValueError;
 
 class MultipartTest extends MultipartTestBase
 {
@@ -13,8 +12,8 @@ class MultipartTest extends MultipartTestBase
         try {
             new TestMultipart('', '');
 
-            $this->fail('Expected a ValueError');
-        } catch (ValueError $e) {
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$contentType must be non-empty', $e->getMessage());
         }
     }
@@ -384,16 +383,16 @@ class MultipartTest extends MultipartTestBase
         try {
             $multipart->buffer(0);
 
-            $this->fail('Expected a ValueError');
-        } catch (ValueError $e) {
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$bufferSize <= 0', $e->getMessage());
         }
 
         try {
             $multipart->buffer(-1);
 
-            $this->fail('Expected a ValueError');
-        } catch (ValueError $e) {
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$bufferSize <= 0', $e->getMessage());
         }
     }
@@ -610,7 +609,7 @@ class TestMultipart extends Multipart
      * @param string $boundary
      * @param string $contentType
      *
-     * @throws ValueError If the given content type is empty.
+     * @throws InvalidArgumentException If the given content type is empty.
      */
     public function __construct(string $boundary = '', string $contentType = 'multipart/test')
     {

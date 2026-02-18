@@ -3,7 +3,6 @@ namespace Robtimus\Multipart;
 
 use InvalidArgumentException;
 use LogicException;
-use ValueError;
 
 /**
  * A multipart/form-data object.
@@ -19,7 +18,7 @@ final class MultipartFormData extends Multipart
      *
      * @param string $boundary the multipart boundary. If empty a new boundary will be generated.
      *
-     * @throws ValueError If the given content type is empty.
+     * @throws InvalidArgumentException If the given content type is empty.
      */
     public function __construct(string $boundary = '')
     {
@@ -35,8 +34,8 @@ final class MultipartFormData extends Multipart
      * @param string $contentTransferEncoding The part's optional content transfer encoding.
      *
      * @return MultipartFormData this object.
-     * @throws ValueError     If the parameter name is empty.
-     * @throws LogicException If the multipart is already finished.
+     * @throws InvalidArgumentException If the parameter name is empty.
+     * @throws LogicException           If the multipart is already finished.
      */
     public function addValue(
         string $name,
@@ -75,7 +74,7 @@ final class MultipartFormData extends Multipart
      * @param string                               $contentTransferEncoding The part's optional content transfer encoding.
      *
      * @return MultipartFormData this object.
-     * @throws ValueError               If the parameter name, file name or content type is empty.
+     * @throws InvalidArgumentException If the parameter name, file name or content type is empty.
      * @throws InvalidArgumentException If the content is not a string, resource or callable.
      * @throws LogicException           If the multipart is already finished.
      */

@@ -2,7 +2,6 @@
 namespace Robtimus\Multipart;
 
 use InvalidArgumentException;
-use ValueError;
 
 /**
  * Utility functions.
@@ -29,12 +28,12 @@ final class Util
      * @param string $message An optional message to show if the value is not a positive int.
      *
      * @return void
-     * @throws ValueError if the value is not positive.
+     * @throws InvalidArgumentException if the value is not positive.
      */
     public static function validatePositiveInt(int $input, string $name, string $message = '')
     {
         if ($input <= 0) {
-            throw new ValueError($message === '' ? $name . ' <= 0' : $message);
+            throw new InvalidArgumentException($message === '' ? $name . ' <= 0' : $message);
         }
     }
 
@@ -46,12 +45,12 @@ final class Util
      * @param string $message An optional message to show if the value is not a non-empty string.
      *
      * @return void
-     * @throws ValueError if the value is empty.
+     * @throws InvalidArgumentException if the value is empty.
      */
     public static function validateNonEmptyString(string $input, string $name, string $message = '')
     {
         if (trim($input) === '') {
-            throw new ValueError($message === '' ? $name . ' must be non-empty' : $message);
+            throw new InvalidArgumentException($message === '' ? $name . ' must be non-empty' : $message);
         }
     }
 

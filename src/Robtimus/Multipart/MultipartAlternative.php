@@ -3,7 +3,6 @@ namespace Robtimus\Multipart;
 
 use InvalidArgumentException;
 use LogicException;
-use ValueError;
 
 /**
  * A multipart/alternative object.
@@ -19,7 +18,7 @@ final class MultipartAlternative extends Multipart
      *
      * @param string $boundary The multipart boundary. If empty a new boundary will be generated.
      *
-     * @throws ValueError If the given content type is empty.
+     * @throws InvalidArgumentException If the given content type is empty.
      */
     public function __construct(string $boundary = '')
     {
@@ -53,7 +52,7 @@ final class MultipartAlternative extends Multipart
      *
      * @return MultipartAlternative this object.
      * @throws InvalidArgumentException If the content is not a string, resource or callable.
-     * @throws ValueError               If the content type is empty.
+     * @throws InvalidArgumentException If the content type is empty.
      * @throws LogicException           If the multipart is already finished.
      */
     public function addPart(

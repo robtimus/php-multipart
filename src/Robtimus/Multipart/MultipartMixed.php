@@ -3,7 +3,6 @@ namespace Robtimus\Multipart;
 
 use InvalidArgumentException;
 use LogicException;
-use ValueError;
 
 /**
  * A multipart/mixed object.
@@ -19,7 +18,7 @@ final class MultipartMixed extends Multipart
      *
      * @param string $boundary The multipart boundary. If empty a new boundary will be generated.
      *
-     * @throws ValueError If the given content type is empty.
+     * @throws InvalidArgumentException If the given content type is empty.
      */
     public function __construct(string $boundary = '')
     {
@@ -53,7 +52,7 @@ final class MultipartMixed extends Multipart
      *
      * @return MultipartMixed this object.
      * @throws InvalidArgumentException If the content is not a string, resource or callable.
-     * @throws ValueError               If the content type is empty.
+     * @throws InvalidArgumentException If the content type is empty.
      * @throws LogicException           If the multipart is already finished.
      */
     public function addPart(
@@ -90,7 +89,7 @@ final class MultipartMixed extends Multipart
      * @param string                               $contentTransferEncoding The part's optional content transfer encoding.
      *
      * @return MultipartMixed this object.
-     * @throws ValueError               If the file name or content type is empty.
+     * @throws InvalidArgumentException If the file name or content type is empty.
      * @throws InvalidArgumentException If the content is not a string, resource or callable.
      * @throws LogicException           If the multipart is already finished.
      */

@@ -4,7 +4,6 @@ namespace Robtimus\Multipart;
 use CurlHandle;
 use InvalidArgumentException;
 use stdClass;
-use ValueError;
 
 class MultipartFormDataTest extends MultipartTestBase
 {
@@ -15,8 +14,8 @@ class MultipartFormDataTest extends MultipartTestBase
         try {
             $multipart->addValue('', 'value');
 
-            $this->fail('Expected a ValueError');
-        } catch (ValueError $e) {
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$name must be non-empty', $e->getMessage());
         }
     }
@@ -28,8 +27,8 @@ class MultipartFormDataTest extends MultipartTestBase
         try {
             $multipart->addFile('', 'file.txt', 'Hello World', 'text/plain');
 
-            $this->fail('Expected a ValueError');
-        } catch (ValueError $e) {
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$name must be non-empty', $e->getMessage());
         }
     }
@@ -41,8 +40,8 @@ class MultipartFormDataTest extends MultipartTestBase
         try {
             $multipart->addFile('name', '', 'Hello World', 'text/plain');
 
-            $this->fail('Expected a ValueError');
-        } catch (ValueError $e) {
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$filename must be non-empty', $e->getMessage());
         }
     }
@@ -68,8 +67,8 @@ class MultipartFormDataTest extends MultipartTestBase
         try {
             $multipart->addFile('name', 'file.txt', 'Hello World', '');
 
-            $this->fail('Expected a ValueError');
-        } catch (ValueError $e) {
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$contentType must be non-empty', $e->getMessage());
         }
     }

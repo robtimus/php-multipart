@@ -2,7 +2,6 @@
 namespace Robtimus\Multipart;
 
 use InvalidArgumentException;
-use ValueError;
 
 class MultipartAlternativeTest extends MultipartTestBase
 {
@@ -27,8 +26,8 @@ class MultipartAlternativeTest extends MultipartTestBase
         try {
             $multipart->addPart('Hello World', '');
 
-            $this->fail('Expected a ValueError');
-        } catch (ValueError $e) {
+            $this->fail('Expected an InvalidArgumentException');
+        } catch (InvalidArgumentException $e) {
             $this->assertEquals('$contentType must be non-empty', $e->getMessage());
         }
     }
