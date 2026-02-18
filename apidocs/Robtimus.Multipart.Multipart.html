@@ -1,0 +1,1080 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Class Robtimus\Multipart\Multipart | robtimus/multipart API</title>
+	<link rel="stylesheet" href="assets/main.css">
+	<script src="assets/main.js" defer></script>
+</head>
+
+<body class="layout">
+	<div class="layout-aside">
+	<div class="menu">
+			<div class="menu-section">
+				<h3>Namespaces</h3>
+	<ul>
+			<li class="menuGroup-item active">
+				<a href="namespace-Robtimus.html">Robtimus</a>
+	<ul>
+			<li class="menuGroup-item active">
+				<a href="namespace-Robtimus.Multipart.html">Multipart</a>
+			</li>
+	</ul>
+			</li>
+	</ul>
+			</div>
+
+		<div class="menu-section">
+			<h3>Classes</h3>
+			<ul>
+					<li class="active">
+						<a href="Robtimus.Multipart.Multipart.html">
+							Multipart
+						</a>
+					</li>
+					<li>
+						<a href="Robtimus.Multipart.MultipartAlternative.html">
+							MultipartAlternative
+						</a>
+					</li>
+					<li>
+						<a href="Robtimus.Multipart.MultipartFormData.html">
+							MultipartFormData
+						</a>
+					</li>
+					<li>
+						<a href="Robtimus.Multipart.MultipartMixed.html">
+							MultipartMixed
+						</a>
+					</li>
+					<li>
+						<a href="Robtimus.Multipart.MultipartRelated.html">
+							MultipartRelated
+						</a>
+					</li>
+			</ul>
+		</div>
+
+
+
+
+
+	</div>
+	</div>
+
+	<div class="layout-main">
+		<div class="layout-navbar">
+	<nav class="navbar">
+		<div class="navbar-left">
+			<ul class="navbar-links">
+				<li>
+					<a href="index.html">Overview</a>
+				</li>
+				<li>
+					
+						<a href="namespace-Robtimus.Multipart.html">Namespace</a>
+					
+				</li>
+<li class="active"><a href="Robtimus.Multipart.Multipart.html">Class</a></li>				<li>
+					<a href="tree.html">Tree</a>
+				</li>
+			</ul>
+		</div>
+		<div class="navbar-right">
+	<div class="search" data-elements="assets/elements.js">
+		<input class="search-input" placeholder="Search class, function or namespace" autofocus>
+		<ul class="search-results"></ul>
+	</div>
+		</div>
+	</nav>
+		</div>
+
+		<div class="layout-content">
+		<h1>
+			Class <a href="namespace-Robtimus.html">Robtimus</a>\<a href="namespace-Robtimus.Multipart.html">Multipart</a>\<a href="Robtimus.Multipart.Multipart.html">Multipart</a>
+		</h1>
+
+
+	<table class="classLikeSignatureTable">
+			<tr><th><code>abstract</code></th></tr>
+
+
+
+	</table>
+		<div class="classLikeDescription">
+	<div class="description"><p>Base class of multipart types.</p>
+</div>
+		</div>
+
+			<div class="classLikeSection">
+	<ul class="classTree">
+	<li>
+<b><span class="active">Robtimus\Multipart\Multipart</span></b>
+
+
+	<ul class="classTree">
+	<li>
+<a href="Robtimus.Multipart.MultipartAlternative.html"><span>Robtimus\Multipart\MultipartAlternative</span></a>
+
+
+	</li>
+	<li>
+<a href="Robtimus.Multipart.MultipartFormData.html"><span>Robtimus\Multipart\MultipartFormData</span></a>
+
+
+	</li>
+	<li>
+<a href="Robtimus.Multipart.MultipartMixed.html"><span>Robtimus\Multipart\MultipartMixed</span></a>
+
+
+	</li>
+	<li>
+<a href="Robtimus.Multipart.MultipartRelated.html"><span>Robtimus\Multipart\MultipartRelated</span></a>
+
+
+	</li>
+	</ul>
+	</li>
+	</ul>
+			</div>
+
+		<div class="classLikeSection">
+			<b>Located at</b> <a href="source-Robtimus.Multipart.Multipart.html#17" title="Go to source code">Robtimus/Multipart/Multipart.php</a><br>
+		</div>
+
+
+
+		<table class="table" id="methods">
+			<tr>
+				<th class="table-heading sortable" colspan="3" title="Switch between natural and alphabetical order">Methods</th>
+			</tr>
+
+	<tr class="expandable collapsed" data-order="__construct" id="___construct">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	protected
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-Robtimus.Multipart.Multipart.html#75-89" title="Go to source code">__construct</a>(<span>string <var>$boundary</var></span>, <span>string <var>$contentType</var></span>)</code>
+
+
+	<div class="expandable-collapsedView">
+		Creates a new multipart object.
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Creates a new multipart object.</p>
+</div>
+
+							<h4>Parameters</h4>
+							<table>
+									<tr>
+										<td><var>$boundary</var>&nbsp;&nbsp;</td>
+										<td><p>The multipart boundary. If empty a new boundary will be generated.</p>
+</td>
+									</tr>
+									<tr>
+										<td><var>$contentType</var>&nbsp;&nbsp;</td>
+										<td><p>The content type without the boundary.</p>
+</td>
+									</tr>
+							</table>
+
+
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="InvalidArgumentException.html"><span>InvalidArgumentException</span></a></code>&nbsp;</td>
+										<td><p>If the given content type is empty.</p>
+</td>
+									</tr>
+							</table>
+
+		<h4>Overriden by</h4>
+		<ul>
+				<li>
+<a href="Robtimus.Multipart.MultipartAlternative.html#___construct">						<code>Robtimus\Multipart\MultipartAlternative::__construct()</code></a>				</li>
+				<li>
+<a href="Robtimus.Multipart.MultipartFormData.html#___construct">						<code>Robtimus\Multipart\MultipartFormData::__construct()</code></a>				</li>
+				<li>
+<a href="Robtimus.Multipart.MultipartMixed.html#___construct">						<code>Robtimus\Multipart\MultipartMixed::__construct()</code></a>				</li>
+				<li>
+<a href="Robtimus.Multipart.MultipartRelated.html#___construct">						<code>Robtimus\Multipart\MultipartRelated::__construct()</code></a>				</li>
+		</ul>
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#___construct">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="getBoundary" id="_getBoundary">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					final
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-Robtimus.Multipart.Multipart.html#104-112" title="Go to source code">getBoundary</a>(): string</code>
+
+
+	<div class="expandable-collapsedView">
+		Returns the multipart boundary.
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Returns the multipart boundary.</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_getBoundary">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="getContentType" id="_getContentType">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					final
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-Robtimus.Multipart.Multipart.html#114-122" title="Go to source code">getContentType</a>(): string</code>
+
+
+	<div class="expandable-collapsedView">
+		Returns the multipart's content type.
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Returns the multipart's content type.</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_getContentType">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="getContentLength" id="_getContentLength">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					final
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-Robtimus.Multipart.Multipart.html#124-132" title="Go to source code">getContentLength</a>(): int</code>
+
+
+	<div class="expandable-collapsedView">
+		Returns the multipart's content length, or -1 if not known.
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Returns the multipart's content length, or -1 if not known.</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_getContentLength">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="startPart" id="_startPart">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					final
+	protected
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-Robtimus.Multipart.Multipart.html#134-143" title="Go to source code">startPart</a>(): void</code>
+
+
+	<div class="expandable-collapsedView">
+		Starts a new part.
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Starts a new part.</p>
+</div>
+
+
+
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="LogicException.html"><span>LogicException</span></a></code>&nbsp;</td>
+										<td><p>If the multipart is already finished.</p>
+</td>
+									</tr>
+							</table>
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_startPart">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="addContentDisposition" id="_addContentDisposition">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					final
+	protected
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-Robtimus.Multipart.Multipart.html#145-165" title="Go to source code">addContentDisposition</a>(<span>string <var>$type</var></span>, <span>string <var>$name</var> = <span class="php-str">''</span></span>, <span>string <var>$filename</var> = <span class="php-str">''</span></span>): void</code>
+
+
+	<div class="expandable-collapsedView">
+		Adds a Content-Disposition header.
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Adds a Content-Disposition header.</p>
+</div>
+
+							<h4>Parameters</h4>
+							<table>
+									<tr>
+										<td><var>$type</var>&nbsp;&nbsp;</td>
+										<td><p>The Content-Disposition type (e.g. form-data, attachment).</p>
+</td>
+									</tr>
+									<tr>
+										<td><var>$name</var>&nbsp;&nbsp;</td>
+										<td><p>The value for any name parameter.</p>
+</td>
+									</tr>
+									<tr>
+										<td><var>$filename</var>&nbsp;&nbsp;</td>
+										<td><p>The value for any filename parameter.</p>
+</td>
+									</tr>
+							</table>
+
+
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="LogicException.html"><span>LogicException</span></a></code>&nbsp;</td>
+										<td><p>If the multipart is already finished.</p>
+</td>
+									</tr>
+							</table>
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_addContentDisposition">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="addContentID" id="_addContentID">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					final
+	protected
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-Robtimus.Multipart.Multipart.html#167-178" title="Go to source code">addContentID</a>(<span>string <var>$contentID</var></span>): void</code>
+
+
+	<div class="expandable-collapsedView">
+		Adds a Content-ID header.
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Adds a Content-ID header.</p>
+</div>
+
+							<h4>Parameters</h4>
+							<table>
+									<tr>
+										<td><var>$contentID</var>&nbsp;&nbsp;</td>
+										<td><p>The content ID.</p>
+</td>
+									</tr>
+							</table>
+
+
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="LogicException.html"><span>LogicException</span></a></code>&nbsp;</td>
+										<td><p>If the multipart is already finished.</p>
+</td>
+									</tr>
+							</table>
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_addContentID">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="addContentType" id="_addContentType">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					final
+	protected
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-Robtimus.Multipart.Multipart.html#180-191" title="Go to source code">addContentType</a>(<span>string <var>$contentType</var></span>): void</code>
+
+
+	<div class="expandable-collapsedView">
+		Adds a Content-Type header.
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Adds a Content-Type header.</p>
+</div>
+
+							<h4>Parameters</h4>
+							<table>
+									<tr>
+										<td><var>$contentType</var>&nbsp;&nbsp;</td>
+										<td><p>The content type.</p>
+</td>
+									</tr>
+							</table>
+
+
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="LogicException.html"><span>LogicException</span></a></code>&nbsp;</td>
+										<td><p>If the multipart is already finished.</p>
+</td>
+									</tr>
+							</table>
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_addContentType">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="addContentTransferEncoding" id="_addContentTransferEncoding">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					final
+	protected
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-Robtimus.Multipart.Multipart.html#193-204" title="Go to source code">addContentTransferEncoding</a>(<span>string <var>$contentTransferEncoding</var></span>): void</code>
+
+
+	<div class="expandable-collapsedView">
+		Adds a Content-Transfer-Encoding header.
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Adds a Content-Transfer-Encoding header.</p>
+</div>
+
+							<h4>Parameters</h4>
+							<table>
+									<tr>
+										<td><var>$contentTransferEncoding</var>&nbsp;&nbsp;</td>
+										<td><p>The content transfer encoding.</p>
+</td>
+									</tr>
+							</table>
+
+
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="LogicException.html"><span>LogicException</span></a></code>&nbsp;</td>
+										<td><p>If the multipart is already finished.</p>
+</td>
+									</tr>
+							</table>
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_addContentTransferEncoding">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="endHeaders" id="_endHeaders">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					final
+	protected
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-Robtimus.Multipart.Multipart.html#220-229" title="Go to source code">endHeaders</a>(): void</code>
+
+
+	<div class="expandable-collapsedView">
+		Ends the headers.
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Ends the headers.</p>
+</div>
+
+
+
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="LogicException.html"><span>LogicException</span></a></code>&nbsp;</td>
+										<td><p>If the multipart is already finished.</p>
+</td>
+									</tr>
+							</table>
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_endHeaders">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="addContent" id="_addContent">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					final
+	protected
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-Robtimus.Multipart.Multipart.html#231-247" title="Go to source code">addContent</a>(<span>string|resource|(callable(int):&nbsp;string) <var>$content</var></span>, <span>int <var>$length</var> = -<span class="php-num">1</span></span>): void</code>
+
+
+	<div class="expandable-collapsedView">
+		Adds the content of a part.
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Adds the content of a part.</p>
+</div>
+
+							<h4>Parameters</h4>
+							<table>
+									<tr>
+										<td><var>$content</var>&nbsp;&nbsp;</td>
+										<td><p>The content.
+If it's a callable it should take a length argument
+and return a string that is not larger than the input.</p>
+</td>
+									</tr>
+									<tr>
+										<td><var>$length</var>&nbsp;&nbsp;</td>
+										<td><p>The length of the part, or -1 if not known.
+Ignored if the part is a string.</p>
+</td>
+									</tr>
+							</table>
+
+
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="InvalidArgumentException.html"><span>InvalidArgumentException</span></a></code>&nbsp;</td>
+										<td><p>If the content is not a string, resource or callable.</p>
+</td>
+									</tr>
+									<tr>
+										<td><code><a href="LogicException.html"><span>LogicException</span></a></code>&nbsp;</td>
+										<td><p>If the multipart is already finished.</p>
+</td>
+									</tr>
+							</table>
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_addContent">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="addNestedMultipart" id="_addNestedMultipart">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					final
+	protected
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-Robtimus.Multipart.Multipart.html#249-264" title="Go to source code">addNestedMultipart</a>(<span><b><span class="active" title="Robtimus\Multipart\Multipart">Multipart</span></b> <var>$multipart</var></span>): void</code>
+
+
+	<div class="expandable-collapsedView">
+		Adds a nested multipart.
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Adds a nested multipart.</p>
+</div>
+
+							<h4>Parameters</h4>
+							<table>
+									<tr>
+										<td><var>$multipart</var>&nbsp;&nbsp;</td>
+										<td><p>The nested multipart.</p>
+</td>
+									</tr>
+							</table>
+
+
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="LogicException.html"><span>LogicException</span></a></code>&nbsp;</td>
+										<td><p>If the multipart is already finished.</p>
+</td>
+									</tr>
+							</table>
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_addNestedMultipart">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="endPart" id="_endPart">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					final
+	protected
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-Robtimus.Multipart.Multipart.html#266-275" title="Go to source code">endPart</a>(): void</code>
+
+
+	<div class="expandable-collapsedView">
+		Ends the last part.
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Ends the last part.</p>
+</div>
+
+
+
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="LogicException.html"><span>LogicException</span></a></code>&nbsp;</td>
+										<td><p>If the multipart is already finished.</p>
+</td>
+									</tr>
+							</table>
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_endPart">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="finish" id="_finish">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					final
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-Robtimus.Multipart.Multipart.html#277-289" title="Go to source code">finish</a>(): <b><span class="active" title="Robtimus\Multipart\Multipart">Multipart</span></b></code>
+
+
+	<div class="expandable-collapsedView">
+		Finishes the multipart. Nothing can be added to it afterwards.
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Finishes the multipart. Nothing can be added to it afterwards.</p>
+</div>
+
+
+							<h4>Returns</h4>
+							<div><p>this object.</p>
+</div>
+
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="LogicException.html"><span>LogicException</span></a></code>&nbsp;</td>
+										<td><p>If the multipart is already finished.</p>
+</td>
+									</tr>
+							</table>
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_finish">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="isFinished" id="_isFinished">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					final
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-Robtimus.Multipart.Multipart.html#291-299" title="Go to source code">isFinished</a>(): bool</code>
+
+
+	<div class="expandable-collapsedView">
+		Returns whether or not the multipart is finished.
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Returns whether or not the multipart is finished.</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_isFinished">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="read" id="_read">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					final
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-Robtimus.Multipart.Multipart.html#339-360" title="Go to source code">read</a>(<span>int <var>$length</var></span>): string</code>
+
+
+	<div class="expandable-collapsedView">
+		Reads a portion of this multipart object.
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Reads a portion of this multipart object.</p>
+</div>
+
+							<h4>Parameters</h4>
+							<table>
+									<tr>
+										<td><var>$length</var>&nbsp;&nbsp;</td>
+										<td><p>The maximum length of the portion to read.</p>
+</td>
+									</tr>
+							</table>
+
+							<h4>Returns</h4>
+							<div><p>a portion of this multipart object not larger than the given length,
+or an empty string if nothing remains to be read.</p>
+</div>
+
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="LogicException.html"><span>LogicException</span></a></code>&nbsp;</td>
+										<td><p>If the multipart is not yet finished.</p>
+</td>
+									</tr>
+									<tr>
+										<td><code><a href="UnexpectedValueException.html"><span>UnexpectedValueException</span></a></code>&nbsp;</td>
+										<td><p>If any resource part is no longer readable.</p>
+</td>
+									</tr>
+							</table>
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_read">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="curlRead" id="_curlRead">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					final
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-Robtimus.Multipart.Multipart.html#416-431" title="Go to source code">curlRead</a>(<span>resource <var>$ch</var></span>, <span>resource <var>$fd</var></span>, <span>int <var>$length</var></span>): string</code>
+
+
+	<div class="expandable-collapsedView">
+		A version of the read method that is compatible with cURL.
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>A version of the read method that is compatible with cURL.</p>
+</div>
+
+							<h4>Parameters</h4>
+							<table>
+									<tr>
+										<td><var>$ch</var>&nbsp;&nbsp;</td>
+										<td><p>The cURL handle; ignored.</p>
+</td>
+									</tr>
+									<tr>
+										<td><var>$fd</var>&nbsp;&nbsp;</td>
+										<td><p>The file descriptor passed to cURL by the CURLOPT_INFILE option; ignored.</p>
+</td>
+									</tr>
+									<tr>
+										<td><var>$length</var>&nbsp;&nbsp;</td>
+										<td><p>The maximum length of the portion to read.</p>
+</td>
+									</tr>
+							</table>
+
+							<h4>Returns</h4>
+							<div><p>a portion of this multipart object not larger than the given length,
+or an empty string if nothing remains to be read.</p>
+</div>
+
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="LogicException.html"><span>LogicException</span></a></code>&nbsp;</td>
+										<td><p>If the multipart is not yet finished.</p>
+</td>
+									</tr>
+									<tr>
+										<td><code><a href="UnexpectedValueException.html"><span>UnexpectedValueException</span></a></code>&nbsp;</td>
+										<td><p>If any resource part is no longer readable.</p>
+</td>
+									</tr>
+							</table>
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_curlRead">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="buffer" id="_buffer">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					final
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-Robtimus.Multipart.Multipart.html#433-457" title="Go to source code">buffer</a>(<span>int <var>$bufferSize</var> = <span class="php-num">8192</span></span>): string</code>
+
+
+	<div class="expandable-collapsedView">
+		Buffers the content of this multipart object.
+Note that this method should be called before calling read,
+otherwise the…
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Buffers the content of this multipart object.
+Note that this method should be called before calling read,
+otherwise the contents that have already read may not be part of the buffered content.
+If the content is already buffered, this method will simply return the buffered content.</p>
+</div>
+
+							<h4>Parameters</h4>
+							<table>
+									<tr>
+										<td><var>$bufferSize</var>&nbsp;&nbsp;</td>
+										<td><p>The size to use for reading parts of the content.</p>
+</td>
+									</tr>
+							</table>
+
+							<h4>Returns</h4>
+							<div><p>The content of this multipart object.</p>
+</div>
+
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="InvalidArgumentException.html"><span>InvalidArgumentException</span></a></code>&nbsp;</td>
+										<td><p>If the buffer size is not at least 1.</p>
+</td>
+									</tr>
+									<tr>
+										<td><code><a href="LogicException.html"><span>LogicException</span></a></code>&nbsp;</td>
+										<td><p>If the multipart is not yet finished.</p>
+</td>
+									</tr>
+									<tr>
+										<td><code><a href="UnexpectedValueException.html"><span>UnexpectedValueException</span></a></code>&nbsp;</td>
+										<td><p>If any resource part is no longer readable.</p>
+</td>
+									</tr>
+							</table>
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_buffer">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="isBuffered" id="_isBuffered">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					final
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-Robtimus.Multipart.Multipart.html#490-498" title="Go to source code">isBuffered</a>(): bool</code>
+
+
+	<div class="expandable-collapsedView">
+		Returns whether or not the content is currently buffered.
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Returns whether or not the content is currently buffered.</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_isBuffered">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="__toString" id="___toString">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					final
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-Robtimus.Multipart.Multipart.html#500-510" title="Go to source code">__toString</a>(): string</code>
+
+
+	<div class="expandable-collapsedView">
+		Returns this multipart object as a string. It will buffer the object to achieve this.
+Note that this method should be…
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Returns this multipart object as a string. It will buffer the object to achieve this.
+Note that this method should be called before calling read,
+otherwise the contents that have already read may not be part of the result.</p>
+</div>
+
+
+							<h4>Returns</h4>
+							<div><p>this multipart object as a string.</p>
+</div>
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#___toString">#</a>
+		</td>
+	</tr>
+		</table>
+
+
+
+
+
+
+
+
+		</div>
+
+		<div class="layout-footer">
+			robtimus/multipart API documentation generated by <a href="https://www.apigen.org">ApiGen v7.0.0-alpha.4</a>
+		</div>
+	</div>
+
+	<div class="layout-rest">
+		<div class="navbar"></div>
+	</div>
+</body>
+</html>
