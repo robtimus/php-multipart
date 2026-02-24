@@ -107,14 +107,14 @@ EOS;
 
     public function testUploadStringsOnly(): void
     {
-        $this->_skipUploadIfNeeded();
+        $this->skipUploadIfNeeded();
 
         $multipart = new MultipartFormData();
         $multipart->addValue('name1', 'value1');
         $multipart->addValue('name2', 'value2');
         $multipart->finish();
 
-        $ch = $this->_setupCurl($multipart);
+        $ch = $this->setupCurl($multipart);
 
         $responseString = curl_exec($ch);
         $info = curl_getinfo($ch);
@@ -174,13 +174,13 @@ EOS;
 
     public function testUploadSingleFileOnly(): void
     {
-        $this->_skipUploadIfNeeded();
+        $this->skipUploadIfNeeded();
 
         $multipart = new MultipartFormData();
         $multipart->addFile('file', 'file.txt', 'Hello World', 'text/plain');
         $multipart->finish();
 
-        $ch = $this->_setupCurl($multipart);
+        $ch = $this->setupCurl($multipart);
 
         $responseString = curl_exec($ch);
         $info = curl_getinfo($ch);
@@ -242,14 +242,14 @@ EOS;
 
     public function testUploadMultipleFilesOnly(): void
     {
-        $this->_skipUploadIfNeeded();
+        $this->skipUploadIfNeeded();
 
         $multipart = new MultipartFormData();
         $multipart->addFile('file1', 'file.txt', 'Hello World', 'text/plain');
         $multipart->addFile('file2', 'file.html', "<html>\nHello World\n</html>", 'text/html');
         $multipart->finish();
 
-        $ch = $this->_setupCurl($multipart);
+        $ch = $this->setupCurl($multipart);
 
         $responseString = curl_exec($ch);
         $info = curl_getinfo($ch);
@@ -326,7 +326,7 @@ EOS;
 
     public function testUploadMixed(): void
     {
-        $this->_skipUploadIfNeeded();
+        $this->skipUploadIfNeeded();
 
         $multipart = new MultipartFormData();
         $multipart->addValue('name1', 'value1');
@@ -335,7 +335,7 @@ EOS;
         $multipart->addFile('file2', 'file.html', "<html>\nHello World\n</html>", 'text/html');
         $multipart->finish();
 
-        $ch = $this->_setupCurl($multipart);
+        $ch = $this->setupCurl($multipart);
 
         $responseString = curl_exec($ch);
         $info = curl_getinfo($ch);
@@ -426,7 +426,7 @@ EOS;
 
     public function testUploadMixedWithDuplicateParameterNames(): void
     {
-        $this->_skipUploadIfNeeded();
+        $this->skipUploadIfNeeded();
 
         $multipart = new MultipartFormData();
         $multipart->addValue('name', 'value1');
@@ -435,7 +435,7 @@ EOS;
         $multipart->addFile('file', 'file.html', "<html>\nHello World\n</html>", 'text/html');
         $multipart->finish();
 
-        $ch = $this->_setupCurl($multipart);
+        $ch = $this->setupCurl($multipart);
 
         $responseString = curl_exec($ch);
         $info = curl_getinfo($ch);
@@ -512,7 +512,7 @@ EOS;
         $this->assertEquals(strlen($expected), $multipart->getContentLength());
     }
 
-    private function _skipUploadIfNeeded(): void
+    private function skipUploadIfNeeded(): void
     {
         $skipUpload = $this->getConfigValue('http.upload.skip', false);
         if ($skipUpload === true) {
@@ -520,7 +520,7 @@ EOS;
         }
     }
 
-    private function _setupCurl(MultipartFormData $multipart): CurlHandle
+    private function setupCurl(MultipartFormData $multipart): CurlHandle
     {
         $httpBinUrl = $this->getStringConfigValue('http.upload.httpBinUrl', false) ?: 'http://httpbin.org';
 

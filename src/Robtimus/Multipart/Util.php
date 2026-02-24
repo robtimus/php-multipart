@@ -67,7 +67,7 @@ final class Util
     public static function validateStreamable(mixed $input, string $name, string $message = '')
     {
         if (!is_string($input) && !is_resource($input) && !is_callable($input)) {
-            self::_throwIncorrectlyTypedException($name, $message);
+            self::throwIncorrectlyTypedExceptionsetupCurl($name, $message);
         }
     }
 
@@ -80,7 +80,7 @@ final class Util
      * @return never
      * @throws InvalidArgumentException always.
      */
-    private static function _throwIncorrectlyTypedException(string $name, string $message)
+    private static function throwIncorrectlyTypedExceptionsetupCurl(string $name, string $message)
     {
         throw new InvalidArgumentException($message === '' ? $name . ' is incorrectly typed' : $message);
     }

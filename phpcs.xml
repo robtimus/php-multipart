@@ -1,7 +1,12 @@
 <?xml version="1.0"?>
 <ruleset name="Robtimus">
+  <rule ref="PSR2"/>
   <rule ref="PEAR">
     <exclude name="PEAR.Commenting.FileComment"/>
+     <!-- The following two require leading underscores in private member names,
+          and conflict with PSR2 which does not allow leading underscores in private member names -->
+    <exclude name="PEAR.NamingConventions.ValidFunctionName"/>
+    <exclude name="PEAR.NamingConventions.ValidVariableName"/>
   </rule>
   <rule ref="Generic.Commenting.DocComment">
     <exclude-pattern>*/tests/*</exclude-pattern>
@@ -12,13 +17,9 @@
     </properties>
   </rule>
   <rule ref="PEAR.Commenting.ClassComment">
+    <exclude name="PEAR.Commenting.ClassComment.MissingCategoryTag"/>
+    <exclude name="PEAR.Commenting.ClassComment.MissingLinkTag"/>
     <exclude-pattern>*/tests/*</exclude-pattern>
-  </rule>
-  <rule ref="PEAR.Commenting.ClassComment.MissingCategoryTag">
-    <exclude-pattern>*</exclude-pattern>
-  </rule>
-  <rule ref="PEAR.Commenting.ClassComment.MissingLinkTag">
-    <exclude-pattern>*</exclude-pattern>
   </rule>
   <rule ref="PEAR.Commenting.FunctionComment">
     <properties>

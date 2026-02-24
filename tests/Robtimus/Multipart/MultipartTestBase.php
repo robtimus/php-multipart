@@ -7,7 +7,7 @@ use stdClass;
 
 abstract class MultipartTestBase extends TestCase
 {
-    private ?stdClass $_config = null;
+    private ?stdClass $config = null;
 
     public function __construct()
     {
@@ -15,7 +15,7 @@ abstract class MultipartTestBase extends TestCase
         $configFilePath = dirname(__FILE__) . '/../../config.json';
         if (file_exists($configFilePath)) {
             // @phpstan-ignore argument.type, assign.propertyType
-            $this->_config = json_decode(file_get_contents($configFilePath));
+            $this->config = json_decode(file_get_contents($configFilePath));
         }
     }
 
@@ -31,7 +31,7 @@ abstract class MultipartTestBase extends TestCase
 
     protected function getConfigValue(string $key, bool $isRequired = true): mixed
     {
-        $value = is_null($this->_config) ? null : $this->_getValue($this->_config, explode('.', $key), 0);
+        $value = is_null($this->config) ? null : $this->getValue($this->config, explode('.', $key), 0);
         if (is_null($value) && $isRequired) {
             throw new LogicException('could not find property ' . $key);
         }
@@ -41,7 +41,7 @@ abstract class MultipartTestBase extends TestCase
     /**
      * @param array<string> $keyParts
      */
-    private function _getValue(stdClass $object, array $keyParts, int $index): mixed
+    private function getValue(stdClass $object, array $keyParts, int $index): mixed
     {
         $key = $keyParts[$index];
         $value = property_exists($object, $key) ? $object->{$key} : null;
@@ -49,7 +49,7 @@ abstract class MultipartTestBase extends TestCase
             return $value;
         }
 
-        return $this->_getValue($value, $keyParts, $index + 1);
+        return $this->getValue($value, $keyParts, $index + 1);
     }
 
     protected function setIniFromConfig(string $configKey, string $iniKey, bool $isRequired = true): void
