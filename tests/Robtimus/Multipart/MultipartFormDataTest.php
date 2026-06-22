@@ -338,8 +338,10 @@ EOS;
         $multipart = new MultipartFormData('test-boundary');
         $multipart->addValue('name1', 'value1');
         $multipart->addValue('name2', 'value2');
+        $multipart->addValue('name3', "value with \"");
         $multipart->addFile('file1', 'file.txt', 'Hello World', 'text/plain');
         $multipart->addFile('file2', 'file.html', "<html>\nHello World\n</html>", 'text/html');
+        $multipart->addFile('file3', "filename with \r\n and \"", "content with \"", 'text/plain; charset="UTF-8"');
         $multipart->finish();
 
         $expected = <<<'EOS'
@@ -352,6 +354,10 @@ Content-Disposition: form-data; name="name2"
 
 value2
 --test-boundary
+Content-Disposition: form-data; name="name3"
+
+value with "
+--test-boundary
 Content-Disposition: form-data; name="file1"; filename="file.txt"
 Content-Type: text/plain
 
@@ -361,6 +367,11 @@ Content-Disposition: form-data; name="file2"; filename="file.html"
 Content-Type: text/html
 
 <html>Hello World</html>
+--test-boundary
+Content-Disposition: form-data; name="file3"; filename="filename with %0D%0A and %22"
+Content-Type: text/plain; charset="UTF-8"
+
+content with "
 --test-boundary--
 
 EOS;
@@ -385,8 +396,10 @@ EOS;
         $multipart = new MultipartFormData();
         $multipart->addValue('name1', 'value1');
         $multipart->addValue('name2', 'value2');
+        $multipart->addValue('name3', "value with \"");
         $multipart->addFile('file1', 'file.txt', 'Hello World', 'text/plain');
         $multipart->addFile('file2', 'file.html', "<html>\nHello World\n</html>", 'text/html');
+        $multipart->addFile('file3', "filename with \r\n and \"", "content with \"", 'text/plain; charset="UTF-8"');
         $multipart->finish();
 
         $ch = $this->_setupCurl($multipart);
@@ -407,6 +420,9 @@ EOS;
         $this->assertObjectHasAttribute('file2', $response->files);
         $this->assertEquals("<html>\nHello World\n</html>", $response->files->file2);
 
+        $this->assertObjectHasAttribute('file3', $response->files);
+        $this->assertEquals("content with \"", $response->files->file3);
+
         $this->assertObjectHasAttribute('form', $response);
 
         $this->assertObjectHasAttribute('name1', $response->form);
@@ -415,9 +431,14 @@ EOS;
         $this->assertObjectHasAttribute('name2', $response->form);
         $this->assertEquals('value2', $response->form->name2);
 
+        $this->assertObjectHasAttribute('name3', $response->form);
+        $this->assertEquals("value with \"", $response->form->name3);
+
         $this->assertObjectNotHasAttribute('file1', $response->form);
 
         $this->assertObjectNotHasAttribute('file2', $response->form);
+
+        $this->assertObjectNotHasAttribute('file3', $response->form);
     }
 
     public function testReadMixedWithDuplicateParameterNames()

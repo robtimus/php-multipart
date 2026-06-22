@@ -4,7 +4,7 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=robtimus%3Amultipart&metric=alert_status)](https://sonarcloud.io/summary/overall?id=robtimus%3Amultipart)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=robtimus%3Amultipart&metric=coverage)](https://sonarcloud.io/summary/overall?id=robtimus%3Amultipart)
 
-A library to support (streaming) multiparts.
+A library to support creating (streaming) multiparts.
 
 ## Supported multipart types
 
@@ -17,11 +17,13 @@ To create a multipart/form-data object, create a `MultipartFormData` instance, a
 
 An example:
 
-    // the multipart object can take an optional pre-existing boundary
-    $multipart = new MultipartFormData();
-    $multipart->addValue('name', 'Rob');
-    $multipart->addFile('file', 'file.txt', 'Hello World', 'text/plain');
-    $multipart->finish();
+```php
+// the multipart object can take an optional pre-existing boundary
+$multipart = new MultipartFormData();
+$multipart->addValue('name', 'Rob');
+$multipart->addFile('file', 'file.txt', 'Hello World', 'text/plain');
+$multipart->finish();
+```
 
 #### Multiple values or files with the same parameter name
 
@@ -29,11 +31,13 @@ An example:
 
 PHP servers require multiple values or files to be sent with a name that ends with `[]`. Because `MultipartFormData` is written to support also other server types that do not have this requirement, it is up to the caller to add these. For instance:
 
-    $multipart = new MultipartFormData();
-    $multipart->addValue('name', 'Rob');
-    $multipart->addFile('file[]', 'file.txt', 'Hello World', 'text/plain');
-    $multipart->addFile('file[]', 'file.html', '<html>Hello World</html>', 'text/html');
-    $multipart->finish();
+```php
+$multipart = new MultipartFormData();
+$multipart->addValue('name', 'Rob');
+$multipart->addFile('file[]', 'file.txt', 'Hello World', 'text/plain');
+$multipart->addFile('file[]', 'file.html', '<html>Hello World</html>', 'text/html');
+$multipart->finish();
+```
 
 ### multipart/related
 
@@ -44,12 +48,14 @@ To create a multipart/related object, create a `MultipartRelated` instance, add 
 
 An example:
 
-    // the multipart object can take an optional pre-existing boundary
-    $multipart = new MultipartRelated();
-    $multipart->addPart(file_get_contents('body.html'), 'text/html');
-    // the content length is irrelevant because the content is a string
-    $multipart->addInlineFile('logo', 'logo.png', base64_encode(file_get_contents('logo.png')), 'image/png', -1, 'base64');
-    $multipart->finish();
+```php
+// the multipart object can take an optional pre-existing boundary
+$multipart = new MultipartRelated();
+$multipart->addPart(file_get_contents('body.html'), 'text/html');
+// the content length is irrelevant because the content is a string
+$multipart->addInlineFile('logo', 'logo.png', base64_encode(file_get_contents('logo.png')), 'image/png', -1, 'base64');
+$multipart->finish();
+```
 
 To use this inline file in the HTML body, use `cid:logo` as the source of an image.
 
@@ -62,12 +68,14 @@ To create a multipart/alternative object, create a `MultipartAlternative` instan
 
 An example:
 
-    // the multipart object can take an optional pre-existing boundary
-    $multipart = new MultipartAlternative();
-    // $related is a MultipartRelated instance as created above
-    $multipart->addPart(file_get_contents('body.txt'), 'text/plain');
-    $multipart->addMultipart($related);
-    $multipart->finish();
+```php
+// the multipart object can take an optional pre-existing boundary
+$multipart = new MultipartAlternative();
+// $related is a MultipartRelated instance as created above
+$multipart->addPart(file_get_contents('body.txt'), 'text/plain');
+$multipart->addMultipart($related);
+$multipart->finish();
+```
 
 ### multipart/mixed
 
@@ -79,13 +87,15 @@ To create a multipart/mixed object, create a `MultipartMixed` instance, add the 
 
 An example:
 
-    // the multipart object can take an optional pre-existing boundary
-    $multipart = new MultipartMixed();
-    // $alternative is a MultipartAlternative instance as created above
-    $multipart->addMultipart($alternative);
-    // the content length is irrelevant because the content is a string
-    $multipart->addFile('file.png', base64_encode(file_get_contents('file.png')), 'image/png', -1, 'base64');
-    $multipart->finish();
+```php
+// the multipart object can take an optional pre-existing boundary
+$multipart = new MultipartMixed();
+// $alternative is a MultipartAlternative instance as created above
+$multipart->addMultipart($alternative);
+// the content length is irrelevant because the content is a string
+$multipart->addFile('file.png', base64_encode(file_get_contents('file.png')), 'image/png', -1, 'base64');
+$multipart->finish();
+```
 
 ## Multipart content
 
@@ -97,16 +107,18 @@ The content of a part or file can be given in one of three ways:
 
 Examples, using a `MultipartFormData` object:
 
-    // content length is not necessary
-    $multipart->addFile('file1', 'file.txt', 'Hello World', 'text/plain');
+```php
+// content length is not necessary
+$multipart->addFile('file1', 'file.txt', 'Hello World', 'text/plain');
 
-    // make sure to close the resource after the request has been sent
-    $resource = fopen('file.html');
-    $multipart->addFile('file.html', $resource, 'text/html', filesize('file.html'));
+// make sure to close the resource after the request has been sent
+$resource = fopen('file.html');
+$multipart->addFile('file.html', $resource, 'text/html', filesize('file.html'));
 
-    // assume that class MyResource exists and has a function read($length)
-    $myResource = new MyResource(...);
-    $multipart->addFile('file.bin', array($myResource, 'read'), 'application/octet-stream');
+// assume that class MyResource exists and has a function read($length)
+$myResource = new MyResource(...);
+$multipart->addFile('file.bin', array($myResource, 'read'), 'application/octet-stream');
+```
 
 ## cURL support
 
@@ -119,16 +131,18 @@ To send a multipart object with a cURL request, you need to follow some steps:
 
 For instance:
 
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-    curl_setopt($ch, CURLOPT_UPLOAD, true);
-    curl_setopt($ch, CURLOPT_READFUNCTION, array($multipart, 'curl_read'));
-    
-    $headers = ['Content-Type: ' . $multipart->getContentType()];
-    $contentLength = $multipart->getContentLength();
-    if ($contentLength >= 0) {
-        $headers[] = 'Content-Length: ' .  $contentLength;
-    }
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+```php
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+curl_setopt($ch, CURLOPT_UPLOAD, true);
+curl_setopt($ch, CURLOPT_READFUNCTION, array($multipart, 'curl_read'));
+
+$headers = ['Content-Type: ' . $multipart->getContentType()];
+$contentLength = $multipart->getContentLength();
+if ($contentLength >= 0) {
+    $headers[] = 'Content-Length: ' .  $contentLength;
+}
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+```
 
 ## Non-streaming support
 

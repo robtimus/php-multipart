@@ -85,7 +85,7 @@ abstract class Multipart
         Util::validateString($boundary, '$boundary');
         Util::validateNonEmptyString($contentType, '$contentType');
 
-        $this->_boundary = $boundary !== '' ? $boundary : $this->_generateBoundary();
+        $this->_boundary = $boundary !== '' ? $this->_escapeHeaderValue($boundary, false) : $this->_generateBoundary();
         $this->_contentType = $contentType . '; boundary=' . $this->_boundary;
     }
 
@@ -162,12 +162,12 @@ abstract class Multipart
      */
     final protected function addContentDisposition($type, $name = '', $filename = '')
     {
-        $header = 'Content-Disposition: ' . $type;
+        $header = 'Content-Disposition: ' . $this->_escapeHeaderValue($type, false);
         if ($name !== '') {
-            $header .= '; name="' . $name . '"';
+            $header .= '; name="' . $this->_escapeHeaderValue($name, false) . '"';
         }
         if ($filename !== '') {
-            $header .= '; filename="' . $filename . '"';
+            $header .= '; filename="' . $this->_escapeHeaderValue($filename, false) . '"';
         }
         $this->_add($header . "\r\n");
     }
@@ -182,7 +182,7 @@ abstract class Multipart
      */
     final protected function addContentID($contentID)
     {
-        $this->_add('Content-ID: ' . $contentID . "\r\n");
+        $this->_add('Content-ID: ' . $this->_escapeHeaderValue($contentID, false) . "\r\n");
     }
 
     /**
@@ -195,7 +195,7 @@ abstract class Multipart
      */
     final protected function addContentType($contentType)
     {
-        $this->_add('Content-Type: ' . $contentType . "\r\n");
+        $this->_add('Content-Type: ' . $this->_escapeHeaderValue($contentType, true) . "\r\n");
     }
 
     /**
@@ -208,7 +208,7 @@ abstract class Multipart
      */
     final protected function addContentTransferEncoding($contentTransferEncoding)
     {
-        $this->_add('Content-Transfer-Encoding: ' . $contentTransferEncoding . "\r\n");
+        $this->_add('Content-Transfer-Encoding: ' . $this->_escapeHeaderValue($contentTransferEncoding, false) . "\r\n");
     }
 
     /**
@@ -290,6 +290,24 @@ abstract class Multipart
     final public function isFinished()
     {
         return $this->_finished;
+    }
+
+    /**
+     * Escapes a header value.
+     *
+     * @param string $value       The value to escape.
+     * @param bool   $allowQuotes Whether or not to allow quotes in the value.
+     *
+     * @return string
+     */
+    private function _escapeHeaderValue($value, $allowQuotes)
+    {
+        $result = str_replace("\r", '%0D', $value);
+        $result = str_replace("\n", '%0A', $result);
+        if (!$allowQuotes) {
+            $result = str_replace('"', '%22', $result);
+        }
+        return $result;
     }
 
     /**
