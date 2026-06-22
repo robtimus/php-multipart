@@ -284,8 +284,10 @@ EOS;
         $multipart = new MultipartFormData('test-boundary');
         $multipart->addValue('name1', 'value1');
         $multipart->addValue('name2', 'value2');
+        $multipart->addValue('name3', "value with \"");
         $multipart->addFile('file1', 'file.txt', 'Hello World', 'text/plain');
         $multipart->addFile('file2', 'file.html', "<html>\nHello World\n</html>", 'text/html');
+        $multipart->addFile('file3', "filename with \r\n and \"", "content with \"", 'text/plain; charset="UTF-8"');
         $multipart->finish();
 
         $expected = <<<'EOS'
@@ -298,6 +300,10 @@ Content-Disposition: form-data; name="name2"
 
 value2
 --test-boundary
+Content-Disposition: form-data; name="name3"
+
+value with "
+--test-boundary
 Content-Disposition: form-data; name="file1"; filename="file.txt"
 Content-Type: text/plain
 
@@ -307,6 +313,11 @@ Content-Disposition: form-data; name="file2"; filename="file.html"
 Content-Type: text/html
 
 <html>Hello World</html>
+--test-boundary
+Content-Disposition: form-data; name="file3"; filename="filename with %0D%0A and %22"
+Content-Type: text/plain; charset="UTF-8"
+
+content with "
 --test-boundary--
 
 EOS;
@@ -331,8 +342,10 @@ EOS;
         $multipart = new MultipartFormData();
         $multipart->addValue('name1', 'value1');
         $multipart->addValue('name2', 'value2');
+        $multipart->addValue('name3', "value with \"");
         $multipart->addFile('file1', 'file.txt', 'Hello World', 'text/plain');
         $multipart->addFile('file2', 'file.html', "<html>\nHello World\n</html>", 'text/html');
+        $multipart->addFile('file3', "filename with \r\n and \"", "content with \"", 'text/plain; charset="UTF-8"');
         $multipart->finish();
 
         $ch = $this->setupCurl($multipart);
@@ -359,6 +372,11 @@ EOS;
         // @phpstan-ignore property.nonObject
         $this->assertEquals("<html>\nHello World\n</html>", $response->files->file2);
 
+        // @phpstan-ignore property.nonObject
+        $this->assertObjectHasProperty('file3', $response->files);
+        // @phpstan-ignore property.nonObject
+        $this->assertEquals("content with \"", $response->files->file3);
+
         // @phpstan-ignore argument.type
         $this->assertObjectHasProperty('form', $response);
 
@@ -373,10 +391,18 @@ EOS;
         $this->assertEquals('value2', $response->form->name2);
 
         // @phpstan-ignore property.nonObject
+        $this->assertObjectHasProperty('name3', $response->form);
+        // @phpstan-ignore property.nonObject
+        $this->assertEquals("value with \"", $response->form->name3);
+
+        // @phpstan-ignore property.nonObject
         $this->assertObjectNotHasProperty('file1', $response->form);
 
         // @phpstan-ignore property.nonObject
         $this->assertObjectNotHasProperty('file2', $response->form);
+
+        // @phpstan-ignore property.nonObject
+        $this->assertObjectNotHasProperty('file3', $response->form);
     }
 
     public function testReadMixedWithDuplicateParameterNames(): void
