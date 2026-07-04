@@ -4,6 +4,9 @@ namespace Robtimus\Multipart;
 use InvalidArgumentException;
 use stdClass;
 
+/*
+ * @SuppressWarnings("php:S1192")
+ */
 class MultipartFormDataTest extends MultipartTestBase
 {
     public function testAddValueInvalidTypeOfName()
@@ -527,6 +530,9 @@ EOS;
         }
     }
 
+    /*
+     * @SuppressWarnings("php:S5332")
+     */
     private function setupCurl($multipart)
     {
         $httpBinUrl = $this->getConfigValue('http.upload.httpBinUrl', false) ?: 'http://httpbin.org';

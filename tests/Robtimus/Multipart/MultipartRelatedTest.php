@@ -3,6 +3,9 @@ namespace Robtimus\Multipart;
 
 use InvalidArgumentException;
 
+/*
+ * @SuppressWarnings("php:S1192")
+ */
 class MultipartRelatedTest extends MultipartTestBase
 {
     public function testAddPartInvalidTypeOfContent()
