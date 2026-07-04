@@ -5,8 +5,14 @@ use InvalidArgumentException;
 use LogicException;
 use UnexpectedValueException;
 
+/*
+ * @SuppressWarnings("php:S1192")
+ */
 class MultipartTest extends MultipartTestBase
 {
+    /*
+     * @SuppressWarnings("php:S1848")
+     */
     public function testConstructWithEmptyContentType(): void
     {
         try {

@@ -5,6 +5,9 @@ use CurlHandle;
 use InvalidArgumentException;
 use stdClass;
 
+/*
+ * @SuppressWarnings("php:S1192")
+ */
 class MultipartFormDataTest extends MultipartTestBase
 {
     public function testAddValueEmptyName(): void
@@ -546,6 +549,10 @@ EOS;
         }
     }
 
+    /*
+     * @SuppressWarnings("php:S5332")
+     * @SuppressWarnings("php:S4830")
+     */
     private function setupCurl(MultipartFormData $multipart): CurlHandle
     {
         $httpBinUrl = $this->getStringConfigValue('http.upload.httpBinUrl', false) ?: 'http://httpbin.org';
