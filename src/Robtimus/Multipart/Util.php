@@ -33,7 +33,7 @@ final class Util
     public static function validateInt(&$input, $name, $message = '')
     {
         if (!is_int($input)) {
-            self::_throwIncorrectlyTypedException($name, $message);
+            self::throwIncorrectlyTypedException($name, $message);
         }
     }
 
@@ -68,7 +68,7 @@ final class Util
     public static function validateString(&$input, $name, $message = '')
     {
         if (!is_string($input)) {
-            self::_throwIncorrectlyTypedException($name, $message);
+            self::throwIncorrectlyTypedException($name, $message);
         }
     }
 
@@ -103,7 +103,7 @@ final class Util
     public static function validateStreamable(&$input, $name, $message = '')
     {
         if (!is_string($input) && !is_resource($input) && !is_callable($input)) {
-            self::_throwIncorrectlyTypedException($name, $message);
+            self::throwIncorrectlyTypedException($name, $message);
         }
     }
 
@@ -116,7 +116,7 @@ final class Util
      * @return never
      * @throws InvalidArgumentException always.
      */
-    private static function _throwIncorrectlyTypedException($name, $message)
+    private static function throwIncorrectlyTypedException($name, $message)
     {
         throw new InvalidArgumentException($message === '' ? $name . ' is incorrectly typed' : $message);
     }
