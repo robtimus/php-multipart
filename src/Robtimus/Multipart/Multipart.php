@@ -87,7 +87,7 @@ abstract class Multipart
         Util::validateString($boundary, '$boundary');
         Util::validateNonEmptyString($contentType, '$contentType');
 
-        $this->boundary = $boundary !== '' ? $this->escapeHeaderValue($boundary) : $this->generateBoundary();
+        $this->boundary = $boundary !== '' ? $this->encodeHeaderValue($boundary) : $this->generateBoundary();
         $this->contentType = $contentType . '; boundary=' . $this->boundary;
     }
 
@@ -164,12 +164,12 @@ abstract class Multipart
      */
     final protected function addContentDisposition($type, $name = '', $filename = '')
     {
-        $header = 'Content-Disposition: ' . $this->escapeHeaderValue($type);
+        $header = 'Content-Disposition: ' . $this->encodeHeaderValue($type);
         if ($name !== '') {
-            $header .= '; name="' . $this->escapeHeaderAttribute($name) . '"';
+            $header .= '; name="' . $this->encodeHeaderAttribute($name) . '"';
         }
         if ($filename !== '') {
-            $header .= '; filename="' . $this->escapeHeaderAttribute($filename) . '"';
+            $header .= '; filename="' . $this->encodeHeaderAttribute($filename) . '"';
         }
         $this->add($header . "\r\n");
     }
@@ -184,7 +184,7 @@ abstract class Multipart
      */
     final protected function addContentID($contentID)
     {
-        $this->add('Content-ID: ' . $this->escapeHeaderValue($contentID) . "\r\n");
+        $this->add('Content-ID: ' . $this->encodeHeaderValue($contentID) . "\r\n");
     }
 
     /**
@@ -197,7 +197,7 @@ abstract class Multipart
      */
     final protected function addContentType($contentType)
     {
-        $this->add('Content-Type: ' . $this->escapeHeaderValue($contentType) . "\r\n");
+        $this->add('Content-Type: ' . $this->encodeHeaderValue($contentType) . "\r\n");
     }
 
     /**
@@ -210,7 +210,7 @@ abstract class Multipart
      */
     final protected function addContentTransferEncoding($contentTransferEncoding)
     {
-        $this->add('Content-Transfer-Encoding: ' . $this->escapeHeaderValue($contentTransferEncoding) . "\r\n");
+        $this->add('Content-Transfer-Encoding: ' . $this->encodeHeaderValue($contentTransferEncoding) . "\r\n");
     }
 
     /**
@@ -295,26 +295,26 @@ abstract class Multipart
     }
 
     /**
-     * Escapes a header value.
+     * Encodes a header value.
      *
-     * @param string $value       The value to escape.
+     * @param string $value The value to encode.
      *
      * @return string
      */
-    private function escapeHeaderValue($value)
+    private function encodeHeaderValue($value)
     {
         $result = str_replace("\r", '%0D', $value);
         return str_replace("\n", '%0A', $result);
     }
 
     /**
-     * Escapes a header attribute.
+     * Encodes a header attribute.
      *
-     * @param string $attribute   The attribute to escape.
+     * @param string $attribute The attribute to encode.
      *
      * @return string
      */
-    private function escapeHeaderAttribute($attribute)
+    private function encodeHeaderAttribute($attribute)
     {
         $result = str_replace("\r", '%0D', $attribute);
         $result = str_replace("\n", '%0A', $result);
