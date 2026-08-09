@@ -2,6 +2,7 @@
 
 namespace Robtimus\Multipart;
 
+use CurlHandle;
 use ErrorException;
 use InvalidArgumentException;
 use LogicException;
@@ -445,16 +446,16 @@ abstract class Multipart
     /**
      * A version of the read method that is compatible with cURL.
      *
-     * @param resource $ch     The cURL handle; ignored.
-     * @param resource $fd     The file descriptor passed to cURL by the CURLOPT_INFILE option; ignored.
-     * @param int      $length The maximum length of the portion to read.
+     * @param CurlHandle $ch     The cURL handle; ignored.
+     * @param resource   $fd     The file descriptor passed to cURL by the CURLOPT_INFILE option; ignored.
+     * @param int        $length The maximum length of the portion to read.
      *
      * @return string a portion of this multipart object not larger than the given length,
      *                or an empty string if nothing remains to be read.
      * @throws LogicException           If the multipart is not yet finished.
      * @throws UnexpectedValueException If any resource part is no longer readable.
      */
-    final public function curlRead($ch, $fd, int $length): string
+    final public function curlRead(CurlHandle $ch, $fd, int $length): string
     {
         return $this->read($length);
     }
