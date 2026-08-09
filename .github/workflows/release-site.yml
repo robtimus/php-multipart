@@ -27,7 +27,7 @@ jobs:
           persist-credentials: false
       - name: Generate API
         run: mkdir -p docs && docker run --rm -v "$GITHUB_WORKSPACE:/workspace" -w /workspace -u `id -u`:`id -g` apigen/apigen
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: docs
           path: docs
@@ -42,7 +42,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           persist-credentials: true
-      - uses: actions/download-artifact@v5
+      - uses: actions/download-artifact@v8
         with:
           name: docs
           path: docs
